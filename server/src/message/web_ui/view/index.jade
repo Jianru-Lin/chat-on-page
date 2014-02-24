@@ -1,0 +1,43 @@
+doctype html
+html
+	head
+		meta(charset="UTF-8")
+		title 聊天
+		
+		// auto generated styles
+		each css_href in css_href_list
+			link(rel="stylesheet", href=css_href, type="text/css")
+
+		// general style
+		link(rel="stylesheet", href="css/font.css", type="text/css")
+		link(rel="stylesheet", href="css/template.css", type="text/css")
+
+		// user style
+		link(rel="stylesheet", href="css/style.css", type="text/css")
+
+	body.font-hei
+		div.chat-history#chat-history
+			h1 聊天
+		div.send-editor
+			div.author-container
+				input(type="text", placeholder="email")#author
+			div.content-container
+				textarea#content
+			button#send(accesskey="s") 发送
+			span.shortcut alt+s
+
+		div.template
+			div.chat-item
+				div.face
+					img
+				strong.author jack@gmail.com
+				div.content content
+
+		// auto generated scripts
+		each script_src in script_src_list
+			script(type="text/javascript", src=script_src)
+
+		// user scripts
+		script(type="text/javascript", src="js/md5.js")
+		script(type="text/javascript", src="js/ui.js")
+		script(type="text/javascript", src="js/app.js")

@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "Chat on Page",
+	"version": "1.0.0",
+	"browser_action": {
+		"default_title": "chat on page"	
+	},
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"content_scripts": [{
+		"matches": ["http://*/*", "https://*/*"],
+		"css": ["inject.css"],
+		"js": ["inject.js"],
+		"run_at": "document_end"
+	}],
+	"permissions": ["http://*/", "https://*/"]
+}
+
