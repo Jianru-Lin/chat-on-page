@@ -4,7 +4,7 @@ div.af0-chat-on-page {
 	right: 50px;
 	bottom: 0;
 	width: 600px;
-	z-index: 99999999;
+	z-index: 2147483647;
 	box-shadow: 0 0 10px black;
 	-webkit-transition: all 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
 
