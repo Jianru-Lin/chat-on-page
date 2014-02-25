@@ -4,10 +4,6 @@ html
 		meta(charset="UTF-8")
 		title 聊天
 		
-		// auto generated styles
-		each css_href in css_href_list
-			link(rel="stylesheet", href=css_href, type="text/css")
-
 		// general style
 		link(rel="stylesheet", href="css/font.css", type="text/css")
 		link(rel="stylesheet", href="css/template.css", type="text/css")
@@ -34,8 +30,8 @@ html
 				div.content content
 
 		// auto generated scripts
-		each script_src in script_src_list
-			script(type="text/javascript", src=script_src)
+		script(type="text/javascript", src="js/json-request.js")
+		script(type="text/javascript", src="js/web-api.js")
 
 		// user scripts
 		script(type="text/javascript", src="js/md5.js")

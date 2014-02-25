@@ -1,5 +1,6 @@
 var options = {
-	server_page_url: "//blackwhale.miaodeli.com/1.0/"
+	//server_page_url: "//blackwhale.miaodeli.com/"
+	server_page_url: chrome.extension.getURL("server/index.html")
 };
 
 init();

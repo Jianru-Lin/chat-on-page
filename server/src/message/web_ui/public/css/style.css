@@ -1,0 +1,113 @@
+body {
+	background: white;
+}
+
+#chat-history {
+	margin-bottom: 189px;
+}
+
+#chat-history h1 {
+	padding: 0;
+}
+
+.chat-item {
+	padding: 20px 10px;
+}
+
+.chat-item .face {
+	position: absolute;
+	border-width: 4px;
+	border-color: rgb(0, 133, 95);
+	display: block;
+	border-style: solid;
+	left: 10px;
+	width: 52px;
+	height: 52px;
+	background: white;
+}
+
+.chat-item .face > img {
+	border: solid 1px white;
+}
+
+.chat-item .author {
+	font-size: .75em;
+	display: inline-block;
+	background: rgb(0, 133, 95);
+	/*background: #333;*/
+	color: white;
+	padding: 4px 8px;
+	border-radius: 0 4px 4px 0;
+	margin-bottom: .25em;
+	margin-left: 50px;
+}
+
+.chat-item .author {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.chat-item .content {
+	white-space: pre-wrap;
+	word-break: break-all;
+	margin-left: 60px;
+	margin-top: .5em;
+}
+
+.send-editor {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-top: 1px solid #eee;
+	padding: 20px 0;
+	background: white;
+}
+
+div.author-container {
+	padding-right: 14px;
+	margin: 10px;
+	margin-bottom: 5px;
+}
+
+input#author {
+	display: block;
+	border: 1px solid black;
+	padding: 4px 6px;
+	font-size: inherit;
+	font-family: inherit;
+	background: inherit;
+	width: 100%;
+	border-color: #ccc;
+	outline-color: rgb(0, 204, 146);
+}
+
+div.content-container {
+	padding-right: 14px;
+	margin: 10px;
+}
+
+textarea#content {
+	display: block;
+	width: 100%;
+	font-size: inherit;
+	font-family: inherit;
+	margin: 0;
+	padding: 4px 6px;
+	background: inherit;
+	border-color: #ccc;
+	outline-color: rgb(0, 204, 146);
+}
+
+button#send {
+	font-size: inherit;
+	font-family: inherit;
+	margin: 0 10px;
+	display: inline-block;
+	width: 120px;
+	padding: 4px;
+}
+
+.shortcut {
+	color: gray;
+}

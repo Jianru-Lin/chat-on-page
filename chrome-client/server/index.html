@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>聊天</title>
+    <!-- general style-->
+    <link rel="stylesheet" href="css/font.css" type="text/css">
+    <link rel="stylesheet" href="css/template.css" type="text/css">
+    <!-- user style-->
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+  </head>
+  <body class="font-hei">
+    <div id="chat-history" class="chat-history">
+      <h1>聊天</h1>
+    </div>
+    <div class="send-editor">
+      <div class="author-container">
+        <input type="text" placeholder="email" id="author">
+      </div>
+      <div class="content-container">
+        <textarea id="content"></textarea>
+      </div>
+      <button id="send" accesskey="s">发送</button><span class="shortcut">alt+s</span>
+    </div>
+    <div class="template">
+      <div class="chat-item">
+        <div class="face"><img></div><strong class="author">jack@gmail.com</strong>
+        <div class="content">content</div>
+      </div>
+    </div>
+    <!-- auto generated scripts-->
+    <script type="text/javascript" src="js/json-request.js"></script>
+    <script type="text/javascript" src="js/web-api.js"></script>
+    <!-- user scripts-->
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/ui.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+</html>

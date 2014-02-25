@@ -6,14 +6,21 @@
 		"default_title": "chat on page"	
 	},
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": [
+			"background/json-request.js",
+			"background/web-api.js",
+			"background/background.js"
+		]
 	},
 	"content_scripts": [{
 		"matches": ["http://*/*", "https://*/*"],
-		"css": ["inject.css"],
-		"js": ["inject.js"],
+		"css": ["content/inject.css"],
+		"js": ["content/inject.js"],
 		"run_at": "document_end"
 	}],
+	"web_accessible_resources": [
+		"server/*"
+	],
 	"permissions": ["http://*/", "https://*/"]
 }
 

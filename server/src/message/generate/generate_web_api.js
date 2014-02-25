@@ -3,7 +3,7 @@ exports.generate_web_api = generate_web_api;
 var fs = require('fs');
 var path = require('path');
 
-var output_file_name = path.resolve(__dirname, '../web_ui/public/1.0/js', 'web-api.js');
+var output_file_name = path.resolve(__dirname, '../web_ui/public/js', 'web-api.js');
 var api_list = [];
 
 api_list.push({

@@ -13,8 +13,8 @@ function receive_message(message_handler) {
 		app.use(express.json());
 		app.use(express.static(path.resolve(__dirname, 'web_ui/public')));
 		app.engine('jade', require('jade').__express);
-		app.get('/1.0/', index_page);
-		app.post('/1.0/action', action_page);
+		app.get('/', index_page);
+		app.post('/action', action_page);
 		app.listen(80);
 	}
 
@@ -40,10 +40,5 @@ function receive_message(message_handler) {
 }
 
 function index_page(req, res) {
-	var data = {
-		css_href_list: [],
-		script_src_list: ['js/json-request.js', 'js/web-api.js']
-	};
-
-	res.render(path.resolve(__dirname, 'web_ui/view', 'index.jade'), data);
+	res.render(path.resolve(__dirname, 'web_ui/view', 'index.jade'));
 }

@@ -1,26 +1,16 @@
-var json_request_url = '/1.0/action';
-
 // # success(res_obj)
 // # failure(code, text)
 function json_request(obj) {
-	var text = JSON.stringify(obj);
-
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST', json_request_url, true);
-	xhr.onreadystatechange = onreadystatechange;
-	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-	xhr.send(text);
-
 	var action_link = new ActionLink();
+	chrome.runtime.sendMessage(undefined, obj, undefined, onRes);
 	return action_link;
 
-	function onreadystatechange() {
-		if (xhr.readyState !== 4) {
-			return;
+	function onRes(res) {
+		if (res.success) {
+			action_link.emit_success(res.success);
+		} else if (res.failure) {
+			action_link.emit_failure(res.failure);
 		}
-
-		var res_obj = JSON.parse(xhr.responseText);
-		action_link.emit_success(res_obj);
 	}
 }
 
@@ -34,11 +24,11 @@ function request(obj) {
 			if (res_obj.result) {
 				action_link.emit_success(res_obj.result);
 			} else if (res_obj.error) {
-				action_link.emit_failure(res_obj.error.code, res_obj.error.text);
+				action_link.emit_failure(res_obj.error);
 			}
 		})
-		.failure(function(code, text) {
-			action_link.emit_net_err(code, text);
+		.failure(function(error) {
+			action_link.emit_net_err(error);
 		});
 
 	return action_link;

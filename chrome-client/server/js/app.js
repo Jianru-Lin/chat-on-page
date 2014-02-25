@@ -31,7 +31,7 @@ App.prototype.start = function() {
 
 				cb();
 			})
-			.failure(function() {
+			.failure(function(error) {
 				cb();
 			});
 	}
