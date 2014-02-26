@@ -33,6 +33,9 @@ App.prototype.start = function() {
 			})
 			.failure(function(error) {
 				cb();
+			})
+			.network_error(function(error) {
+				cb();
 			});
 	}
 }

@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>chat</title>
     <!-- general style-->
     <link rel="stylesheet" href="css/font.css" type="text/css">
@@ -20,12 +21,12 @@
       <div class="content-container">
         <textarea id="content"></textarea>
       </div>
-      <button id="send" accesskey="s">send</button><span class="shortcut">alt+s</span>
+      <button id="send" accesskey="s">send</button><span class="shortcut">alt+s or ctrl+enter</span>
     </div>
     <div class="template">
       <div class="chat-item">
-        <div class="face"><img></div><strong class="author">jack@gmail.com</strong>
-        <div class="content">content</div>
+        <div class="face"><img></div><strong class="author"></strong>
+        <div class="content"></div>
       </div>
     </div>
     <!-- auto generated scripts-->
@@ -33,6 +34,7 @@
     <script type="text/javascript" src="js/web-api.js"></script>
     <!-- user scripts-->
     <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/ui.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
   </body>

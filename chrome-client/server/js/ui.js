@@ -1,26 +1,31 @@
 function UI() {
 	var self = this;
-
 	self.on_send = undefined;
+	self.init();
+}
 
-	document.getElementById('send').addEventListener('click', function() {
-		var author = document.getElementById('author').value;
-		var content = document.getElementById('content').value;
-		
-		if (!author || !content) return;
+UI.prototype.init = function() {
+	var self = this;
 
-		if (self.on_send) {
-			self.on_send({
-				author: author,
-				content: content
-			});
+	self.load_email();
+
+	on_click(id('send'), function() {
+		self.send();
+	});
+
+	on_keydown(document, function(e) {
+		// ctrl+enter
+		if (e.ctrlKey && e.keyCode === 13) {
+			self.send();
 		}
+	});
 
-		// clear
-		document.getElementById('content').value = "";
+	on_keyup(id('author'), function() {
+		self.save_email();
+	});
 
-		// focus on content
-		document.getElementById('content').focus();
+	on_storage(window, function(e) {
+		self.load_email();
 	});
 }
 
@@ -39,55 +44,50 @@ UI.prototype.show_chat_item = function(chat_item) {
 	t.querySelector('.content').textContent = chat_item.content;
 	t.querySelector('.face > img').setAttribute('src', gravatar(chat_item.author));
 
-	document.getElementById('chat-history').appendChild(t);
+	var need_scroll = reached_bottom();
+
+	// add element
+	id('chat-history').appendChild(t);
 
 	// auto scroll
-	var de = document.documentElement;
 	/*
 	if (de.scrollTop + de.clientHeight === de.scrollHeight) {
 
 	}
 	*/
-	window.scrollTo(0, de.scrollHeight);
-}
-
-function id(id_value, cb) {
-	var e = document.getElementById(id_value);
-	if (e && cb) {
-		cb (e);
+	if (need_scroll) {
+		window.scrollTo(0, document.documentElement.scrollHeight);
 	}
-	return e;
 }
 
-function all(selector, cb) {
-	var list = document.querySelectorAll(selector);
-	if (cb) {
-		operate(list, cb);
+UI.prototype.send = function() {
+	var self = this;
+
+	var author = id('author').value;
+	var content = id('content').value;
+	
+	if (!author || !content) return;
+
+	if (self.on_send) {
+		self.on_send({
+			author: author,
+			content: content
+		});
 	}
-	return list;
 
-	function operate(list, cb) {
-		if (!list || list.length < 1) return;
-		for (var i = 0, len = list.length; i < len; ++i) {
-			cb(list[i]);
-		}
-	}	
+	// clear
+	id('content').value = "";
+
+	// focus on content
+	id('content').focus();
 }
 
-function get_template(name) {
-	var query = '.template .' + name;
-	var e = document.querySelector(query);
-
-	if (!e) return undefined;
-
-	// copy element and return
-	var new_e = e.cloneNode(true);
-	return new_e;
+UI.prototype.save_email = function() {
+	var email = id('author').value;
+	window.localStorage.setItem('email', email);
 }
 
-function gravatar(email) {
-	email = email || '';
-	email = email.toLowerCase();
-	var hash = md5(email);
-	return 'http://www.gravatar.com/avatar/' + hash + '?s=50&d=identicon';
+UI.prototype.load_email = function() {
+	var email = window.localStorage.getItem('email');
+	id('author').value = email;
 }

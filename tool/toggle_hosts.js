@@ -125,7 +125,7 @@ HostManager.prototype.exits = function(host_name) {
 }
 
 /* main logic */
-var target_host_name = 'blackwhale.miaodeli.com';
+var target_host_name = 'chat.miaodeli.com';
 var ip = '127.0.0.1';
 
 var hm = new HostManager();

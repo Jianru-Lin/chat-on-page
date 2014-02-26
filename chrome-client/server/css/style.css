@@ -72,13 +72,12 @@ div.author-container {
 
 input#author {
 	display: block;
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	padding: 4px 6px;
 	font-size: inherit;
 	font-family: inherit;
 	background: inherit;
 	width: 100%;
-	border-color: #ccc;
 	outline-color: rgb(0, 204, 146);
 }
 
@@ -89,13 +88,14 @@ div.content-container {
 
 textarea#content {
 	display: block;
+	border: 1px solid #ccc;
 	width: 100%;
+	height: 38px;
 	font-size: inherit;
 	font-family: inherit;
 	margin: 0;
 	padding: 4px 6px;
 	background: inherit;
-	border-color: #ccc;
 	outline-color: rgb(0, 204, 146);
 }
 

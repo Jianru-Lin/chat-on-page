@@ -2,6 +2,7 @@ doctype html
 html
 	head
 		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
 		title chat
 		
 		// general style
@@ -20,7 +21,7 @@ html
 			div.content-container
 				textarea#content
 			button#send(accesskey="s") send
-			span.shortcut alt+s
+			span.shortcut alt+s or ctrl+enter
 
 		div.template
 			div.chat-item
@@ -35,5 +36,6 @@ html
 
 		// user scripts
 		script(type="text/javascript", src="js/md5.js")
+		script(type="text/javascript", src="js/util.js")
 		script(type="text/javascript", src="js/ui.js")
 		script(type="text/javascript", src="js/app.js")

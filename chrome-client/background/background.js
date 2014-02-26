@@ -1,6 +1,6 @@
 (function() {
 	// override the default json_request_url
-	json_request_url = 'http://blackwhale.miaodeli.com/action';
+	json_request_url = 'http://chat.miaodeli.com/action';
 
 	chrome.browserAction.onClicked.addListener(onClickBrowserAction);
 	chrome.runtime.onMessage.addListener(onMessage);
