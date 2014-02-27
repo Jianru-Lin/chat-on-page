@@ -1,23 +1,25 @@
 div.af0-chat-on-page {
 	position: fixed;
-	top: 40px;
-	right: 50px;
-	bottom: 0;
-	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	top: 20px;
+	left: 20px;
+	right: 20px;
+	bottom: 20px;
 	z-index: 2147483647;
 	box-shadow: 0 0 10px black;
 	-webkit-transition: all 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
 
 	border: 6px solid #333;
-	border-bottom: none;
-	border-radius: 2px 2px 0 0;
+	border-radius: 2px;
 
 	background: white;
 }
 
 div.af0-chat-on-page.af0-hide {
 	/*display: none;*/
-	-webkit-transform: translateX(680px);
+	opacity: 0;
+	visibility: hidden;
 }
 
 div.af0-chat-on-page > iframe {
