@@ -8,10 +8,9 @@ div.af0-chat-on-page {
 	box-shadow: 0 0 10px black;
 	-webkit-transition: all 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
 
-	border: 8px solid #eee;
-	border-top-width: 10px;
+	border: 6px solid #333;
 	border-bottom: none;
-	border-radius: 10px 10px 0 0;
+	border-radius: 2px 2px 0 0;
 
 	background: white;
 }

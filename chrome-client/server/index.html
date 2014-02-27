@@ -11,17 +11,18 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
   </head>
   <body class="font-hei">
-    <div id="chat-history" class="chat-history">
-      <h1>chat on page</h1>
-    </div>
-    <div class="send-editor">
-      <div class="author-container">
-        <input type="text" placeholder="email" id="author">
+    <div class="navbar"><span>chat</span></div>
+    <div class="window-content">
+      <div id="chat-history" class="chat-history"></div>
+      <div class="send-editor">
+        <div class="author-container">
+          <input type="text" placeholder="email" id="author">
+        </div>
+        <div class="content-container">
+          <textarea id="content"></textarea>
+        </div>
+        <button id="send" accesskey="s">send</button><span class="shortcut">alt+s or ctrl+enter</span>
       </div>
-      <div class="content-container">
-        <textarea id="content"></textarea>
-      </div>
-      <button id="send" accesskey="s">send</button><span class="shortcut">alt+s or ctrl+enter</span>
     </div>
     <div class="template">
       <div class="chat-item">

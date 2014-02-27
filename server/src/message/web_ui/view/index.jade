@@ -13,15 +13,18 @@ html
 		link(rel="stylesheet", href="css/style.css", type="text/css")
 
 	body.font-hei
-		div.chat-history#chat-history
-			h1 chat on page
-		div.send-editor
-			div.author-container
-				input(type="text", placeholder="email")#author
-			div.content-container
-				textarea#content
-			button#send(accesskey="s") send
-			span.shortcut alt+s or ctrl+enter
+		div.navbar
+			span chat
+
+		div.window-content
+			div.chat-history#chat-history
+			div.send-editor
+				div.author-container
+					input(type="text", placeholder="email")#author
+				div.content-container
+					textarea#content
+				button#send(accesskey="s") send
+				span.shortcut alt+s or ctrl+enter
 
 		div.template
 			div.chat-item

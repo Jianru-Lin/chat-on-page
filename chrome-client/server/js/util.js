@@ -59,9 +59,9 @@ function on_storage(e, listener) {
 	e.addEventListener('storage', listener);	
 }
 
-function reached_bottom() {
-	var de = document.documentElement;
-	var bd = document.body;
+function reached_bottom(e) {
+	var de = e || document.documentElement;
+	var bd = e || document.body;
 
 	// no scroll bar 
 	if (de.scrollHeight <= de.clientHeight) {

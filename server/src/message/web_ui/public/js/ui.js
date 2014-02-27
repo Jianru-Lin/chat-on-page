@@ -46,7 +46,8 @@ UI.prototype.show_chat_item = function(chat_item) {
 	t.querySelector('.content').textContent = chat_item.content;
 	t.querySelector('.face > img').setAttribute('src', gravatar(chat_item.author));
 
-	var need_scroll = reached_bottom();
+	var window_content = document.querySelector('.window-content');
+	var need_scroll = reached_bottom(window_content);
 
 	// add element
 	id('chat-history').appendChild(t);
@@ -58,7 +59,11 @@ UI.prototype.show_chat_item = function(chat_item) {
 	}
 	*/
 	if (need_scroll) {
-		window.scrollTo(0, document.documentElement.scrollHeight);
+		//window.scrollTo(0, document.documentElement.scrollHeight);
+		var send_editor = document.querySelector('.send-editor');
+		if (send_editor) {
+			send_editor.scrollIntoView();
+		}
 	}
 }
 
