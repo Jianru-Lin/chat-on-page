@@ -62,7 +62,7 @@ UI.prototype.show_chat_item = function(chat_item) {
 		//window.scrollTo(0, document.documentElement.scrollHeight);
 		var send_editor = document.querySelector('.send-editor');
 		if (send_editor) {
-			send_editor.scrollIntoView();
+			send_editor.scrollIntoViewIfNeeded();
 		}
 	}
 }
