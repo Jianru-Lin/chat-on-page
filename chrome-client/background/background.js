@@ -11,7 +11,7 @@ Background.prototype.start = function() {
 	self.server_event.start();
 
 	function on_click_browserAction(tab) {
-		chrome.tabs.sendMessage(tab.id, {action: "toggle"});
+		chrome.tabs.sendMessage(tab.id, {action: 'toggle'});
 	}
 
 	function on_message(req, sender, resCb) {
@@ -34,6 +34,16 @@ Background.prototype.start = function() {
 	function on_receive(chat_item_list) {
 		var text = JSON.stringify(chat_item_list);
 		window.localStorage.setItem('receive', text);
+
+		// blink ui
+		chrome.tabs.query({
+			active: true,
+			currentWindow: true
+		}, function(tabs) {
+			if (!tabs || tabs.length < 1) return;
+			var tab = tabs[0];
+			chrome.tabs.sendMessage(tab.id, {action: 'blink'})
+		});
 	}
 }
 
