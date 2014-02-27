@@ -25,7 +25,9 @@ UI.prototype.init = function() {
 	});
 
 	on_storage(window, function(e) {
-		self.load_email();
+		if (e.key === 'email') {
+			self.load_email();			
+		}
 	});
 }
 

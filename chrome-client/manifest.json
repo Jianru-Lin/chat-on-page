@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Chat on Page",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "chat on page and meet the interesting people",
 	"icons": {
 		"128": "icon.png"
@@ -14,6 +14,7 @@
 		"scripts": [
 			"background/json-request.js",
 			"background/web-api.js",
+			"background/server-event.js",
 			"background/background.js"
 		]
 	},
