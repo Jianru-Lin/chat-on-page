@@ -3,8 +3,8 @@ var options = {
 	server_page_url: chrome.extension.getURL("server/index.html")
 };
 
-init();
-chrome.runtime.onMessage.addListener(onMessage);
+init();	
+
 
 function init() {
 	// container
@@ -26,11 +26,13 @@ function init() {
 
 	// shortcut
 	document.body.addEventListener('keydown', function(e) {
-		console.log(e);
 		if (e.keyCode === 81 && e.altKey) {
 			toggle();
 		}
 	});
+
+	// background message
+	chrome.runtime.onMessage.addListener(onMessage);
 
 	function newElement(name, attr) {
 		var e = document.createElement(name);
@@ -42,6 +44,8 @@ function init() {
 }
 
 function toggle() {
+	if (disabled()) return;
+
 	var e = document.getElementById('af0-chat-on-page');
 	if (!e) return;
 	toggle_class(e, 'af0-hide');
@@ -56,6 +60,8 @@ function toggle() {
 }
 
 function blink() {
+	if (disabled()) return;
+	
 	var e = document.getElementById('af0-chat-on-page');
 	if (!e) return;
 
@@ -68,4 +74,8 @@ function onMessage(req, sender, resCb) {
 	} else if (req.action === 'blink') {
 		blink();
 	}
+}
+
+function disabled() {
+	return document.getElementById('af0-disable') != null;
 }

@@ -1,4 +1,5 @@
 var app;
+var af0_no_chat_on_page = true;
 
 onload = function() {
 	app = new App();
