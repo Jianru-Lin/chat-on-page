@@ -12,27 +12,6 @@ body {
 #chat-history {
 }
 
-.navbar {
-	line-height: 2em;
-	background: #333;
-	color: white;
-}
-
-.navbar > span {
-	display: inline-block;
-	padding: 0 10px;
-}
-
-.window-content {
-	overflow: auto;
-	position: absolute;
-	left: 0;
-	top: 32px;
-	right: 0;
-	bottom: 0;
-	border: 2px solid #fff;
-}
-
 .chat-item {
 	padding: 20px 10px;
 }

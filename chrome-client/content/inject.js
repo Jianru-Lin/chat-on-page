@@ -7,10 +7,30 @@ init();
 chrome.runtime.onMessage.addListener(onMessage);
 
 function init() {
+	// container
 	var div = newElement('div', {id: 'af0-chat-on-page', class: 'af0-chat-on-page af0-hide'});
-	var iframe = newElement('iframe', {src: options.server_page_url});
-	div.appendChild(iframe);
 	document.body.appendChild(div);
+
+	// title bar
+	var title_bar = newElement('div', {class: 'af0-title-bar'});
+	title_bar.textContent = "chat";
+	div.appendChild(title_bar);
+
+	// iframe-wrapper
+	var iframe_wrapper = newElement('div', {class: 'af0-iframe-wrapper'});
+	div.appendChild(iframe_wrapper);
+
+	// iframe
+	var iframe = newElement('iframe', {src: options.server_page_url});
+	iframe_wrapper.appendChild(iframe);
+
+	// shortcut
+	document.body.addEventListener('keydown', function(e) {
+		console.log(e);
+		if (e.keyCode === 81 && e.altKey) {
+			toggle();
+		}
+	});
 
 	function newElement(name, attr) {
 		var e = document.createElement(name);
