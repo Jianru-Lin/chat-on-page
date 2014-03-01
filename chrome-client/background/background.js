@@ -4,6 +4,7 @@ function Background() {
 
 Background.prototype.start = function() {
 	var self = this;
+	self.message_list = [];
 
 	chrome.browserAction.onClicked.addListener(on_click_browserAction);
 	chrome.runtime.onMessage.addListener(on_message);
@@ -15,6 +16,15 @@ Background.prototype.start = function() {
 	}
 
 	function on_message(req, sender, resCb) {
+		if (req.action === 'receive') {
+			resCb({
+				success: {
+					result: self.message_list
+				}
+			});
+			return;
+		}
+
 		json_request(req)
 			.success(function(res) {
 				resCb({
@@ -31,8 +41,10 @@ Background.prototype.start = function() {
 		return true;
 	}
 
-	function on_receive(chat_item_list) {
-		var text = JSON.stringify(chat_item_list);
+	function on_receive(new_message_list) {
+		self.message_list = self.message_list.concat(new_message_list);
+
+		var text = JSON.stringify(new_message_list);
 		window.localStorage.setItem('receive', text);
 
 		// blink ui
