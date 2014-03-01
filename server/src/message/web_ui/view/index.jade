@@ -3,7 +3,7 @@ html
 	head
 		meta(charset="UTF-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
-		title chat
+		title chat on page
 		
 		// general style
 		link(rel="stylesheet", href="css/font.css", type="text/css")
@@ -13,14 +13,20 @@ html
 		link(rel="stylesheet", href="css/style.css", type="text/css")
 
 	body.font-hei#af0-disable
-		div.chat-history#chat-history
-		div.send-editor
-			div.author-container
-				input(type="text", placeholder="email")#author
-			div.content-container
-				textarea#content
-			button#send(accesskey="s") 发送
-			span.shortcut alt+s | ctrl+enter
+		div.chat-panel
+			h1.title 聊天
+			div.chat-list#chat-list
+			div.send-editor
+				div.author-container
+					input(type="text", placeholder="email")#author
+				div.content-container
+					textarea#content
+				button#send(accesskey="s") 发送
+				span.shortcut alt+s | ctrl+enter
+
+		div.website-panel
+			h1.title 站点
+			div.website-list#website-list
 
 		div.template
 			div.chat-item
@@ -28,6 +34,9 @@ html
 					img
 				strong.author
 				div.content
+			a.website(href="#")
+				div.website-title
+				div.website-url
 
 		// auto generated scripts
 		script(type="text/javascript", src="js/json-request.js")

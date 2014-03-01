@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>chat</title>
+    <title>chat on page</title>
     <!-- general style-->
     <link rel="stylesheet" href="css/font.css" type="text/css">
     <link rel="stylesheet" href="css/template.css" type="text/css">
@@ -11,21 +11,30 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
   </head>
   <body id="af0-disable" class="font-hei">
-    <div id="chat-history" class="chat-history"></div>
-    <div class="send-editor">
-      <div class="author-container">
-        <input type="text" placeholder="email" id="author">
+    <div class="chat-panel">
+      <h1 class="title">聊天</h1>
+      <div id="chat-list" class="chat-list"></div>
+      <div class="send-editor">
+        <div class="author-container">
+          <input type="text" placeholder="email" id="author">
+        </div>
+        <div class="content-container">
+          <textarea id="content"></textarea>
+        </div>
+        <button id="send" accesskey="s">发送</button><span class="shortcut">alt+s | ctrl+enter</span>
       </div>
-      <div class="content-container">
-        <textarea id="content"></textarea>
-      </div>
-      <button id="send" accesskey="s">发送</button><span class="shortcut">alt+s | ctrl+enter</span>
+    </div>
+    <div class="website-panel">
+      <h1 class="title">站点</h1>
+      <div id="website-list" class="website-list"></div>
     </div>
     <div class="template">
       <div class="chat-item">
         <div class="face"><img></div><strong class="author"></strong>
         <div class="content"></div>
-      </div>
+      </div><a href="#" class="website">
+        <div class="website-title"></div>
+        <div class="website-url"></div></a>
     </div>
     <!-- auto generated scripts-->
     <script type="text/javascript" src="js/json-request.js"></script>

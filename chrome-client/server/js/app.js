@@ -19,13 +19,13 @@ App.prototype.start = function() {
 	self.server_event.on_receive = on_receive;
 	self.server_event.start();
 
-	self.ui.on_send = function(chat_item) {
+	self.ui.on('send', function(chat_item) {
 		send(chat_item);
-	};
+	});
 
 	function on_receive(chat_item_list) {
 		if (chat_item_list.length > 0) {
-			self.ui.show_chat_item_list(chat_item_list);
+			self.ui.show(chat_item_list);
 		}
 	}
 }

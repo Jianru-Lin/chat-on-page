@@ -9,7 +9,55 @@ body {
 	background: white;
 }
 
-#chat-history {
+.chat-panel {
+	position: absolute;
+	top: 0;
+	right: 300px;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+	box-shadow: 0 0 10px black;
+	z-index: 2;
+}
+
+.website-panel {
+	width: 300px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+	background: #eee;
+	color: #333;
+}
+
+a.website {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.website {
+	padding: 10px;
+}
+
+.website.current {
+	background: rgb(0, 133, 95);
+	color: white;
+}
+
+.website-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.website-url {
+	font-size: .75em;
+}
+
+h1.title {
+	padding: 0 10px;
 }
 
 .chat-item {
