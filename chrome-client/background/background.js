@@ -48,14 +48,14 @@ Background.prototype.start = function() {
 		window.localStorage.setItem('receive', text);
 
 		// blink ui
-		chrome.tabs.query({
-			active: true,
-			currentWindow: true
-		}, function(tabs) {
-			if (!tabs || tabs.length < 1) return;
-			var tab = tabs[0];
-			chrome.tabs.sendMessage(tab.id, {action: 'blink'})
-		});
+		// chrome.tabs.query({
+		// 	active: true,
+		// 	currentWindow: true
+		// }, function(tabs) {
+		// 	if (!tabs || tabs.length < 1) return;
+		// 	var tab = tabs[0];
+		// 	chrome.tabs.sendMessage(tab.id, {action: 'blink'})
+		// });
 	}
 }
 
