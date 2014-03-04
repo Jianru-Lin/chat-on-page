@@ -27,6 +27,7 @@ div.af0-chat-on-page.af0-hide {
 	/*display: none;*/
 	opacity: 0;
 	visibility: hidden;
+	display: none;
 }
 
 div.af0-title-bar {

@@ -12,7 +12,41 @@ Background.prototype.start = function() {
 	self.server_event.start();
 
 	function on_click_browserAction(tab) {
-		chrome.tabs.sendMessage(tab.id, {action: 'toggle'});
+		console.log(tab.title);
+		console.log(tab.url);
+
+		if (/^chrome/i.test(tab.url) || /https:\/\/chrome.google.com\/webstore/i.test(tab.url)) {
+			chrome.tabs.create({
+				url: 'http://www.miaodeli.com/help/chat',
+				active: true
+			});
+			return;
+		}
+
+		chrome.tabs.sendMessage(tab.id, {action: 'toggle'}, function(res) {
+			if (!res) {
+				// inject js and css
+				chrome.tabs.insertCSS(tab.id, {
+					file: 'content/inject.css',
+					allFrames: false,
+					runAt: 'document_end'
+				}, function() {
+					// nothing to do
+				});
+
+				chrome.tabs.executeScript(tab.id, {
+					file: 'content/inject.js',
+					allFrames: false,
+					runAt: 'document_end'
+				}, function() {
+					// toggle again
+					setTimeout(function() {
+						chrome.tabs.sendMessage(tab.id, {action: 'toggle'});
+					}, 0);
+				});
+
+			}
+		});
 	}
 
 	function on_message(req, sender, resCb) {
