@@ -2,7 +2,7 @@
 // # failure(code, text)
 function json_request(obj) {
 	var action_link = new ActionLink();
-	chrome.runtime.sendMessage(undefined, obj, undefined, onRes);
+	chrome.runtime.sendMessage(obj, onRes);
 	return action_link;
 
 	function onRes(res) {
