@@ -14,11 +14,11 @@ function receive_message(message_handler) {
 		app.use(express.static(path.resolve(__dirname, 'web_ui/public')));
 		app.engine('jade', require('jade').__express);
 		app.get('/', index_page);
-		app.post('/action', action_page);
+		app.post('/message', message_page);
 		app.listen(80);
 	}
 
-	function action_page(req, res) {
+	function message_page(req, res) {
 		var message = req.body;
 
 		message_handler(message);

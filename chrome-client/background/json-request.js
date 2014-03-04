@@ -1,4 +1,4 @@
-var json_request_url = '/action';
+var json_request_url = '/message';
 
 // # success(res_obj)
 // # failure(code, text)
