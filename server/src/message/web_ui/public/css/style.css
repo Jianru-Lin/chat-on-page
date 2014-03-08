@@ -37,11 +37,15 @@ a.website {
 	color: inherit;
 }
 
+a.website:hover {
+	background: rgba(0, 133, 95, 0.07);
+}
+
 .website {
 	padding: 10px;
 }
 
-.website.current {
+a.website.current {
 	background: rgb(0, 133, 95);
 	color: white;
 }
@@ -97,7 +101,7 @@ h1.title {
 	padding: 4px 8px;
 	border-radius: 0 4px 4px 0;
 	margin-bottom: .25em;
-	margin-left: 50px;
+	margin-left: 60px;
 }
 
 .chat-item .author {

@@ -1,7 +1,7 @@
 af0_init();
 
 function af0_init() {
-	if (window.af0_inited) return;
+	if (document.getElementById('af0-skip')) return;
 
 	// not work in background page
 	if (chrome.tabs) return;
@@ -23,7 +23,7 @@ function af0_init() {
 
 		// title bar
 		var title_bar = newElement('div', {class: 'af0-title-bar'});
-		title_bar.textContent = "chat";
+		title_bar.textContent = '交流';
 		div.appendChild(title_bar);
 
 		// iframe-wrapper

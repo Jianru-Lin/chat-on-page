@@ -75,13 +75,24 @@ WebsiteListUI.prototype.add = function(website) {
 
 	function convert_to_dom(website) {
 		var t = get_template('website');
-		var website_favicon = t.querySelector('.website-favicon').setAttribute('src', website.url + '/favicon.ico');
 
+		// favicon
+		var website_favicon = t.querySelector('.website-favicon');
+		website_favicon.setAttribute('src', website.url + '/favicon.ico');
+		website_favicon.onerror = function(e) {
+			var favicon = e.target;
+			favicon.onerror = null;
+			//favicon.remove();
+		}
 
-		t.querySelector('.website-favicon').setAttribute('onError', 'this.onerror=null;this.remove();');
-		t.querySelector('.website-title').textContent = website.title;
-		t.querySelector('.website-title').setAttribute('title', website.title);
+		// title
+		var website_title = t.querySelector('.website-title');
+		website_title.textContent = website.title;
+		website_title.setAttribute('title', website.title);
+
+		// url
 		t.querySelector('.website-url').textContent = website.url;
+
 		return t;
 	}
 
