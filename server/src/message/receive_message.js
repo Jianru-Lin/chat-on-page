@@ -21,15 +21,7 @@ function receive_message(message_handler) {
 	function message_page(req, res) {
 		var message = req.body;
 
-		message_handler(message);
-
-		var res_obj = {};
-		if (message.result) {
-			res_obj.result = message.result;
-		} else if (message.error) {
-			res_obj.error = message.error;
-		}
-
+		var res_obj = message_handler(message);
 		var res_text = JSON.stringify(res_obj);
 		var length = Buffer.byteLength(res_text, 'utf8');
 

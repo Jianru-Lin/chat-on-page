@@ -6,17 +6,9 @@ var path = require('path');
 var output_file_name = path.resolve(__dirname, '../web_ui/public/js', 'web-api.js');
 var api_list = [];
 
-api_list.push({
-	name: 'receive',
-	args: ['last_id']
-});
-
-api_list.push({
-	name: 'send',
-	args: ['chat_item']
-});
-
 function generate_web_api() {
+	if (!api_list || api_list.length < 1) return;
+
 	var text_block_list = [];
 
 	api_list.forEach(function(api) {

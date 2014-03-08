@@ -1,5 +1,7 @@
 // # success(res_obj)
 // # failure(code, text)
+// # success(res_obj)
+// # failure(code, text)
 function json_request(obj) {
 	var action_link = new ActionLink();
 	chrome.runtime.sendMessage(obj, onRes);
@@ -14,6 +16,7 @@ function json_request(obj) {
 	}
 }
 
+/*
 // # success(result)
 // # failure(layer, code, text)
 function request(obj) {
@@ -33,6 +36,7 @@ function request(obj) {
 
 	return action_link;
 }
+*/
 
 // ----- ActionLink -----
 
@@ -64,7 +68,7 @@ ActionLink.prototype.emit_failure = function() {
 }
 
 // ----- AjaxActionLink -----
-
+/*
 function AjaxActionLink() {
 	this.scb = undefined;
 	this.fcb = undefined;
@@ -103,3 +107,4 @@ AjaxActionLink.prototype.emit_net_err = function() {
 		this.net_err_cb.apply(this, arguments);
 	}
 }
+*/

@@ -74,3 +74,9 @@ function reached_bottom(e) {
 
 	return false;
 }
+
+function copy_obj(src, dest) {
+	for (var name in src) {
+		dest[name] = src[name];
+	}
+}

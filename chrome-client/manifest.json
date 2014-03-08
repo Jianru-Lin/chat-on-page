@@ -13,8 +13,7 @@
 	"background": {
 		"scripts": [
 			"background/json-request.js",
-			"background/web-api.js",
-			"background/server-event.js",
+			"background/message-manager.js",
 			"background/background.js"
 		]
 	},

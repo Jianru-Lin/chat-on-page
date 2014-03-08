@@ -1,7 +1,6 @@
 /* ChatListUI */
 
 function ChatListUI() {
-
 }
 
 ChatListUI.prototype.clear = function() {
@@ -11,6 +10,7 @@ ChatListUI.prototype.clear = function() {
 ChatListUI.prototype.add = function(chat_item_list) {
 	var self = this;
 	if (!chat_item_list) return;
+	if (!Array.isArray(chat_item_list)) chat_item_list = [chat_item_list];
 
 	// smart scroll start
 	var need_scroll = reached_bottom(document.querySelector('.chat-panel'));
@@ -18,6 +18,7 @@ ChatListUI.prototype.add = function(chat_item_list) {
 	// construct dom element and append
 	var chat_list = id('chat-list');
 	chat_item_list.forEach(function(chat_item) {
+		// append
 		chat_list.appendChild(convert_to_dom(chat_item));
 	});
 
@@ -28,9 +29,9 @@ ChatListUI.prototype.add = function(chat_item_list) {
 
 	function convert_to_dom(chat_item) {
 		var t = get_template('chat-item');
-		t.querySelector('.author').textContent = chat_item.author;
-		t.querySelector('.content').textContent = chat_item.content;
-		t.querySelector('.face > img').setAttribute('src', gravatar(chat_item.author));
+		t.querySelector('.author').textContent = chat_item.from.name;
+		t.querySelector('.content').textContent = chat_item.content.value;
+		t.querySelector('.face > img').setAttribute('src', gravatar(chat_item.from.name));
 		return t;
 	}
 }
@@ -62,6 +63,9 @@ WebsiteListUI.prototype.add = function(website) {
 	var website_dom = convert_to_dom(website);
 	website_dom.addEventListener('click', on_click_website);
 	id('website-list').appendChild(website_dom);
+
+	// remember object and dom relation
+	website._dom = website_dom;
 
 	// if this is the only website, make it current
 	if (self.website_list.length === 1) {
@@ -97,6 +101,21 @@ WebsiteListUI.prototype.add = function(website) {
 
 WebsiteListUI.prototype.get_current = function() {
 	return this.current;
+}
+
+WebsiteListUI.prototype.update = function(website_new) {
+	var self = this;
+
+	var website = self.website_list_map[website_new.url]
+	
+	// u can't udpate a website which not exists yet
+	if (!website) return;
+
+	// dont't modify current website
+	if (website._dom.classList.contains('current')) return;
+
+	website._dom.querySelector('.website-title').textContent = website_new.title;
+	copy_obj(website_new, website);
 }
 
 
@@ -153,10 +172,7 @@ function SendUI() {
 		if (!author || !content) return;
 
 		if (self.on_send) {
-			self.on_send({
-				author: author,
-				content: content
-			});
+			self.on_send(author, content);
 		}
 
 		// clear
@@ -199,18 +215,35 @@ function UI() {
 
 		// construct new list
 		var current_website_chat_list = self.chat_list.filter(function(chat_item) {
-			return get_protocol_host_port(chat_item.url_to) === current_website.url;
+			return chat_item.to.website.url === current_website.url;
 		});
 
 		// show new chat list
 		self.chat_list_ui.add(current_website_chat_list);
 	}
 
-	function on_send(chat_item) {
-		chat_item.url_from = get_current_location();
-		chat_item.url_to = self.website_list_ui.get_current().url;
+	function on_send(email, text) {
+		var message = {
+			type: 'chat',
+			from: {
+				name: email,
+				page: {
+					url: get_current_location(),
+					title: undefined
+				}
+			},
+			to: {
+				website: {
+					url: self.website_list_ui.get_current().url
+				}
+			},
+			content: {
+				type: 'text',
+				value: text
+			}
+		};
 		if (self.on_send) {
-			self.on_send(chat_item);
+			self.on_send(message);
 		}
 	}
 }
@@ -221,32 +254,53 @@ UI.prototype.on = function(event, cb) {
 	}
 }
 
-UI.prototype.show = function(message_list) {
+UI.prototype.show = function(message) {
 	var self = this;
-	if (!message_list) return;
+	if (!message) return;
 
-	var chat_item_list = message_list;
+	if (message.type === 'chat') {
+		// chat
+		chat_message_handler(message);
+	} else if (message.type === 'website') {
+		// website
+		website_message_handler(message);
+	} else {
+		// ignore unknown message
+	}
 
-	// append to chat_list
-	self.chat_list = self.chat_list.concat(chat_item_list);
+	function chat_message_handler(message) {
+		// ignore if existed already
+		var existed = false;
+		for (var i = 0, len = self.chat_list.length; i < len; ++i) {
+			if (self.chat_list[i].id === message.id) {
+				existed = true;
+				break;
+			}
+		}
+		if (existed) return;
 
-	// get current website
-	var current_website = self.website_list_ui.get_current();
+		// append to chat_list
+		self.chat_list.push(message);
 
-	// construct new list
-	var sub_list = chat_item_list.filter(function(chat_item) {
-		return get_protocol_host_port(chat_item.url_to) === current_website.url;
-	});
+		// get current website
+		var current_website = self.website_list_ui.get_current();
 
-	// show new chat list
-	self.chat_list_ui.add(sub_list);
+		// show if needed
+		if (message.to.website.url === current_website.url) {
+			self.chat_list_ui.add(message);
+		}
 
-	// update website list
-	chat_item_list.forEach(function(chat_item) {
-		self.website_list_ui.add({
-			url: get_protocol_host_port(chat_item.url_to)
-		});
-	});
+		// add website if needed
+		var new_website = {
+			url: message.to.website.url
+		};
+		self.website_list_ui.add(new_website);
+	}
+
+	function website_message_handler(message) {
+		console.log(message);
+		self.website_list_ui.update(message);
+	}
 }
 
 function get_protocol_host_port(url) {

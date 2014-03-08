@@ -9,23 +9,23 @@ onload = function() {
 /* --- App --- */
 
 function App() {
-	this.ui = new UI();
-	this.server_event = new ServerEvent();
+	var self = this;
+
+	self.ui = new UI();
+	self.message_manager = new MessageManager();
+	self.message_manager.on_receive = message_from_server;
+
+	self.ui.on('send', message_from_ui);
+
+	// message handler
+	function message_from_server(message) {
+		self.ui.show(message);
+	}
+
+	function message_from_ui(message) {
+		self.message_manager.send(message);
+	}
 }
 
 App.prototype.start = function() {
-	var self = this;
-
-	self.server_event.on_receive = on_receive;
-	self.server_event.start();
-
-	self.ui.on('send', function(chat_item) {
-		send(chat_item);
-	});
-
-	function on_receive(chat_item_list) {
-		if (chat_item_list.length > 0) {
-			self.ui.show(chat_item_list);
-		}
-	}
 }
