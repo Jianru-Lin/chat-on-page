@@ -75,7 +75,12 @@ WebsiteListUI.prototype.add = function(website) {
 
 	function convert_to_dom(website) {
 		var t = get_template('website');
+		var website_favicon = t.querySelector('.website-favicon').setAttribute('src', website.url + '/favicon.ico');
+
+
+		t.querySelector('.website-favicon').setAttribute('onError', 'this.onerror=null;this.remove();');
 		t.querySelector('.website-title').textContent = website.title;
+		t.querySelector('.website-title').setAttribute('title', website.title);
 		t.querySelector('.website-url').textContent = website.url;
 		return t;
 	}
@@ -115,6 +120,7 @@ WebsiteListUI.prototype.update = function(website_new) {
 	if (website._dom.classList.contains('current')) return;
 
 	website._dom.querySelector('.website-title').textContent = website_new.title;
+	website._dom.querySelector('.website-title').setAttribute('title', website_new.title);
 	copy_obj(website_new, website);
 }
 
@@ -298,7 +304,6 @@ UI.prototype.show = function(message) {
 	}
 
 	function website_message_handler(message) {
-		console.log(message);
 		self.website_list_ui.update(message);
 	}
 }

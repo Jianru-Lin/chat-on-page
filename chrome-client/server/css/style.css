@@ -46,6 +46,14 @@ a.website {
 	color: white;
 }
 
+img.website-favicon {
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-top: 1px;
+	margin-right: 4px;
+}
+
 .website-title {
 	white-space: nowrap;
 	overflow: hidden;
