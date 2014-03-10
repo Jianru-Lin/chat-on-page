@@ -1,29 +1,32 @@
-// ----- MessageQueue -----
+// ----- MessageManager -----
 
-function MessageQueue() {
+function MessageManager() {
 	var self = this;
-	self.session = undefined;
 	self.on_receive = undefined;
-	self.queue = undefined;
-	self.sending = undefined;
+	self.waiting_queue = undefined;
+	self.sending_queue = undefined;
 }
 
-MessageQueue.prototype.send = function(message) {
+MessageManager.prototype.send = function(message_list) {
 	var self = this;
 
-	// undefined message is ok
-	if (!self.queue) self.queue = message ? [message] : [];
-	else if (message) self.queue.push(message);
-	else return;
+	if (!message_list) return;
+	if (!Array.isArray(message_list)) {
+		message_list = [message_list];
+	}
+
+	// add to waiting_queue
+	if (!self.waiting_queue) self.waiting_queue = message_list;
+	else self.waiting_queue = self.waiting_queue.concat(message_list);
 
 	do_send();
 
 	function do_send() {
-		if (!self.sending) {
-			if (self.queue) {
-				// send the message in queue
-				self.sending = self.queue;
-				self.queue = undefined;
+		if (!self.sending_queue) {
+			if (self.waiting_queue) {
+				// send the message in waiting_queue
+				self.sending_queue = self.waiting_queue;
+				self.waiting_queue = undefined;
 			} else {
 				// there is nothing to send
 				return;
@@ -31,30 +34,22 @@ MessageQueue.prototype.send = function(message) {
 		}
 
 		var req_obj = {
-			session: self.session,
-			message_list: self.sending
+			message_list: self.sending_queue
 		};
 
 		json_request(req_obj)
 			.success(function(res_obj) {
 				// ok, we sended them
-				self.sending = undefined;
-
-				// update session if needed
-				if (typeof res_obj['session'] !== 'undefined') {
-					self.session = res_obj.session;
-				}
+				self.sending_queue = undefined;
 
 				// process the response
 				if (self.on_receive) {
 					if (res_obj.message_list.length > 0) {
-						res_obj.message_list.forEach(function(message) {
-							self.on_receive(message);
-						});
+						self.on_receive(res_obj.message_list);
 					}
 				}
 
-				// sending the rest if there is
+				// sending_queue the rest if there is
 				setTimeout(do_send, 0);
 			})
 			.failure(function(error) {
@@ -64,27 +59,6 @@ MessageQueue.prototype.send = function(message) {
 	}
 }
 
-// ----- MessageManager -----
-
-function MessageManager() {
-	var self = this;
-	self.on_receive = undefined;
-	self.message_queue = new MessageQueue();
-
-	self.message_queue.on_receive = handler;
-
-	setInterval(function() {
-		self.message_queue.send();
-	}, 1000);
-
-	function handler() {
-		if (self.on_receive) {
-			self.on_receive.apply(self, arguments);
-		}
-	}
-}
-
-MessageManager.prototype.send = function() {
-	var self = this;
-	self.message_queue.send.apply(self.message_queue, arguments);
+MessageManager.prototype.is_idle = function() {
+	return (!this.sending_queue || this.sending_queue.length < 1) && (!this.waiting_queue || this.sending_queue.length < 1);
 }

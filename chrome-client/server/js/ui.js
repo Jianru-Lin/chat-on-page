@@ -271,20 +271,23 @@ UI.prototype.on = function(event, cb) {
 	}
 }
 
-UI.prototype.show = function(message) {
+UI.prototype.show = function(message_list) {
 	var self = this;
-	if (!message) return;
+	if (!message_list) return;
 
-	if (message.type === 'chat') {
-		// chat
-		chat_message_handler(message);
-	} else if (message.type === 'website') {
-		// website
-		website_message_handler(message);
-	} else {
-		// ignore unknown message
-	}
+	message_list.forEach(function(message) {
+		if (message.type === 'chat') {
+			// chat
+			chat_message_handler(message);
+		} else if (message.type === 'website') {
+			// website
+			website_message_handler(message);
+		} else {
+			// ignore unknown message
+		}
+	});
 
+	
 	function chat_message_handler(message) {
 		// ignore if existed already
 		var existed = false;
