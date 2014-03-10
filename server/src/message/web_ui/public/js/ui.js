@@ -289,16 +289,6 @@ UI.prototype.show = function(message_list) {
 
 	
 	function chat_message_handler(message) {
-		// ignore if existed already
-		var existed = false;
-		for (var i = 0, len = self.chat_list.length; i < len; ++i) {
-			if (self.chat_list[i].id === message.id) {
-				existed = true;
-				break;
-			}
-		}
-		if (existed) return;
-
 		// append to chat_list
 		self.chat_list.push(message);
 
@@ -321,6 +311,7 @@ UI.prototype.show = function(message_list) {
 		self.website_list_ui.update(message);
 	}
 }
+
 
 function get_protocol_host_port(url) {
 	var match = /^((http|https):\/\/[^\/]+)(\/|$)/i.exec(url);

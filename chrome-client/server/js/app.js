@@ -43,7 +43,7 @@ AutoQueryManager.prototype.start = function() {
 				if (!message_list) return;
 
 				message_list.forEach(function(message) {
-					if (message.type === 'chat') self.last_id = message.id;
+					if (message.type === 'chat') self.last_chat_id = message.id;
 					else if (message.type === 'website') self.last_website_id = message.id;
 				});
 
