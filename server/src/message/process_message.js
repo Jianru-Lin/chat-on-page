@@ -2,6 +2,8 @@ exports.process_message = process_message;
 
 var url = require('url');
 var jsdom = require('jsdom');
+var Iconv = require('iconv').Iconv;
+var request = require('request');
 
 var website_detector = new WebsiteDetector();
 
@@ -168,20 +170,53 @@ WebsiteDetector.prototype.start = function() {
 
 	self.is_running = true;
 
-	jsdom.env({
+	var o = {
 		url: self.url,
-		done: function(error, window) {
-			self.is_running = false;
+		encoding: null // very important, tell request return raw body buffer
+	};
 
-			if (!self.on_finish) return;
-			
-			if (error) {
+	request(o, function(error, res, body) {
+		// oops, error occurs
+		if (error) {
+			self.is_running = false;
+			console.log('[WebsiteDetector] ' + error.toString());
+			if (self.on_finish) {
 				self.on_finish(error, undefined);
-			} else {
-				self.on_finish(undefined, window.document.title);
+			}
+			return;
+		}
+
+		// check the charset, and convert it
+		var content_type = res.headers['content-type'];
+		if (content_type) {
+			var match = /charset=(\S+)/i.exec(content_type);
+			if (match) {
+				// do convert
+				var charset = match[1];
+				var iconv = new Iconv(charset, 'UTF-8');
+				body = iconv.convert(body);
 			}
 		}
+
+		body = body.toString('utf8');
+
+		// parse text with jsdom
+		jsdom.env({
+			html: body,
+			done: function(error, window) {
+				self.is_running = false;
+
+				if (!self.on_finish) return;
+				
+				if (error) {
+					self.on_finish(error, undefined);
+				} else {
+					self.on_finish(undefined, window.document.title);
+				}
+			}
+		})
 	});
+
 }
 
 // ----- KeyList -----
