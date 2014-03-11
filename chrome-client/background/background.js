@@ -46,20 +46,33 @@ Background.prototype.start = function() {
 	}
 
 	function on_message(req, sender, resCb) {
-		json_request(req)
-			.success(function(res) {
-				resCb({
-					success: res
-				});
-			})
-			.failure(function(error) {
-				resCb({
-					failure: error
-				});
-			});
+		if (req.action === 'ajax') {
+			var value = req.value;
 
-		// must return true to make async works
-		return true;
+			json_request(value)
+				.success(function(res) {
+					resCb({
+						success: res
+					});
+				})
+				.failure(function(error) {
+					resCb({
+						failure: error
+					});
+				});	
+
+			// must return true to make async works
+			return true;
+			
+		} else if (req.action === 'query') {
+			var tab = sender.tab || {};
+			resCb({
+				success: {
+					title: tab.title,
+					url: tab.url
+				}
+			});
+		}
 	}
 }
 

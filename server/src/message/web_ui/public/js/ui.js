@@ -210,57 +210,65 @@ function UI() {
 	self.chat_list = [];
 	self.on_send = undefined;
 
-	// init website list
-	var current_website = {
-		title: '当前站点',
-		url: get_protocol_host_port(get_current_location())
-	};
+	get_current_location(done);
 
-	self.website_list_ui.add(current_website);
-
-	// user selected a different website
-	self.website_list_ui.on_current_changed = on_current_website_changed;
-
-	// on send
-	self.send_ui.on_send = on_send;
-
-	function on_current_website_changed() {
-		var current_website = self.website_list_ui.get_current();
-
-		// clear current chat list
-		self.chat_list_ui.clear();
-
-		// construct new list
-		var current_website_chat_list = self.chat_list.filter(function(chat_item) {
-			return chat_item.to.website.url === current_website.url;
-		});
-
-		// show new chat list
-		self.chat_list_ui.add(current_website_chat_list);
-	}
-
-	function on_send(email, text) {
-		var message = {
-			type: 'chat',
-			from: {
-				name: email,
-				page: {
-					url: get_current_location(),
-					title: undefined
-				}
-			},
-			to: {
-				website: {
-					url: self.website_list_ui.get_current().url
-				}
-			},
-			content: {
-				type: 'text',
-				value: text
-			}
+	function done(url, title) {
+		// init website list
+		var current_website = {
+			title: '当前站点',
+			url: get_protocol_host_port(url)
 		};
-		if (self.on_send) {
-			self.on_send(message);
+
+		self.website_list_ui.add(current_website);
+
+		// user selected a different website
+		self.website_list_ui.on_current_changed = on_current_website_changed;
+
+		// on send
+		self.send_ui.on_send = on_send;
+
+		function on_current_website_changed() {
+			var current_website = self.website_list_ui.get_current();
+
+			// clear current chat list
+			self.chat_list_ui.clear();
+
+			// construct new list
+			var current_website_chat_list = self.chat_list.filter(function(chat_item) {
+				return chat_item.to.website.url === current_website.url;
+			});
+
+			// show new chat list
+			self.chat_list_ui.add(current_website_chat_list);
+		}
+
+		function on_send(email, text) {
+			get_current_location(done);
+
+			function done(url, title) {
+				var message = {
+					type: 'chat',
+					from: {
+						name: email,
+						page: {
+							url: url,
+							title: title
+						}
+					},
+					to: {
+						website: {
+							url: self.website_list_ui.get_current().url
+						}
+					},
+					content: {
+						type: 'text',
+						value: text
+					}
+				};
+				if (self.on_send) {
+					self.on_send(message);
+				}				
+			}
 		}
 	}
 }
@@ -312,17 +320,28 @@ UI.prototype.show = function(message_list) {
 	}
 }
 
-
 function get_protocol_host_port(url) {
 	var match = /^((http|https):\/\/[^\/]+)(\/|$)/i.exec(url);
 	if (!match) return undefined;
 	else return match[1];
 }
 
-function get_current_location() {
-	if (window.parent != window) {
-		return document.referrer;
+// # cb(url, title)
+function get_current_location(cb) {
+	var url, title;
+
+	if (chrome.extension) {
+		chrome.extension.sendMessage({action: 'query'}, function(res) {
+			var info = res.success;
+			cb(info.url, info.title);
+		});
 	} else {
-		return location.href;
+		if (window.parent != window) {
+			url = document.referrer;
+		} else {
+			url = location.href;
+		}
+		title = undefined;
+		cb(url, title);
 	}
 }

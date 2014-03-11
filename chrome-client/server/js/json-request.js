@@ -4,7 +4,11 @@
 // # failure(code, text)
 function json_request(obj) {
 	var action_link = new ActionLink();
-	chrome.runtime.sendMessage(obj, onRes);
+	var req = {
+		action: 'ajax',
+		value: obj
+	};
+	chrome.runtime.sendMessage(req, onRes);
 	return action_link;
 
 	function onRes(res) {
