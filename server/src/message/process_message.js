@@ -131,7 +131,7 @@ function active_website_detector() {
 
 	if (unknown_website_list.length() < 1) return;
 	if (website_detector.is_running) return;
-debugger;
+
 	website_detector.url = unknown_website_list.indexOf(0).url; console.log('detect url: ' + website_detector.url);
 	website_detector.on_finish = on_detect_finish;
 	website_detector.start();
@@ -140,7 +140,6 @@ debugger;
 		var title = error ? '获取站点名称失败' : _title; console.log(title);
 
 		// remove from unknown website
-		debugger;
 		var website = unknown_website_list.remove(website_detector.url);
 
 		// add to website list
@@ -186,6 +185,8 @@ WebsiteDetector.prototype.start = function() {
 			return;
 		}
 
+		var raw_body = body;
+
 		// check the charset, and convert it
 		var content_type = res.headers['content-type'];
 		if (content_type) {
@@ -200,23 +201,72 @@ WebsiteDetector.prototype.start = function() {
 
 		body = body.toString('utf8');
 
-		// parse text with jsdom
+		// we need inspect the body again
+		// check if there is any charset meta tag
+		// if there is, we should reconvert it again
 		jsdom.env({
 			html: body,
 			done: function(error, window) {
-				self.is_running = false;
-
-				if (!self.on_finish) return;
-				
 				if (error) {
-					self.on_finish(error, undefined);
-				} else {
-					self.on_finish(undefined, window.document.title);
+					self.is_running = false;
+					if (self.on_finish) self.on_finish(error, undefined);
+					return;
+				}
+
+				var charset = get_charset_from_meta_list(window.document.head.querySelectorAll('meta'));
+
+				// there isn't any content-type meta tag
+				// so we don't need more convert
+				if (!charset) {
+					self.is_running = false;
+					if (self.on_finish) self.on_finish(undefined, window.document.title);
+				}
+
+				// we need more conver
+				if (charset) {
+					var iconv = new Iconv(charset, 'UTF-8');
+					body = iconv.convert(raw_body);
+
+					jsdom.env({
+						html: body,
+						done: function(error, window) {
+							self.is_running = false;
+
+							if (!self.on_finish) return;
+							
+							if (error) {
+								self.on_finish(error, undefined);
+							} else {
+								self.on_finish(undefined, window.document.title);
+							}
+						}
+					})
 				}
 			}
 		})
 	});
 
+	function get_charset_from_meta_list(meta_list) {
+		if (!meta_list || meta_list.length < 1) return undefined;
+		var charset = undefined;
+		for (var i = 0, len = meta_list.length; i < len; ++i) {
+			var meta = meta_list[i];
+			// <meta http-equiv="Content-Type" content="text/html; charset=????">
+			if (/^content-type$/i.test(meta.getAttribute('http-equiv'))) {
+				var content = meta.getAttribute('content');
+				var match = /charset=(\S+)/i.exec(content);
+				if (match) {
+					charset = match[1];
+				}
+			}
+		}
+
+		if (/^gb2312$/i.test(charset)) {
+			charset = 'GBK';
+		}
+
+		return charset;
+	}
 }
 
 // ----- KeyList -----
