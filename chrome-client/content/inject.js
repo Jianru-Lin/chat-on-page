@@ -6,7 +6,7 @@ function af0_init() {
 	// not work in background page
 	if (chrome.tabs) return;
 
-	init();	
+	init();
 
 	// initialized
 	window.af0_inited = true;
@@ -19,7 +19,7 @@ function af0_init() {
 
 		// container
 		var div = newElement('div', {id: 'af0-chat-on-page', class: 'af0-chat-on-page af0-hide'});
-		document.body.appendChild(div);
+		appendChildToBody(div);
 
 		// title bar
 		var title_bar = newElement('div', {class: 'af0-title-bar'});
@@ -40,6 +40,9 @@ function af0_init() {
 				toggle();
 			}
 		});
+
+		// drag
+		addDrag(div, iframe_wrapper);
 
 		// background message
 		chrome.runtime.onMessage.addListener(onMessage);
@@ -87,6 +90,47 @@ function af0_init() {
 
 		function disabled() {
 			return document.getElementById('af0-disable') != null;
+		}
+
+		function appendChildToBody(_div) {
+			var filter = [
+				'www.baidu.com'
+			];
+			var host = window.location.host;
+			for(var key in filter) {
+				if(host === filter[key]) {
+					document.body.insertBefore(_div, document.body.childNodes[0]);
+					return;
+				}
+			}
+			document.body.appendChild(_div);
+		}
+
+		function addDrag(_div, _none) {
+			var startX = 0;
+			var startY = 0;
+			var translateX = 0;
+			var translateY = 0;
+			_div.addEventListener('mousedown', startDrag);
+			function startDrag(e) {
+				startX = e.clientX;
+				startY = e.clientY;
+				_none.style.pointerEvents = 'none';
+				document.addEventListener('mousemove', doDrag, true);
+				document.addEventListener('mouseup', stopDrag, true);
+			}
+			function doDrag(e) {
+				translateX += e.clientX - startX;
+				translateY += e.clientY - startY;
+				startX = e.clientX;
+				startY = e.clientY;
+				_div.style.webkitTransform = 'translate(' + translateX + 'px, ' + translateY + 'px)';
+			}
+			function stopDrag(e) {
+				document.removeEventListener('mousemove', doDrag, true);
+				document.removeEventListener('mouseup', stopDrag, true);
+				_none.style.pointerEvents = '';
+			}
 		}
 	}
 }
