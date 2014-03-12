@@ -111,6 +111,7 @@ h1.title {
 
 .chat-item .date-time {
 	padding: 4px 0;
+	font-family: Georgia;
 	font-size: .75em;
 	margin-left: 10px;
 	color: #888;
