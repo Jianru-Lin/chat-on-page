@@ -79,7 +79,7 @@ h1.title {
 .chat-item .face {
 	position: absolute;
 	border-width: 4px;
-	border-color: #eee;
+	border-color: #ddd;
 	display: block;
 	border-style: solid;
 	left: 10px;
@@ -96,7 +96,7 @@ h1.title {
 	font-size: .75em;
 	display: inline-block;
 	color: #333;
-	background: #eee;
+	background: #ddd;
 	/*background: #333;*/
 	padding: 4px 8px;
 	border-radius: 0 4px 4px 0;
