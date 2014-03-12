@@ -116,6 +116,7 @@ function af0_init() {
 				startX = e.clientX;
 				startY = e.clientY;
 				_none.style.pointerEvents = 'none';
+				document.body.style.webkitUserSelect = 'none';
 				document.addEventListener('mousemove', doDrag, true);
 				document.addEventListener('mouseup', stopDrag, true);
 			}
@@ -130,6 +131,7 @@ function af0_init() {
 				document.removeEventListener('mousemove', doDrag, true);
 				document.removeEventListener('mouseup', stopDrag, true);
 				_none.style.pointerEvents = '';
+				document.body.style.webkitUserSelect = '';
 			}
 		}
 	}
