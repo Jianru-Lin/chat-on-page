@@ -9,9 +9,10 @@ div.af0-chat-on-page {
 	margin-left: auto;
 	margin-right: auto;
 	top: 35px;
-	left: 35px;
-	right: 35px;
-	bottom: 35px;
+	left: 0;
+	right: 0;
+	width: 960px;
+	height: 600px;
 	max-width: 960px;
 	z-index: 2147483647;
 	box-shadow: 0 0 10px black;
