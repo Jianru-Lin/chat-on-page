@@ -45,6 +45,11 @@ ChatListUI.prototype.add = function(chat_item_list) {
 		t.querySelector('.date-time').textContent = format_date_time(chat_item.date_time);
 		t.querySelector('.content').textContent = chat_item.content.value;
 		t.querySelector('.face > img').setAttribute('src', gravatar(chat_item.from.name));
+
+		if (chat_item.is_me) {
+			t.classList.add('me');
+		}
+
 		return t;
 
 		function format_date_time(date_time_text) {
@@ -360,6 +365,8 @@ UI.prototype.show = function(message_list) {
 
 	
 	function chat_message_handler(message) {
+		var email = window.localStorage.getItem('email');
+
 		// append to chat_list
 		self.chat_list.push(message);
 
@@ -368,6 +375,7 @@ UI.prototype.show = function(message_list) {
 
 		// show if needed
 		if (message.to.website.url === current_website.url) {
+			message.is_me = message.from.name === email;
 			self.chat_list_ui.add(message);
 		}
 

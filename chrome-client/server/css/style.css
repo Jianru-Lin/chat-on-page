@@ -79,7 +79,7 @@ h1.title {
 .chat-item .face {
 	position: absolute;
 	border-width: 4px;
-	border-color: rgb(0, 133, 95);
+	border-color: #eee;
 	display: block;
 	border-style: solid;
 	left: 10px;
@@ -95,9 +95,9 @@ h1.title {
 .chat-item .author {
 	font-size: .75em;
 	display: inline-block;
-	background: rgb(0, 133, 95);
+	color: #333;
+	background: #eee;
 	/*background: #333;*/
-	color: white;
 	padding: 4px 8px;
 	border-radius: 0 4px 4px 0;
 	margin-bottom: .25em;
@@ -107,6 +107,15 @@ h1.title {
 .chat-item .author {
 	white-space: pre-wrap;
 	word-break: break-all;
+}
+
+.chat-item.me .face {
+	border-color: rgb(0, 133, 95);
+}
+
+.chat-item.me .author {
+	color: white;
+	background: rgb(0, 133, 95);
 }
 
 .chat-item .date-time {
