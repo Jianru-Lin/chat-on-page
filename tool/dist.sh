@@ -6,8 +6,8 @@ rm -rf ../chrome-client/server/
 echo create server dir
 mkdir ../chrome-client/server
 
-# copy all css and js file
-echo copy all css and js file
+# copy all css js img audio files
+echo copy all css js img audio files
 cp -r ../server/src/message/web_ui/public/* ../chrome-client/server/
 
 # compile index.jade

@@ -7,7 +7,6 @@ html
 
 		// general style
 		link(rel="stylesheet", href="css/font.css", type="text/css")
-		link(rel="stylesheet", href="css/template.css", type="text/css")
 
 		// user style
 		link(rel="stylesheet", href="css/style.css", type="text/css")
@@ -28,7 +27,7 @@ html
 			h1.title 站点
 			div.website-list#website-list
 
-		div.template
+		div.template(style="display:none")
 			div.chat-item
 				div.face
 					img
@@ -39,6 +38,8 @@ html
 					img.website-favicon
 					div.website-title
 				div.website-url
+				
+		audio#audio-notify(src="audio/notify.ogg")
 
 		// user scripts
 		script(type="text/javascript", src="js/json-request.js")

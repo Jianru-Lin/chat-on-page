@@ -6,7 +6,6 @@
     <title>交流</title>
     <!-- general style-->
     <link rel="stylesheet" href="css/font.css" type="text/css">
-    <link rel="stylesheet" href="css/template.css" type="text/css">
     <!-- user style-->
     <link rel="stylesheet" href="css/style.css" type="text/css">
   </head>
@@ -28,7 +27,7 @@
       <h1 class="title">站点</h1>
       <div id="website-list" class="website-list"></div>
     </div>
-    <div class="template">
+    <div style="display:none" class="template">
       <div class="chat-item">
         <div class="face"><img></div><strong class="author"></strong>
         <div class="content"></div>
@@ -38,6 +37,7 @@
         </div>
         <div class="website-url"></div></a>
     </div>
+    <audio id="audio-notify" src="audio/notify.ogg"></audio>
     <!-- user scripts-->
     <script type="text/javascript" src="js/json-request.js"></script>
     <script type="text/javascript" src="js/md5.js"></script>

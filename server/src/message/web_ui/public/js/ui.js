@@ -1,3 +1,13 @@
+/* AudioManager */
+
+function AudioManager() {
+
+}
+
+AudioManager.prototype.play_notify = function() {
+	id('audio-notify').play();
+}
+
 /* ChatListUI */
 
 function ChatListUI() {
@@ -206,6 +216,7 @@ function SendUI() {
 
 function UI() {
 	var self = this;
+	self.audio_manager = new AudioManager();
 	self.send_ui = new SendUI();
 	self.chat_list_ui = new ChatListUI();
 	self.website_list_ui = new WebsiteListUI();
@@ -285,10 +296,16 @@ UI.prototype.show = function(message_list) {
 	var self = this;
 	if (!message_list) return;
 
+	var notified = false;
+
 	message_list.forEach(function(message) {
 		if (message.type === 'chat') {
 			// chat
 			chat_message_handler(message);
+			if (!notified) {
+				self.audio_manager.play_notify();
+				notified = true;
+			}
 		} else if (message.type === 'website') {
 			// website
 			website_message_handler(message);
