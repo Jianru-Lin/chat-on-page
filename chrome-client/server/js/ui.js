@@ -42,9 +42,27 @@ ChatListUI.prototype.add = function(chat_item_list) {
 	function convert_to_dom(chat_item) {
 		var t = get_template('chat-item');
 		t.querySelector('.author').textContent = chat_item.from.name;
+		t.querySelector('.date-time').textContent = format_date_time(chat_item.date_time);
 		t.querySelector('.content').textContent = chat_item.content.value;
 		t.querySelector('.face > img').setAttribute('src', gravatar(chat_item.from.name));
 		return t;
+
+		function format_date_time(date_time_text) {
+			var d = new Date(date_time_text);
+			var year = d.getFullYear();
+			var month = d.getMonth() + 1;
+			var date = d.getDate();
+			var hour = d.getHours();
+			var min = d.getMinutes();
+			var sec = d.getSeconds();
+
+			var text = year + '-' + fill(month) + '-' + fill(date) + ' ' + fill(hour) + ':' + fill(min) + ':' + fill(sec);
+			return text;
+
+			function fill(t) {
+				return t > 9 ? t.toString() : '0' + t;
+			}
+ 		}
 	}
 }
 
