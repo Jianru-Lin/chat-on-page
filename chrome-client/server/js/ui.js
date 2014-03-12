@@ -24,7 +24,9 @@ ChatListUI.prototype.add = function(chat_item_list) {
 
 	// smart scroll end
 	if (need_scroll) {
-		document.querySelector('.send-editor').scrollIntoViewIfNeeded();
+		var e = document.querySelector('.send-editor');
+		if (e.scrollIntoViewIfNeeded) e.scrollIntoViewIfNeeded();
+		else if (e.scrollIntoView) e.scrollIntoView();
 	}
 
 	function convert_to_dom(chat_item) {
@@ -330,7 +332,7 @@ function get_protocol_host_port(url) {
 function get_current_location(cb) {
 	var url, title;
 
-	if (chrome.extension) {
+	if (typeof chrome !== 'undefined' && chrome.extension) {
 		chrome.extension.sendMessage({action: 'query'}, function(res) {
 			var info = res.success;
 			cb(info.url, info.title);
