@@ -23,7 +23,7 @@ ChatUI.prototype.update = function(obj) {
 	dom.querySelector('.content').textContent = obj.content.value;
 	dom.querySelector('.face > img').setAttribute('src', gravatar(obj.from.name));
 
-	self.me(true);
+	self.me(obj.is_me);
 }
 
 ChatUI.prototype.me = function(v) {
