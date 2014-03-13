@@ -94,10 +94,6 @@ UI.prototype.show = function(message_list) {
 		if (message.type === 'chat') {
 			// chat
 			chat_message_handler(message);
-			if (!notified) {
-				self.audio_manager.play_notify();
-				notified = true;
-			}
 
 			// count
 			count(message);
@@ -130,6 +126,12 @@ UI.prototype.show = function(message_list) {
 			url: message.to.website.url
 		};
 		self.website_list_ui.add(new_website);
+
+		// play notify audio if needed
+		if (!notified && !message.is_me) {
+			self.audio_manager.play_notify();
+			notified = true;
+		}
 	}
 
 	function website_message_handler(message) {
