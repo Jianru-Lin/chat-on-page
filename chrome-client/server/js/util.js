@@ -80,3 +80,46 @@ function override(src, dest) {
 		dest[name] = src[name];
 	}
 }
+
+function format_date_time(date_time_text) {
+	var d = new Date(date_time_text);
+	var year = d.getFullYear();
+	var month = d.getMonth() + 1;
+	var date = d.getDate();
+	var hour = d.getHours();
+	var min = d.getMinutes();
+	var sec = d.getSeconds();
+
+	// compare to current
+	var current = new Date();
+	var current_year = current.getFullYear();
+	var current_month = current.getMonth() + 1;
+	var current_date = current.getDate();
+
+	if (year !== current_year) {
+		return long_format();
+	} else if (month !== current_month || date !== current_date) {
+		return short_format();
+	} else {
+		return mini_format();
+	}
+
+	function fill(t) {
+		return t > 9 ? t.toString() : '0' + t;
+	}
+
+	function long_format() {
+		var text = year + '-' + fill(month) + '-' + fill(date) + ' ' + fill(hour) + ':' + fill(min) + ':' + fill(sec);
+		return text;
+	}
+
+	function short_format() {
+		var text = fill(month) + '-' + fill(date) + ' ' + fill(hour) + ':' + fill(min) + ':' + fill(sec);
+		return text;
+	}
+
+	function mini_format() {
+		var text = fill(hour) + ':' + fill(min) + ':' + fill(sec);
+		return text;
+	}
+}
