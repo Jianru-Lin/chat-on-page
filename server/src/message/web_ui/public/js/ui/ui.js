@@ -115,9 +115,11 @@ UI.prototype.show = function(message_list) {
 		// get current website
 		var current_website = self.website_list_ui.get_current();
 
+		// is me?
+		message.is_me = message.from.name === email;
+
 		// show if needed
 		if (message.to.website.url === current_website.obj.url) {
-			message.is_me = message.from.name === email;
 			self.chat_list_ui.add(message);
 		}
 

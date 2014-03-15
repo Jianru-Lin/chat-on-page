@@ -25,6 +25,7 @@ var data = {
 };
 
 load_data();
+active_website_detector();
 
 // [function]
 
