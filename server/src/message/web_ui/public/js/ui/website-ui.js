@@ -76,5 +76,5 @@ WebsiteUI.prototype.current = function(v) {
 }
 
 WebsiteUI.prototype.click = function(cb) {
-	self.on_click = cb;
+	this.on_click = cb;
 }

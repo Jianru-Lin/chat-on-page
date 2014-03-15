@@ -40,7 +40,7 @@ function UI() {
 
 			// construct new list
 			var current_website_chat_list = self.chat_list.filter(function(chat_item) {
-				return chat_item.to.website.url === current_website.url;
+				return chat_item.to.website.url === current_website.obj.url;
 			});
 
 			// show new chat list

@@ -1,3 +1,5 @@
+var _is_chrome_ext = ((typeof chrome !== 'undefined') && (typeof chrome.extension !== 'undefined'));
+
 function id(id_value, cb) {
 	var e = document.getElementById(id_value);
 	if (e && cb) {
@@ -122,4 +124,8 @@ function format_date_time(date_time_text) {
 		var text = fill(hour) + ':' + fill(min) + ':' + fill(sec);
 		return text;
 	}
+}
+
+function is_chrome_extension() {
+	return _is_chrome_ext;
 }
