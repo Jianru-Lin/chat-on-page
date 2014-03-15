@@ -149,6 +149,24 @@ h1.title {
 	margin-top: .5em;
 }
 
+.chat-item.additional {
+	padding-top: 0;
+	margin-top: 0;
+}
+
+.chat-item.additional .face {
+	display: none;
+}
+
+.chat-item.additional .author {
+	display: none;
+}
+
+.chat-item.additional .date-time {
+	margin-left: 70px;
+}
+
+
 .send-editor {
 	border-top: 1px solid #ddd;
 	padding: 20px 0;

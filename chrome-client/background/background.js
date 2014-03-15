@@ -85,8 +85,8 @@ Background.prototype.start = function() {
 /* code */
 
 // override the default json_request_url
-//json_request_url = 'http://chat.miaodeli.com/message';
-json_request_url = 'http://localhost/message';
+json_request_url = 'http://chat.miaodeli.com/message';
+//json_request_url = 'http://localhost/message';
 
 var bg = new Background();
 bg.start();

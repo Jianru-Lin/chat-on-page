@@ -15,8 +15,12 @@ AudioManager.prototype.play_notify = function() {
 	};
 
 	chrome.runtime.sendMessage(req, function(res) {
+		// don't play
+		return;
+		/*
 		if (res.success) {
 			id('audio-notify').play();
 		}
+		*/
 	});
 }

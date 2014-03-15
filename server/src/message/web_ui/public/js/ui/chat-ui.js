@@ -6,7 +6,7 @@ function ChatUI() {
 	self.dom = get_template('chat-item');
 }
 
-ChatUI.prototype.update = function(obj) {
+ChatUI.prototype.update = function(obj, options) {
 	var self = this;
 	var dom = self.dom;
 
@@ -17,6 +17,15 @@ ChatUI.prototype.update = function(obj) {
 	}
 
 	obj = self.obj;
+	options = options || {};
+
+	if (options.additional) {
+		if (!dom.classList.contains('additional')) {
+			dom.classList.add('additional');
+		}
+	} else {
+		dom.classList.remove('additional');
+	}
 
 	dom.querySelector('.author').textContent = obj.from.name;
 	dom.querySelector('.date-time').textContent = format_date_time(obj.date_time);
