@@ -5,7 +5,9 @@ function ChatListUI() {
 }
 
 ChatListUI.prototype.clear = function() {
+	var self = this;
 	id('chat-list').textContent = '';
+	self.chat_ui_list = [];
 }
 
 ChatListUI.prototype.add = function(chat_item_list) {
