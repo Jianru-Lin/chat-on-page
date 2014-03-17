@@ -35,7 +35,7 @@ ChatUI.prototype.update = function(obj, options) {
 	self.me(obj.is_me);
 
 	function make_content(dom, content) {
-		var link_r = /(ftp|https?):\/\/[^ "\n]+$/i;
+		var link_r = /^(ftp|https?):\/\/[^ "\n]+$/i;
 
 		if (link_r.test(content.value)) {
 			var a = document.createElement('a');
