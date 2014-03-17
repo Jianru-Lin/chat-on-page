@@ -35,7 +35,9 @@ ChatUI.prototype.update = function(obj, options) {
 	self.me(obj.is_me);
 
 	function make_content(dom, content) {
-		if (/^http(s?):\/\//i.test(content.value)) {
+		var link_r = /(ftp|https?):\/\/[^ "\n]+$/i;
+
+		if (link_r.test(content.value)) {
 			var a = document.createElement('a');
 			a.setAttribute('href', content.value);
 			a.setAttribute('target', '_blank');
