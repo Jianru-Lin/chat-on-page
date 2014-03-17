@@ -9,6 +9,15 @@ body {
 	background: white;
 }
 
+a {
+	color: rgb(0, 133, 95);
+}
+
+a:hover {
+	background: rgb(0, 133, 95);
+	color: white;
+}
+
 .chat-panel {
 	position: absolute;
 	top: 0;

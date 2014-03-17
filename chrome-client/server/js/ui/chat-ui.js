@@ -29,10 +29,22 @@ ChatUI.prototype.update = function(obj, options) {
 
 	dom.querySelector('.author').textContent = obj.from.name;
 	dom.querySelector('.date-time').textContent = format_date_time(obj.date_time);
-	dom.querySelector('.content').textContent = obj.content.value;
 	dom.querySelector('.face > img').setAttribute('src', gravatar(obj.from.name));
+	make_content(dom.querySelector('.content'), obj.content);
 
 	self.me(obj.is_me);
+
+	function make_content(dom, content) {
+		if (/^http(s?):\/\//i.test(content.value)) {
+			var a = document.createElement('a');
+			a.setAttribute('href', content.value);
+			a.setAttribute('target', '_blank');
+			a.textContent = content.value;
+			dom.appendChild(a);
+		} else {
+			dom.textContent = content.value;
+		}
+	}
 }
 
 ChatUI.prototype.me = function(v) {
