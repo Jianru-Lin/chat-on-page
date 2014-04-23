@@ -12,6 +12,10 @@ function json_request(obj) {
 	xhr.send(text);
 
 	var action_link = new ActionLink();
+	action_link.xhr = xhr;
+	action_link.cancel = function() {
+		this.xhr.abort();
+	};
 	return action_link;
 
 	function onreadystatechange() {

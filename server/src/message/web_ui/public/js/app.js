@@ -1,89 +1,135 @@
-var app;
+var gui = new Gui();
+var channel_syncer = new Syncer('channel');
+var chat_syncer = new Syncer('chat');
 
-onload = function() {
-	app = new App();
-	app.start();
+var g = {
+	chat_log_list: []
+};
+
+get_current_location(function(url, title) {
+	var channel_url  = get_protocol_host_port(url);
+
+	// 把当前站点添加到频道列表中
+
+	gui.create_channel({
+		item: {
+			url: channel_url,
+			title: title
+		}
+	});
+
+	// 同步该站点下的聊天记录
+
+	chat_syncer.event_handler = {
+		on_success: on_sync_chat_success,
+		on_failure: on_sync_chat_failure
+	};
+	chat_syncer.id = 'head_id';
+	chat_syncer.start();
+
+	// sync channel list
+
+	channel_syncer.event_handler = {
+		on_success: on_sync_channel_success,
+		on_failure: on_sync_channel_failure
+	};
+	channel_syncer.id = 'head_id';
+	channel_syncer.start();
+});
+
+// set gui event handler
+
+gui.event_handler = {
+	on_channel_changed: on_channel_changed,
+	on_send_chat: on_send_chat
+};
+
+// on channel changed
+
+function on_channel_changed(channel_url) {
+	// chat_syncer.set_channel_url(channel_url);
 }
 
-// ----- AutoQueryManager -----
+// on send chat
 
-function AutoQueryManager() {
-	var self = this;
-	
-	self.last_chat_id = undefined;
-	self.last_website_id = undefined;
+function on_send_chat(author, content) {
+	get_current_location(function(url, title) {
+		var channel_url = get_protocol_host_port(url);
 
-	self.on_receive = undefined;
-}
-
-AutoQueryManager.prototype.start = function() {
-	var self = this;
-
-	query();
-
-	function query() {
-
-		var req_obj = {
-			message_list: []
+		var opt = {
+			from: {
+				name: author,
+				page: {
+					url: url,
+					title: title
+				}
+			},
+			to: {
+				channel_url: channel_url
+			},
+			content: content
 		};
 
-		req_obj.message_list.push({
-			type: 'query_chat',
-			last_id: self.last_chat_id
-		});
+		var create = new_create('chat', opt);
+		create.start();
 
-		req_obj.message_list.push({
-			type: 'query_website',
-			last_id: self.last_website_id
-		});
-
-		json_request(req_obj)
-			.success(function(res_obj) {
-				var message_list = res_obj.message_list;
-				if (!message_list) return;
-
-				message_list.forEach(function(message) {
-					if (message.type === 'chat') self.last_chat_id = message.id;
-					else if (message.type === 'website') self.last_website_id = message.id;
-				});
-
-				if (self.on_receive) {
-					self.on_receive(message_list);
-				}
-
-				setTimeout(query, 1000);
-			})
-			.failure(function(error) {
-				console.log(error);
-				setTimeout(query, 1000);
-			});
-	}
+	});
 }
 
-// ----- App -----
+// sync success
 
-function App() {
-	var self = this;
+function on_sync_chat_success(chat_syncer, res) {
+	console.log('sync chat success');
 
-	self.ui = new UI();
-	self.ui.on('send', message_from_ui);
+	var log_list = res.log_list;
 
-	self.message_manager = new MessageManager();
-	self.message_manager.on_receive = message_from_server;
+	g.chat_log_list = g.chat_log_list.concat(log_list);
 
-	self.auto_query_manager = new AutoQueryManager();
-	self.auto_query_manager.on_receive = message_from_server;
-	self.auto_query_manager.start();
+	// update chat list dom
 
-	// message handler
-	function message_from_server(message_list) {
-		self.ui.show(message_list);
-	}
-
-	function message_from_ui(message) {
-		self.message_manager.send(message);
-	}
+	log_list.forEach(function(log) {
+		switch (log.action) {
+			case 'create':
+				gui.create_chat(log);
+				break;
+			case 'update':
+				gui.update_chat(log);
+				break;
+			case 'delete':
+				gui.delete_chat(log);
+				break;
+		}
+	});
 }
 
-App.prototype.start = function() {
+function on_sync_chat_failure(chat_syncer) {
+	console.log('sync chat failure');
+}
+
+function on_sync_channel_success(channel_syncer, res) {
+	console.log('sync channel success');
+
+	var log_list = res.log_list;
+
+	log_list.forEach(function(log) {
+		switch (log.action) {
+			case 'create':
+				var channel = log.item;
+				gui.create_channel(channel);
+				break;
+			case 'update':
+				var target_id = log.target_id;
+				var channel = log.item;
+				gui.update_channel(target_id, channel)
+				break;
+			case 'delete':
+				var target_id = log.target_id;
+				gui.delete_channel(target_id);
+				break;
+		}
+	});
+}
+
+function on_sync_channel_failure(channel_syncer) {
+	console.log('sync channel failure');
 }

@@ -49,7 +49,7 @@ WebsiteListUI.prototype.add = function(website) {
 
 		// emit event
 		if (self.on_current_changed) {
-			self.on_current_changed();
+			self.on_current_changed(website.obj.url);
 		}
 	}
 }

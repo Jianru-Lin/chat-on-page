@@ -184,19 +184,19 @@ h1.title {
 }
 
 
-.send-editor {
+.editor {
 	border-top: 1px solid #ddd;
 	padding: 20px 0;
 	background: white;
 }
 
-div.author-container {
+.editor .author {
 	padding-right: 14px;
 	margin: 10px;
 	margin-bottom: 5px;
 }
 
-input#author {
+.editor .author > input {
 	display: block;
 	border: 1px solid #ccc;
 	padding: 4px 6px;
@@ -207,12 +207,12 @@ input#author {
 	outline-color: rgb(0, 204, 146);
 }
 
-div.content-container {
+.editor .content {
 	padding-right: 14px;
 	margin: 10px;
 }
 
-textarea#content {
+.editor .content > textarea {
 	display: block;
 	border: 1px solid #ccc;
 	width: 100%;
@@ -225,7 +225,7 @@ textarea#content {
 	outline-color: rgb(0, 204, 146);
 }
 
-button#send {
+.editor button.send {
 	font-size: inherit;
 	font-family: inherit;
 	margin: 0 10px;

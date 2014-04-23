@@ -1,5 +1,9 @@
 var _is_chrome_ext = ((typeof chrome !== 'undefined') && (typeof chrome.extension !== 'undefined'));
 
+function empty() {
+
+}
+
 function id(id_value, cb) {
 	var e = document.getElementById(id_value);
 	if (e && cb) {
@@ -8,9 +12,17 @@ function id(id_value, cb) {
 	return e;
 }
 
+function first(selector, cb) {
+	var e = document.querySelector(selector);
+	if (e && cb) {
+		cb(e);
+	}
+	return e;
+}
+
 function all(selector, cb) {
 	var list = document.querySelectorAll(selector);
-	if (cb) {
+	if (list && cb) {
 		operate(list, cb);
 	}
 	return list;
@@ -77,6 +89,16 @@ function reached_bottom(e) {
 	return false;
 }
 
+function smart_scroll(container, view_target, cb) {
+	// smart scroll start
+	var need_scroll = reached_bottom(container);
+	cb();
+	if (need_scroll) {
+		if (view_target.scrollIntoViewIfNeeded) view_target.scrollIntoViewIfNeeded();
+		else if (view_target.scrollIntoView) view_target.scrollIntoView();
+	}
+}
+
 function override(src, dest) {
 	for (var name in src) {
 		dest[name] = src[name];
@@ -128,4 +150,39 @@ function format_date_time(date_time_text) {
 
 function is_chrome_extension() {
 	return _is_chrome_ext;
+}
+
+function get_protocol_host_port(url) {
+	var match = /^((http|https):\/\/[^\/]+)(\/|$)/i.exec(url);
+	if (!match) return undefined;
+	else return match[1];
+}
+
+// # cb(url, title)
+function get_current_location(cb) {
+	var url, title;
+
+	if (typeof chrome !== 'undefined' && chrome.extension) {
+		chrome.extension.sendMessage({action: 'query'}, function(res) {
+			var info = res.success;
+			cb(info.url, info.title);
+		});
+	} else {
+		if (window.parent != window) {
+			url = document.referrer;
+			title = undefined;
+		} else {
+			url = location.href;
+			title = document.title;
+		}
+		cb(url, title);
+	}
+}
+
+function to_array(v) {
+	var array = [];
+	for (var i = 0, len = v.length; i < len; ++i) {
+		array.push(v[i]);
+	}
+	return array;
 }

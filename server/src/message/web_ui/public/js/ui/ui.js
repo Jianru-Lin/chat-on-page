@@ -150,30 +150,3 @@ UI.prototype.show = function(message_list) {
 		});
 	}
 }
-
-function get_protocol_host_port(url) {
-	var match = /^((http|https):\/\/[^\/]+)(\/|$)/i.exec(url);
-	if (!match) return undefined;
-	else return match[1];
-}
-
-// # cb(url, title)
-function get_current_location(cb) {
-	var url, title;
-
-	if (typeof chrome !== 'undefined' && chrome.extension) {
-		chrome.extension.sendMessage({action: 'query'}, function(res) {
-			var info = res.success;
-			cb(info.url, info.title);
-		});
-	} else {
-		if (window.parent != window) {
-			url = document.referrer;
-			title = undefined;
-		} else {
-			url = location.href;
-			title = document.title;
-		}
-		cb(url, title);
-	}
-}

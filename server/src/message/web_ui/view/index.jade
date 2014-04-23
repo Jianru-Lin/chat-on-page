@@ -15,12 +15,12 @@ html
 		div.chat-panel
 			h1.title 聊天
 			div.chat-list#chat-list
-			div.send-editor
-				div.author-container
-					input(type="text", placeholder="email")#author
-				div.content-container
-					textarea#content
-				button#send(accesskey="s") 发送
+			div.editor
+				div.author
+					input(type="text", placeholder="email")
+				div.content
+					textarea
+				button.send(accesskey="s") 发送
 				span.shortcut alt+s | ctrl+enter
 
 		div.website-panel
@@ -46,13 +46,14 @@ html
 		// user scripts
 		script(type="text/javascript", src="js/json-request.js")
 		script(type="text/javascript", src="js/md5.js")
-		script(type="text/javascript", src="js/message-manager.js")
 		script(type="text/javascript", src="js/util.js")
-		script(type="text/javascript", src="js/ui/audio-manager.js")
-		script(type="text/javascript", src="js/ui/send-ui.js")
-		script(type="text/javascript", src="js/ui/website-ui.js")
-		script(type="text/javascript", src="js/ui/website-list-ui.js")
-		script(type="text/javascript", src="js/ui/chat-ui.js")
-		script(type="text/javascript", src="js/ui/chat-list-ui.js")
-		script(type="text/javascript", src="js/ui/ui.js")
+		script(type="text/javascript", src="js/audio-manager.js")
+
+		script(type="text/javascript", src="js/dom-wrapper/chat.js")
+		script(type="text/javascript", src="js/dom-wrapper/editor.js")
+		script(type="text/javascript", src="js/dom-wrapper/channel.js")
+		script(type="text/javascript", src="js/gui.js")
+
+		script(type="text/javascript", src="js/crud.js")
+		script(type="text/javascript", src="js/syncer.js")
 		script(type="text/javascript", src="js/app.js")

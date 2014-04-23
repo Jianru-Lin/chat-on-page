@@ -1,0 +1,93 @@
+// request
+{
+	message_list: []
+}
+
+// response
+{
+	message_list: []
+}
+
+// general message
+{
+	target: '...',
+	action: '...'
+}
+
+{
+	// request
+
+	target: '...',
+	action: 'create',
+	item: {}
+
+	// response
+
+	id: ,
+	date_time: 
+}
+
+{
+	// request 
+
+	target: '...',
+	action: 'retrive',		// retrive
+	direction: '...',		// forward | backward
+	include: false,			// true | false
+	id: '...',
+	count: 
+
+	// response
+
+	item_list: [],
+	latest_id: 
+}
+
+{
+	// request
+
+	target: '...',
+	action: 'update',	// replace
+	id: '...',
+	item: {}
+
+	// response
+}
+
+{
+	// request 
+
+	target: '...',
+	action: 'delete',
+	id: '...'
+
+	// response
+}
+
+// ----- chat -----
+{
+	id: ,
+	date_time: ,
+	from: {
+		name: ,
+		page: {
+			url: ,
+			title: ,
+		}
+	},
+	to: {
+		channel_url: ,
+	},
+	content: {
+		type: ,
+		value: ,
+	}
+}
+
+// ----- channel -----
+{
+	url: ,
+	title: ,
+	icon: ,
+	count: ,
+}
