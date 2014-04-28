@@ -9,15 +9,7 @@ var LogManager = require('./lib/log-manager');
 
 // [global var]
 
-var target_map = {
-	'channel': channel_crud,
-	'chat': chat_crud
-}
-
-var gdata = {
-	channel_lm: new LogManager(),
-	chat_lm: new LogManager()
-}
+var target_map = {};
 
 
 // [function]
@@ -34,12 +26,15 @@ function process_message(req) {
 	var output_message_list = [];
 
 	input_message_list.forEach(function(input_message) {
-		var target_handler = target_map[input_message.target];
-		if (!target_handler) {
-			console.log('unknown target: ' + input_message.target);
+		var target = input_message.target;
+		var log_manager = target_map[target];
+		if (!log_manager) {
+			console.log('add target: ' + target);
+			log_manager = new LogManager();
+			target_map[target] = log_manager;
 			return;
 		}
-		var output_message = target_handler(input_message);
+		var output_message = crud(log_manager, input_message);
 		output_message_list.push(output_message);
 	});
 
@@ -50,26 +45,11 @@ function process_message(req) {
 	return res;
 }
 
-function channel_crud(message) {
-	var channel_lm = gdata.channel_lm;
+function crud(log_manager, message) {
 	var result = {};
-
-	var fun = channel_lm[message.action];
+	var fun = log_manager[message.action];
 	if (fun) {
-		result = fun.apply(channel_lm, [message]);
+		result = fun.apply(log_manager, [message]);
 	}
-
-	return result;
-}
-
-function chat_crud(message) {
-	var chat_lm = gdata.chat_lm;
-	var result = {};
-
-	var fun = chat_lm[message.action];
-	if (fun) {
-		result = fun.apply(chat_lm, [message]);
-	}
-
 	return result;
 }

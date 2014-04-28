@@ -79,7 +79,7 @@ function on_send_chat(author, content) {
 // sync success
 
 function on_sync_chat_success(chat_syncer, res) {
-	console.log('sync chat success');
+	//console.log('sync chat success');
 
 	var log_list = res.log_list;
 
@@ -107,24 +107,20 @@ function on_sync_chat_failure(chat_syncer) {
 }
 
 function on_sync_channel_success(channel_syncer, res) {
-	console.log('sync channel success');
+	//console.log('sync channel success');
 
 	var log_list = res.log_list;
 
 	log_list.forEach(function(log) {
 		switch (log.action) {
 			case 'create':
-				var channel = log.item;
-				gui.create_channel(channel);
+				gui.create_channel(log);
 				break;
 			case 'update':
-				var target_id = log.target_id;
-				var channel = log.item;
-				gui.update_channel(target_id, channel)
+				gui.update_channel(log);
 				break;
 			case 'delete':
-				var target_id = log.target_id;
-				gui.delete_channel(target_id);
+				gui.delete_channel(log);
 				break;
 		}
 	});

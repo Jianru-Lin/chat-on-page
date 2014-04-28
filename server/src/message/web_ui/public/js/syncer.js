@@ -42,8 +42,8 @@ Walker.prototype._do_retrive = function() {
 		count: self.count
 	};
 
-	console.log('walk');
-	console.log(opt);
+	//console.log('walk');
+	//console.log(opt);
 
 	var retrive = self.retrive = new_retrive(self.target, opt);
 

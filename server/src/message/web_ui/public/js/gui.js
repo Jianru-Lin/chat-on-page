@@ -53,6 +53,19 @@ Gui.prototype.create_channel = function(log) {
 	// add to ui
 
 	id('website-list').appendChild(channel_dom);
+
+	// wait for click
+
+	var self = this;
+	on_click(channel_dom, function() {
+		self.channel_dw_list.forEach(function(dw) {
+			dw.highlight(false);
+		});
+		channel_dw.highlight(true);
+		
+		// fire on_channel_changed
+		self.event_handler.on_channel_changed(self, channel_dw.binding);
+	});
 }
 
 Gui.prototype.update_channel = function(log) {
