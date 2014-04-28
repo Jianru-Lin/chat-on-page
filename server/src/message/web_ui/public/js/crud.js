@@ -1,17 +1,9 @@
 function new_create(target, opt) {
-	if (target === 'channel' || target === 'chat') {
-		return new Create(target, opt);
-	} else {
-		console.log('new_create error: ' + target);
-	}
+	return new Create(target, opt);
 }
 
 function new_retrive(target, opt) {
-	if (target === 'channel' || target === 'chat') {
-		return new Retrive(target, opt);
-	} else {
-		console.log('new_retrive error: ' + target);
-	}
+	return new Retrive(target, opt);
 }
 
 /* ResultNotifier */

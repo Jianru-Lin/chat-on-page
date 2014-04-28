@@ -32,7 +32,6 @@ function process_message(req) {
 			console.log('add target: ' + target);
 			log_manager = new LogManager();
 			target_map[target] = log_manager;
-			return;
 		}
 		var output_message = crud(log_manager, input_message);
 		output_message_list.push(output_message);
@@ -49,6 +48,9 @@ function crud(log_manager, message) {
 	var result = {};
 	var fun = log_manager[message.action];
 	if (fun) {
+		if (message.action !== 'retrive') {
+			console.log(message.action + ' ' + message.target);
+		}
 		result = fun.apply(log_manager, [message]);
 	}
 	return result;

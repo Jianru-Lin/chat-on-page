@@ -1,9 +1,9 @@
 var gui = new Gui();
-var channel_syncer = new Syncer('channel');
-var chat_syncer = new Syncer('chat');
-
+var channel_syncer = new Syncer('mdl://channel');
+var chat_syncer = undefined;
 var g = {
-	chat_log_list: []
+	chat_log_list: [],
+	current_channel_url: undefined
 };
 
 get_current_location(function(url, title) {
@@ -18,8 +18,12 @@ get_current_location(function(url, title) {
 		}
 	});
 
+	g.current_channel_url = channel_url;
+
 	// 同步该站点下的聊天记录
 
+	var target = 'mdl://chat/' + encodeURIComponent(channel_url);
+	chat_syncer = new Syncer(target);
 	chat_syncer.event_handler = {
 		on_success: on_sync_chat_success,
 		on_failure: on_sync_chat_failure
@@ -46,16 +50,27 @@ gui.event_handler = {
 
 // on channel changed
 
-function on_channel_changed(channel_url) {
-	// chat_syncer.set_channel_url(channel_url);
+function on_channel_changed(gui, channel_url) {
+	g.current_channel_url = channel_url;
+
+	chat_syncer.stop();
+
+	gui.clear_chat_list();
+
+	var target = 'mdl://chat/' + encodeURIComponent(channel_url);
+	chat_syncer = new Syncer(target);
+	chat_syncer.event_handler = {
+		on_success: on_sync_chat_success,
+		on_failure: on_sync_chat_failure
+	};
+	chat_syncer.id = 'head_id';
+	chat_syncer.start();
 }
 
 // on send chat
 
-function on_send_chat(author, content) {
+function on_send_chat(gui, author, content) {
 	get_current_location(function(url, title) {
-		var channel_url = get_protocol_host_port(url);
-
 		var opt = {
 			from: {
 				name: author,
@@ -65,12 +80,12 @@ function on_send_chat(author, content) {
 				}
 			},
 			to: {
-				channel_url: channel_url
+				channel_url: g.current_channel_url
 			},
 			content: content
 		};
 
-		var create = new_create('chat', opt);
+		var create = new_create(g.current_channel_url, opt);
 		create.start();
 
 	});

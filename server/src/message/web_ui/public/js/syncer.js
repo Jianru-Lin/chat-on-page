@@ -79,6 +79,8 @@ Walker.prototype._do_retrive = function() {
 		});
 }
 
+// ----- Syncer -----
+
 function Syncer(target) {
 	this.event_handler = {
 		on_success: empty,

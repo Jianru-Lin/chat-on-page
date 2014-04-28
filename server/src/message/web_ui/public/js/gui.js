@@ -23,7 +23,7 @@ function Gui() {
 	self.editor_dw.event_handler.on_click_send = function(editor_dw) {
 		var author = editor_dw.get_author();
 		var content = editor_dw.get_content();
-		self.event_handler.on_send_chat(author, content);
+		self.event_handler.on_send_chat(self, author, content);
 		// clear
 		editor_dw.clear_content();
 	}
@@ -64,7 +64,8 @@ Gui.prototype.create_channel = function(log) {
 		channel_dw.highlight(true);
 		
 		// fire on_channel_changed
-		self.event_handler.on_channel_changed(self, channel_dw.binding);
+		var channel_url = channel_dw.binding.item.url;
+		self.event_handler.on_channel_changed(self, channel_url);
 	});
 }
 
@@ -93,7 +94,7 @@ Gui.prototype.create_chat = function(log) {
 		var chat_dw = new ChatDW(chat_dom, log);
 
 		chat_dw.set_author(log.item.from.name);
-		chat_dw.set_date_time(log.date_time);
+		chat_dw.set_date_time(format_date_time(log.date_time));
 		chat_dw.set_face_img(gravatar(log.item.from.name));
 		chat_dw.set_content(content_to_dom(log.item.content));
 		chat_dw.set_me(compare(log.item.from.name, self.editor_dw.get_author()));
@@ -128,4 +129,12 @@ Gui.prototype.delete_chat = function(log) {
 	var target_id = log.target_id;
 	// TODO
 	console.log('[TODO] delete_chat');
+}
+
+Gui.prototype.clear_chat_list = function() {
+	var self = this;
+	self.chat_dw_list.forEach(function(chat_dw) {
+		chat_dw.dom.remove();
+	});
+	self.chat_dw_list = [];
 }
