@@ -1,9 +1,9 @@
-function new_create(target, opt) {
-	return new Create(target, opt);
+function new_create(uri, opt) {
+	return new Create(uri, opt);
 }
 
-function new_retrive(target, opt) {
-	return new Retrive(target, opt);
+function new_retrive(uri, opt) {
+	return new Retrive(uri, opt);
 }
 
 /* ResultNotifier */
@@ -68,9 +68,9 @@ ResultNotifier.prototype._emit_failure = function() {
 
 /* Create */
 
-function Create(target, opt) {
+function Create(uri, opt) {
 	this.notifier = undefined;
-	this.target = target;
+	this.uri = uri;
 	this.opt = opt;
 	this.req_controller = undefined;
 }
@@ -81,7 +81,7 @@ Create.prototype.start = function() {
 	self.notifier = new ResultNotifier(self);
 
 	var message = {
-		target: self.target,
+		uri: self.uri,
 		action: 'create',
 		item: self.opt
 	};
@@ -117,9 +117,9 @@ Create.prototype.cancel = function() {
 
 /* Retrive */
 
-function Retrive(target, opt) {
+function Retrive(uri, opt) {
 	this.notifier = undefined;
-	this.target = target;
+	this.uri = uri;
 	this.opt = opt;
 	this.req_controller = undefined;
 }
@@ -130,7 +130,7 @@ Retrive.prototype.start = function() {
 	self.notifier = new ResultNotifier(self);
 
 	var message = {
-		target: self.target,
+		uri: self.uri,
 		action: 'retrive'
 	};
 

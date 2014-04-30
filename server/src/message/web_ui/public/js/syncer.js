@@ -1,5 +1,5 @@
-function Walker(target) {
-	this.target = target;
+function Walker(uri) {
+	this.uri = uri;
 	this.id = undefined;
 	this.direction = undefined;
 	this.count = 30;
@@ -45,7 +45,7 @@ Walker.prototype._do_retrive = function() {
 	//console.log('walk');
 	//console.log(opt);
 
-	var retrive = self.retrive = new_retrive(self.target, opt);
+	var retrive = self.retrive = new_retrive(self.uri, opt);
 
 	retrive
 		.start()
@@ -81,13 +81,13 @@ Walker.prototype._do_retrive = function() {
 
 // ----- Syncer -----
 
-function Syncer(target) {
+function Syncer(uri) {
 	this.event_handler = {
 		on_success: empty,
 		on_failure: empty
 	};
 	this.intv = undefined;
-	this.target = target;
+	this.uri = uri;
 	this.id = undefined;
 	this.walker = undefined;
 
@@ -100,7 +100,7 @@ Syncer.prototype.start = function() {
 	var self = this;
 	if (self.intv != undefined) return;
 	
-	self.walker = new Walker(self.target);
+	self.walker = new Walker(self.uri);
 	self.walker.id = self.id;
 	self.walker.event_handler = {
 		on_success: on_success,

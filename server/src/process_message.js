@@ -4,12 +4,12 @@ exports.process_message = process_message;
 
 // [dependencies]
 
-var LogManager = require('./lib/log-manager');
+var LogManagerTree = require('./lib/log-manager-tree');
 
 
 // [global var]
 
-var target_map = {};
+var log_manager_tree = new LogManagerTree();
 
 
 // [function]
@@ -26,15 +26,14 @@ function process_message(req) {
 	var output_message_list = [];
 
 	input_message_list.forEach(function(input_message) {
-		var target = input_message.target;
-		var log_manager = target_map[target];
-		if (!log_manager) {
-			console.log('add target: ' + target);
-			log_manager = new LogManager();
-			target_map[target] = log_manager;
+		var uri = input_message.uri;
+		var log_manager = log_manager_tree.find_or_create(uri);
+		if (log_manager) {
+			var output_message = crud(log_manager, input_message);
+			output_message_list.push(output_message);
+		} else {
+			console.log('[process_message] error: ' + uri);
 		}
-		var output_message = crud(log_manager, input_message);
-		output_message_list.push(output_message);
 	});
 
 	var res = {
@@ -49,7 +48,7 @@ function crud(log_manager, message) {
 	var fun = log_manager[message.action];
 	if (fun) {
 		if (message.action !== 'retrive') {
-			console.log(message.action + ' ' + message.target);
+			console.log(message.action + ' log: ' + message.uri);
 		}
 		result = fun.apply(log_manager, [message]);
 	}

@@ -10,14 +10,14 @@
 
 // general message
 {
-	target: '...',
+	uri: '...',
 	action: '...'
 }
 
 {
 	// request
 
-	target: '...',
+	uri: '...',
 	action: 'create',
 	item: {}
 
@@ -30,7 +30,7 @@
 {
 	// request 
 
-	target: '...',
+	uri: '...',
 	action: 'retrive',		// retrive
 	direction: '...',		// forward | backward
 	include: false,			// true | false
@@ -46,7 +46,7 @@
 {
 	// request
 
-	target: '...',
+	uri: '...',
 	action: 'update',	// replace
 	id: '...',
 	item: {}
@@ -57,7 +57,7 @@
 {
 	// request 
 
-	target: '...',
+	uri: '...',
 	action: 'delete',
 	id: '...'
 

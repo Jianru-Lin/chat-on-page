@@ -1,5 +1,5 @@
 var gui = new Gui();
-var channel_syncer = new Syncer('mdl://channel');
+var channel_syncer = new Syncer('http://data.miaodeli.com/channel/website');
 var chat_syncer = undefined;
 var g = {
 	chat_log_list: [],
@@ -22,8 +22,8 @@ get_current_location(function(url, title) {
 
 	// 同步该站点下的聊天记录
 
-	var target = 'mdl://chat/' + encodeURIComponent(channel_url);
-	chat_syncer = new Syncer(target);
+	var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(channel_url);
+	chat_syncer = new Syncer(uri);
 	chat_syncer.event_handler = {
 		on_success: on_sync_chat_success,
 		on_failure: on_sync_chat_failure
@@ -57,8 +57,8 @@ function on_channel_changed(gui, channel_url) {
 
 	gui.clear_chat_list();
 
-	var target = 'mdl://chat/' + encodeURIComponent(channel_url);
-	chat_syncer = new Syncer(target);
+	var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(channel_url);
+	chat_syncer = new Syncer(uri);
 	chat_syncer.event_handler = {
 		on_success: on_sync_chat_success,
 		on_failure: on_sync_chat_failure
@@ -85,7 +85,8 @@ function on_send_chat(gui, author, content) {
 			content: content
 		};
 
-		var create = new_create(g.current_channel_url, opt);
+		var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(g.current_channel_url);
+		var create = new_create(uri, opt);
 		create.start();
 
 	});

@@ -1,7 +1,14 @@
 exports = module.exports = LogManager;
 
-function LogManager() {
+function LogManager(uri, parent) {
 	this.log_list = [];
+	this.uri = uri;
+	this.parent = parent;
+}
+
+LogManager.prototype._push = function(log) {
+	this.log_list.push(log);
+	if (this.parent) this.parent._push(log);
 }
 
 LogManager.prototype.create = function(args) {
@@ -9,12 +16,13 @@ LogManager.prototype.create = function(args) {
 
 	var log = {
 		action: 'create',
+		uri: this.uri,
 		id: this.log_list.length,
 		date_time: (new Date()).toISOString(),
 		item: item
 	};
 
-	this.log_list.push(log);
+	this._push(log);
 
 	return {
 		id: log.id,
@@ -103,13 +111,14 @@ LogManager.prototype.update = function(args) {
 
 	var log = {
 		action: 'update',
+		uri: this.uri,
 		id: this.log_list.length,
 		date_time: (new Date()).toISOString(),
 		target_id: target_id,
 		item: item
 	};
 
-	this.log_list.push(log);
+	this._push(log);
 
 	return {
 		id: log.id,
@@ -122,12 +131,13 @@ LogManager.prototype.delete = function(args) {
 
 	var log = {
 		action: 'delete',
+		uri: this.uri,
 		id: this.log_list.length,
 		date_time: (new Date()).toISOString(),
 		target_id: target_id
 	};
 
-	this.log_list.push(log);
+	this._push(log);
 
 	return {
 		id: log.id,
