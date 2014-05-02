@@ -10,7 +10,7 @@ function receive_message(message_handler) {
 		generate_web_api();
 
 		app = express();
-		app.use(express.json());
+		app.use(require('body-parser').json());
 		app.use(express.static(path.resolve(__dirname, 'web_ui/public')));
 		app.engine('jade', require('jade').__express);
 		app.get('/', index_page);
