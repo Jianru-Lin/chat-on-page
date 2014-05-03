@@ -71,7 +71,7 @@ function on_channel_changed(gui, channel_url) {
 
 function on_send_chat(gui, author, content) {
 	get_current_location(function(url, title) {
-		var opt = {
+		var item = {
 			from: {
 				name: author,
 				page: {
@@ -83,6 +83,10 @@ function on_send_chat(gui, author, content) {
 				channel_url: g.current_channel_url
 			},
 			content: content
+		};
+
+		var opt = {
+			item: item
 		};
 
 		var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(g.current_channel_url);

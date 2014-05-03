@@ -59,6 +59,8 @@ LogManager.prototype.retrive = function(args) {
 	for (var i = start_id; i < end_id; ++i) {
 		if (i >= 0 && i < this.log_list.length) {
 			output_log_list.push(this.log_list[i]);
+		} else {
+			break;
 		}
 	}
 

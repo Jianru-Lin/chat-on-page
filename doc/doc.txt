@@ -40,7 +40,7 @@
 	// response
 
 	item_list: [],
-	latest_id: 
+	latest_id: ,
 }
 
 {

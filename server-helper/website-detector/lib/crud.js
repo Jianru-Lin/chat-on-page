@@ -1,3 +1,9 @@
+exports.new_create = new_create;
+exports.new_retrive = new_retrive;
+exports.new_update = new_update;
+exports.new_delete = new_delete;
+
+var json_request = require('./json-request');
 
 function new_create(uri, opt) {
 	var message = {
