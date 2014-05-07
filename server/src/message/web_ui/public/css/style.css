@@ -172,6 +172,10 @@ h1.title {
 	max-height: 320px;
 }
 
+.chat-item .content img:hover {
+	box-shadow: 0 0 15px black;
+}
+
 .chat-item .content img.fullheight {
 	max-height: none;
 }

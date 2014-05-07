@@ -11,6 +11,7 @@ function minido_to_dom(minido, hook) {
 		if (/^image/.test(node.mime)) {
 			var img = document.createElement('img');
 			img.setAttribute('src', node.value);
+			img.setAttribute('title', node.value);
 			hook.img(img, node);
 			dom = img;
 		}
