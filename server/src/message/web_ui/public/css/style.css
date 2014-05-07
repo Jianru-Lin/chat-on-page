@@ -166,6 +166,16 @@ h1.title {
 	margin-top: .5em;
 }
 
+.chat-item .content img {
+	box-shadow: 0 0 10px black;
+	max-width: 100%;
+	max-height: 320px;
+}
+
+.chat-item .content img.fullheight {
+	max-height: none;
+}
+
 .chat-item.additional {
 	padding-top: 8px;
 	margin-top: 0;

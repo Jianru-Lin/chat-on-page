@@ -73,6 +73,19 @@ function on_storage(e, listener) {
 	e.addEventListener('storage', listener);	
 }
 
+function has_class(e, className) {
+	return e.classList.contains(className);
+}
+
+function toggle_class(e, className) {
+	if (!e || !className) return;
+	if (e.classList.contains(className)) {
+		e.classList.remove(className);
+	} else {
+		e.classList.add(className);
+	}
+}
+
 function reached_bottom(e) {
 	var de = e || document.documentElement;
 	var bd = e || document.body;
@@ -97,6 +110,11 @@ function smart_scroll(container, view_target, cb) {
 		if (view_target.scrollIntoViewIfNeeded) view_target.scrollIntoViewIfNeeded();
 		else if (view_target.scrollIntoView) view_target.scrollIntoView();
 	}
+}
+
+function bring_into_view(target) {
+	if (target.scrollIntoViewIfNeeded) target.scrollIntoViewIfNeeded();
+	else if (target.scrollIntoView) target.scrollIntoView();
 }
 
 function override(src, dest) {

@@ -172,3 +172,13 @@ function update_chat_dw(chat_dw, chat_log, current_name) {
 		return a.toLowerCase() === b.toLowerCase();
 	}
 }
+
+on_click(document.body, function(e) {
+	var etarget = e.srcElement || e.target;
+	if (etarget.nodeName === 'IMG') {
+		toggle_class(etarget, 'fullheight');
+		if (!has_class(etarget, 'fullheight')) {
+			bring_into_view(etarget);
+		}
+	}
+});
