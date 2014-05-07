@@ -10,64 +10,86 @@
 
 // general message
 {
-	uri: '...',
-	action: '...'
+	uri: ,
+	action: 
 }
 
 {
 	// request
 
-	uri: '...',
+	uri: ,
 	action: 'create',
+	item_type: ,			// chat | channel | addon
 	item: {}
 
 	// response
 
 	id: ,
-	date_time: 
+	date_time: ,
+	action: ,
+	uri: ,
+	item_type: 
 }
 
 {
 	// request 
 
-	uri: '...',
+	uri: ,
 	action: 'retrive',		// retrive
-	direction: '...',		// forward | backward
-	include: false,			// true | false
-	id: '...',
-	count: 
+	start_seq: ,
+	count: 					// can be negtive
 
 	// response
 
-	item_list: [],
-	latest_id: ,
+	log_list: [],
+	prev_seq: ,
+	next_seq: ,
+	head_seq: ,
+	tail_seq: ,
+
+	uri: ,
+	action: 'retrive',
+	start_seq: ,
+	count:
 }
 
 {
 	// request
 
-	uri: '...',
+	uri: ,
 	action: 'update',	// replace
-	id: '...',
+	target_id: ,
+	target_uri: ,
+	item_type: ,
 	item: {}
 
 	// response
+	id: ,
+	date_time: ,
+	uri: ,
+	action: 'update',
+	target_id: ,
+	target_uri: ,
+	item_type: ,
 }
 
 {
 	// request 
 
-	uri: '...',
+	uri: ,
 	action: 'delete',
-	id: '...'
+	target_id: 
 
 	// response
+	id: ,
+	date_time: ,
+	uri: ,
+	action: 'delete',
+	target_id:
 }
 
 // ----- chat -----
 {
-	id: ,
-	date_time: ,
 	from: {
 		name: ,
 		page: {
@@ -90,4 +112,14 @@
 	title: ,
 	icon: ,
 	count: ,
+}
+
+// ----- addon -----
+{
+	target_uri: ,
+	target_id: ,
+	content: {
+		type: ,
+		value ,
+	}
 }

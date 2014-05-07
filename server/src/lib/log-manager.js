@@ -12,6 +12,7 @@ LogManager.prototype._push = function(log) {
 }
 
 LogManager.prototype.create = function(args) {
+	var item_type = args.item_type;
 	var item = args.item;
 
 	var log = {
@@ -19,6 +20,7 @@ LogManager.prototype.create = function(args) {
 		uri: this.uri,
 		id: this.log_list.length,
 		date_time: (new Date()).toISOString(),
+		item_type: item_type,
 		item: item
 	};
 
@@ -26,89 +28,16 @@ LogManager.prototype.create = function(args) {
 
 	return {
 		id: log.id,
-		date_time: log.date_time
+		date_time: log.date_time,
+		action: 'create',
+		uri: this.uri,
+		item_type: item_type
 	};
-}
-
-LogManager.prototype.retrive = function(args) {
-	var self = this;
-
-	var include = args.include;
-	var id = interpret(args.id);
-	var count = args.count;
-
-	var start_id = 0;
-	var end_id = 0;
-
-	if (count >= 0) {
-
-		count = count > 50 ? 50 : count;
-		start_id = include ? id : id+1;
-		end_id = start_id + count;
-
-	} else {
-
-		count = count < -50 ? -50 : count;
-		end_id = include ? id+1 : id;
-		start_id = end_id + count;
-
-	}
-
-	var output_log_list = [];
-
-	for (var i = start_id; i < end_id; ++i) {
-		if (i >= 0 && i < this.log_list.length) {
-			output_log_list.push(this.log_list[i]);
-		} else {
-			break;
-		}
-	}
-
-	return {
-		log_list: output_log_list,
-		head_id: self.log_list.length > 0 ? self.log_list[0].id : undefined,
-		tail_id: self.log_list.length > 0 ? self.log_list[self.log_list.length-1].id : undefined
-	};
-
-	function interpret(id) {
-		var head_id = 0;
-		var tail_id = 0;
-		var before_head_id = 0;
-		var after_tail_id = 0;
-
-		if (self.log_list.length > 0) {
-			head_id = self.log_list[0].id;
-			tail_id = self.log_list[self.log_list.length-1].id;
-			before_head_id = head_id - 1;
-			after_tail_id = tail_id + 1;
-		} else {
-			head_id = 0;
-			tail_id = 0;
-			before_head_id = -1;
-			after_tail_id = 0;
-		}
-
-		switch (id) {
-			case 'head_id':
-				id = head_id;
-				break;
-			case 'tail_id':
-				id = tail_id;
-				break;
-			case 'before_head_id':
-				id = before_head_id;
-				break;
-			case 'after_tail_id':
-				id = after_tail_id;
-				break;
-		}
-
-		return id;
-	}
 }
 
 LogManager.prototype.update = function(args) {
 	var target_id = args.target_id;
+	var target_uri = args.target_uri;
 	var item = args.item;
 
 	var log = {
@@ -117,6 +46,7 @@ LogManager.prototype.update = function(args) {
 		id: this.log_list.length,
 		date_time: (new Date()).toISOString(),
 		target_id: target_id,
+		target_uri: target_uri,
 		item: item
 	};
 
@@ -124,7 +54,11 @@ LogManager.prototype.update = function(args) {
 
 	return {
 		id: log.id,
-		date_time: log.date_time
+		date_time: log.date_time,
+		action: 'update',
+		uri: this.uri,
+		target_id: target_id,
+		target_uri: target_uri
 	};
 }
 
@@ -143,6 +77,79 @@ LogManager.prototype.delete = function(args) {
 
 	return {
 		id: log.id,
-		date_time: log.date_time
+		date_time: log.date_time,
+		action: 'delete',
+		uri: this.uri,
+		target_id: target_id
 	};
+}
+
+
+LogManager.prototype.retrive = function(args) {debugger;
+	var self = this
+
+	var start_seq = args.start_seq
+	var count = args.count
+
+	// there isn't any log yet
+
+	if (self.log_list.length <= 0) {
+		return null_result()
+	}
+
+	// invalid start_seq
+
+	if (start_seq < 0 || start_seq >= self.log_list.length) {
+		var result = null_result()
+		result.head_seq = 0
+		result.tail_seq = self.log_list.length - 1
+		return result
+	}
+
+	// count is too big ?
+	
+	var step = 1
+
+	if (count > 50) {
+		count = 50
+	} else if (count < -50) {
+		count = -50
+		step = -1
+	}
+
+	// ok, collect and return
+
+	var list = []
+
+	for (var p = start_seq; p >= 0 && p < self.log_list.length; p += step) {
+		list.push(self.log_list[p])
+	}
+
+	return {
+		log_list: list,
+		prev_seq: start_seq - step,
+		next_seq: p,
+		head_seq: 0,
+		tail_seq: self.log_list.length - 1,
+
+		uri: self.uri,
+		action: 'retrive',
+		start_seq: start_seq,
+		count: count
+	}
+
+	function null_result() {
+		return {
+			log_list: null,
+			prev_seq: null,
+			next_seq: null,
+			head_seq: null,
+			tail_seq: null,
+
+			uri: self.uri,
+			action: 'retrive',
+			start_seq: start_seq,
+			count: count
+		}
+	}
 }

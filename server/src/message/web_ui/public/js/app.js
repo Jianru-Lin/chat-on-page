@@ -1,5 +1,5 @@
 var gui = new Gui();
-var channel_syncer = new Syncer('http://data.miaodeli.com/channel/website');
+var channel_syncer = undefined;
 var chat_syncer = undefined;
 var g = {
 	chat_log_list: [],
@@ -22,23 +22,16 @@ get_current_location(function(url, title) {
 
 	// 同步该站点下的聊天记录
 
-	var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(channel_url);
-	chat_syncer = new Syncer(uri);
-	chat_syncer.event_handler = {
-		on_success: on_sync_chat_success,
-		on_failure: on_sync_chat_failure
-	};
-	chat_syncer.id = 'head_id';
+	var chat_uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(channel_url);
+	chat_syncer = sync(chat_uri, 0, 30, on_sync_chat_success, on_sync_chat_failure);
 	chat_syncer.start();
 
 	// sync channel list
 
-	channel_syncer.event_handler = {
-		on_success: on_sync_channel_success,
-		on_failure: on_sync_channel_failure
-	};
-	channel_syncer.id = 'head_id';
+	var channel_uri = 'http://data.miaodeli.com/channel/website';
+	channel_syncer = sync(channel_uri, 0, 30, on_sync_channel_success, on_sync_channel_failure);
 	channel_syncer.start();
+
 });
 
 // set gui event handler
@@ -53,17 +46,15 @@ gui.event_handler = {
 function on_channel_changed(gui, channel_url) {
 	g.current_channel_url = channel_url;
 
-	chat_syncer.stop();
-
 	gui.clear_chat_list();
 
-	var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(channel_url);
-	chat_syncer = new Syncer(uri);
-	chat_syncer.event_handler = {
-		on_success: on_sync_chat_success,
-		on_failure: on_sync_chat_failure
-	};
-	chat_syncer.id = 'head_id';
+	if (chat_syncer) {
+		chat_syncer.stop()
+		chat_syncer = undefined;
+	}
+
+	var chat_uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(channel_url);
+	chat_syncer = sync(chat_uri, 0, 30, on_sync_chat_success, on_sync_chat_failure);
 	chat_syncer.start();
 }
 
@@ -71,6 +62,8 @@ function on_channel_changed(gui, channel_url) {
 
 function on_send_chat(gui, author, content) {
 	get_current_location(function(url, title) {
+		var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(g.current_channel_url);
+
 		var item = {
 			from: {
 				name: author,
@@ -85,20 +78,22 @@ function on_send_chat(gui, author, content) {
 			content: content
 		};
 
-		var opt = {
-			item: item
+		var message = {
+			action: 'create',
+			uri: uri,
+			item: item,
+			item_type: 'chat'
 		};
 
-		var uri = 'http://data.miaodeli.com/chat/' + encodeURIComponent(g.current_channel_url);
-		var create = new_create(uri, opt);
-		create.start();
+		var requester = new_requester(message);
+		requester.start();
 
 	});
 }
 
 // sync success
 
-function on_sync_chat_success(chat_syncer, res) {
+function on_sync_chat_success(syncer, res) {
 	//console.log('sync chat success');
 
 	var log_list = res.log_list;
@@ -122,11 +117,11 @@ function on_sync_chat_success(chat_syncer, res) {
 	});
 }
 
-function on_sync_chat_failure(chat_syncer) {
+function on_sync_chat_failure(syncer) {
 	console.log('sync chat failure');
 }
 
-function on_sync_channel_success(channel_syncer, res) {
+function on_sync_channel_success(syncer, res) {
 	//console.log('sync channel success');
 
 	var log_list = res.log_list;
@@ -146,6 +141,6 @@ function on_sync_channel_success(channel_syncer, res) {
 	});
 }
 
-function on_sync_channel_failure(channel_syncer) {
+function on_sync_channel_failure(syncer) {
 	console.log('sync channel failure');
 }

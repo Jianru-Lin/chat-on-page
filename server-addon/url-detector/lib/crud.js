@@ -1,50 +1,10 @@
-exports.new_create = new_create;
-exports.new_retrive = new_retrive;
-exports.new_update = new_update;
-exports.new_delete = new_delete;
-
-var json_request = require('./json-request');
-
-function new_create(uri, opt) {
-	var message = {
-		uri: uri,
-		action: 'create'
-	};
-	_merge(opt, message);
-	return new Requester(message);
+if (typeof exports !== 'undefined') {
+	exports.new_requester = new_requester;
+	var json_request = require('./json-request');
 }
 
-function new_retrive(uri, opt) {
-	var message = {
-		uri: uri,
-		action: 'retrive'
-	};
-	_merge(opt, message);
-	return new Requester(message);
-}
-
-function new_update(uri, opt) {
-	var message = {
-		uri: uri,
-		action: 'update'
-	};
-	_merge(opt, message);
-	return new Requester(message);
-}
-
-function new_delete(uri, opt) {
-	var message = {
-		uri: uri,
-		action: 'delete'
-	};
-	_merge(opt, message);
-	return new Requester(message);
-}
-
-function _merge(src, dest) {
-	for (var prop in src) {
-		dest[prop] = src[prop];
-	} 
+function new_requester(message) {
+	return new Requester(message)
 }
 
 /* ResultNotifier */

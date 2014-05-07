@@ -123,6 +123,7 @@ Gui.prototype.update_chat = function(log) {
 	var chat = log.item;
 	// TODO
 	console.log('[TODO] update_chat');
+	console.log(log);
 }
 
 Gui.prototype.delete_chat = function(log) {
