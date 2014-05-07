@@ -17,6 +17,7 @@ function process_log(log) {
 	if (log.item.content.type !== 'text') return
 
 	var chat_text = log.item.content.value
+	chat_text = chat_text.trim()
 
 	if (!/^http(s)?:\/\//i.test(chat_text)) return
 

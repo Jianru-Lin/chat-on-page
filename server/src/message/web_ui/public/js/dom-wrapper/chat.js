@@ -24,8 +24,10 @@ ChatDW.prototype.set_content = function(v) {
 ChatDW.prototype.set_me = function(v) {
 	var dom = this.dom;
 
-	if (v && !dom.classList.contains('me')) {
-		dom.classList.add('me');
+	if (v) {
+		if (!dom.classList.contains('me')) {
+			dom.classList.add('me');
+		}
 	} else {
 		dom.classList.remove('me');
 	}
