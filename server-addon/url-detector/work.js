@@ -21,36 +21,30 @@ function process_log(log) {
 	if (!/^http(s)?:\/\//i.test(chat_text)) return
 
 	var url = chat_text
-	var new_content = {
-		type: undefined,
-		value: undefined
-	}
 
 	var message = {
 		uri: log.uri + '/addon/url-detector',
 		action: 'update',
-		item_type: 'addon/url-detector',
-		item: {
-			target_uri: log.uri,
-			target_id: log.id,
-			content: new_content
-		}
+		item_type: log.item_type,
+		target_uri: log.uri,
+		target_id: log.id,
+		item: log.item
 	}
 
 	detect_mime(url, function(mime) {
 		console.log(mime)
-		var ok = true
 
-		if (/^image(\/|$)/i.test(mime)) {
-			new_content.type = 'url:image'
-			new_content.value = url
-		} else if (/^text(\/|$)/i.test(mime)) {
-			new_content.type = 'url:website'
-			new_content.value = url
-		} else {
-			ok = false
+		var new_content = {
+			type: 'minido',
+			value: {
+				name: 'url',
+				mime: mime,
+				value: url
+			}
 		}
 
-		if (ok) send_message(message)
+		message.item.content = new_content
+
+		send_message(message)
 	})
 }
