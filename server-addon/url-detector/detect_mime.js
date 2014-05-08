@@ -21,7 +21,7 @@ function detect_mime(url, scb, fcb) {
 	}
 
 	var opt = parse_url(url)
-	opt.method = 'HEAD'
+	opt.method = 'GET'
 
 	var request = p.request(opt)
 	request.on('response', on_response)
