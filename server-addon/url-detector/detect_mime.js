@@ -26,6 +26,7 @@ function detect_mime(url, scb, fcb) {
 	var request = p.request(opt)
 	request.on('response', on_response)
 	request.on('error', on_error)
+	request.setHeader('Referer', url)
 	request.end()
 
 	function on_response(res) {
