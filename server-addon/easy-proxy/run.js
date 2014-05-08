@@ -23,7 +23,6 @@ var server = start('0.0.0.0', 29000, function(req, client_res) {
 
 	// decode target_url
 
-	target_url = decodeURIComponent(target_url)
 	console.log('[target_url] ' + target_url)
 
 	var target_url_obj = parse_url(target_url)
