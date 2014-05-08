@@ -16,7 +16,7 @@ function detect_mime(url, scb, fcb) {
 	} else if (/^https:\/\//i.test(url)) {
 		var p = https
 	} else {
-		fcb((new Error).lineNumber)
+		fcb()
 		return
 	}
 
@@ -32,14 +32,26 @@ function detect_mime(url, scb, fcb) {
 		res.on('data', function(){})
 		res.on('error', function(){})
 
+		if (res.statusCode === 301 || res.statusCode === 302) {
+			var redirect_url = res.headers['location']
+			if (redirect_url) {
+				detect_mime(redirect_url, scb, fcb)
+			}
+			else {
+				fcb()
+			}
+			return
+		}
+
 		if (res.statusCode !== 200) {
-			fcb((new Error).lineNumber)
+			console.log('[detect_mime] statusCode ' + res.statusCode)
+			fcb()
 			return
 		}
 
 		var content_type = res.headers['content-type']
 		if (!content_type) {
-			fcb((new Error).lineNumber)
+			fcb()
 			return
 		}
 
@@ -48,7 +60,7 @@ function detect_mime(url, scb, fcb) {
 
 	function on_error(err) {
 		console.log('[detect_mime] ' + err.toString())
-		fcb((new Error).lineNumber)
+		fcb()
 		return
 	}
 }

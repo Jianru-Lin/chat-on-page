@@ -4,13 +4,8 @@ function Gui() {
 	// event
 
 	self.event_handler = {
-		on_channel_changed: empty,
 		on_send_chat: empty
 	}
-
-	// create channel dom wrapper list
-
-	self.channel_dw_list = [];
 
 	// create chat dom wrapper list
 
@@ -23,65 +18,13 @@ function Gui() {
 	self.editor_dw.event_handler.on_click_send = function(editor_dw) {
 		var author = editor_dw.get_author();
 		var content = editor_dw.get_content();
+
+		if (!author || !content) return;
+
 		self.event_handler.on_send_chat(self, author, content);
 		// clear
 		editor_dw.clear_content();
 	}
-}
-
-// channel list
-
-Gui.prototype.create_channel = function(log) {
-	var channel_dom = get_template('website');
-	var channel_dw = new ChannelDW(channel_dom, log);
-
-	channel_dw.set_title(log.item.title || '未知站点');
-	channel_dw.set_url(log.item.url);
-	channel_dw.set_icon(log.item.icon || log.item.url + '/favicon.ico');
-	channel_dw.set_count(log.item.count || '0');
-
-	// highlight if it's the only website
-
-	if (this.channel_dw_list.length < 1) {
-		channel_dw.highlight(true);
-	}
-
-	// add to list
-
-	this.channel_dw_list.push(channel_dw);
-
-	// add to ui
-
-	id('website-list').appendChild(channel_dom);
-
-	// wait for click
-
-	var self = this;
-	on_click(channel_dom, function() {
-		self.channel_dw_list.forEach(function(dw) {
-			dw.highlight(false);
-		});
-		channel_dw.highlight(true);
-		
-		// fire on_channel_changed
-		var channel_url = channel_dw.binding.item.url;
-		self.event_handler.on_channel_changed(self, channel_url);
-	});
-}
-
-Gui.prototype.update_channel = function(log) {
-	var target_id = log.target_id;
-	var channel = log.item;
-
-	// TODO
-	console.log('[TODO] update_channel');
-}
-
-Gui.prototype.delete_channel = function(log) {
-	var target_id = log.target_id;
-
-	// TODO
-	console.log('[TODO] delete_channel');
 }
 
 // chat list

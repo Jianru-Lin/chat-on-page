@@ -20,6 +20,13 @@ function EditorDW(dom, binding) {
 			if (!(e.ctrlKey && e.keyCode === 13)) return;
 			self.event_handler.on_click_send(self);
 		});
+
+		on_keydown(dom.querySelector('.content textarea'), function(e) {
+			if (e.keyCode === 13) {
+				self.event_handler.on_click_send(self);
+				e.preventDefault();
+			}
+		});
 	}
 }
 
