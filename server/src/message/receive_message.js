@@ -14,7 +14,7 @@ function receive_message(message_handler) {
 		app.use(express.static(path.resolve(__dirname, 'web_ui/public')));
 		app.engine('jade', require('jade').__express);
 		app.get('/', index_page);
-		app.get('/help/chat', usage_page);
+		app.get(/^\/channel(\/|$)/, channel_page);
 		app.post('/message', message_page);
 		app.listen(80);
 	}
@@ -36,6 +36,6 @@ function index_page(req, res) {
 	res.render(path.resolve(__dirname, 'web_ui/view', 'index.jade'));
 }
 
-function usage_page(req, res) {
-	res.render(path.resolve(__dirname, 'web_ui/view', 'usage.jade'));
+function channel_page(req, res) {
+	res.render(path.resolve(__dirname, 'web_ui/view', 'channel.jade'));	
 }

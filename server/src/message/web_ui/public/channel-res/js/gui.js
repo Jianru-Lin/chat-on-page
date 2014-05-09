@@ -19,7 +19,7 @@ function Gui() {
 		var author = editor_dw.get_author();
 		var content = editor_dw.get_content();
 
-		if (!author || !content) return;
+		if (!author || !content.value) return;
 
 		self.event_handler.on_send_chat(self, author, content);
 		// clear

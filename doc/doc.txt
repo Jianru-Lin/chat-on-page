@@ -92,13 +92,8 @@
 {
 	from: {
 		name: ,
-		page: {
-			url: ,
-			title: ,
-		}
 	},
 	to: {
-		channel_url: ,
 	},
 	content: {
 		type: ,
