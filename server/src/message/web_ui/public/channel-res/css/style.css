@@ -135,6 +135,12 @@ h1.title {
 	background: white;
 }
 
+@media screen and (min-height: 600px) {
+	.editor {
+		padding-bottom: 100px;
+	}
+}
+
 /*
 
 .editor .content {
@@ -171,7 +177,7 @@ h1.title {
 
 .editor .author {
 	padding-right: 14px;
-	margin: 10px;
+	margin: 0 10px;
 	margin-bottom: 5px;
 }
 
