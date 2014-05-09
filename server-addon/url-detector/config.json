@@ -1,4 +1,4 @@
 {
 	"req_url": "http://127.0.0.1/message",
-	"log_uri": "http://data.miaodeli.com/chat"
+	"log_uri": "http://data.miaodeli.com/channel"
 }
