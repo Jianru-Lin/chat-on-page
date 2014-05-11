@@ -1,7 +1,7 @@
 exports = module.exports = work
 
 var send_message = require('./send_message')
-var detect_mime = require('./detect_mime')
+var detect_url = require('./detect_url')
 
 function work(log) {
 	//console.log(log)
@@ -32,20 +32,26 @@ function process_log(log) {
 		item: log.item
 	}
 
-	detect_mime(url, function(mime) {
-		console.log(mime)
+	detect_url(url, {}, detect_url_cb, detect_url_cb)
+
+	function detect_url_cb(list) {
+		if (list)
+			console.log(list)
+		else
+			console.log('failure ' + url)
 
 		var new_content = {
 			type: 'minido',
 			value: {
 				name: 'url',
-				mime: mime,
-				value: url
+				value: url,
+				detect: list
 			}
 		}
 
 		message.item.content = new_content
 
 		send_message(message)
-	})
+		
+	}
 }

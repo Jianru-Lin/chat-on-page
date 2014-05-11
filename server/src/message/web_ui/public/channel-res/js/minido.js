@@ -1,27 +1,35 @@
-function minido_to_dom(minido, hook) {
-	hook = hook || {
-		img: function(img, node) {},
-		a: function(a, node) {}
-	};
-
+function minido_to_dom(minido) {
 	var node = minido;
 	var dom = undefined;
 
 	if (node.name === 'url' ) {
-		if (/^image/.test(node.mime)) {
-			var img = document.createElement('img');
-			img.setAttribute('src', proxy_url(node.value));
-			img.setAttribute('title', node.value);
-			hook.img(img, node);
-			dom = img;
+
+		var detect = node.detect
+
+		// broken ?
+
+		if (!detect) {
+			var a = get_template('broken-url');
+			a.setAttribute('href', node.value);
+			a.textContent = node.value;
+			dom = a;
 		}
 		else {
-			var a = document.createElement('a');
-			a.setAttribute('href', node.value);
-			a.setAttribute('target', '_blank');
-			a.textContent = node.value;
-			hook.a(a, node);
-			dom = a;
+			var mime = detect[detect.length-1].res.headers['content-type'];
+
+			if (/^image/.test(mime)) {
+				var e = get_template('image-url');
+				var img = e.querySelector('img');
+				img.setAttribute('src', proxy_url(node.value));
+				img.setAttribute('title', node.value);
+				dom = img;
+			}
+			else {
+				var a = get_template('url');
+				a.setAttribute('href', node.value);
+				a.textContent = node.value;
+				dom = a;
+			}
 		}
 	}
 
