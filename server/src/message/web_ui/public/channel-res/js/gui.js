@@ -104,7 +104,11 @@ Gui.prototype.delete_chat = function(log) {
 
 	// delete
 
-	target_chat_dw.dom.remove();
+	var dom = target_chat_dw.dom;
+
+	if (dom.parentNode) {
+		dom.parentNode.removeChild(dom);
+	}
 
 	this.chat_dw_list = this.chat_dw_list.filter(function(item) {
 		return item !== target_chat_dw
