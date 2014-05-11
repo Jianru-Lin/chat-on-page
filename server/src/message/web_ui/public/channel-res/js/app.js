@@ -13,7 +13,8 @@ chat_syncer.start();
 // set gui event handler
 
 gui.event_handler = {
-	on_send_chat: on_send_chat
+	on_send_chat: on_send_chat,
+	on_delete_chat: on_delete_chat
 };
 
 // on send chat
@@ -36,6 +37,23 @@ function on_send_chat(gui, author, content) {
 		item: item,
 		item_type: 'chat'
 	};
+
+	var requester = new_requester(message);
+	requester.start();
+}
+
+// on delete chat
+
+function on_delete_chat(gui, log) {
+	if (!confirm('您确定要删除这一聊天项？')) return;
+
+	var message = {
+		action: 'delete',
+		uri: log.uri,
+		target_id: log.id
+	}
+
+	console.log(message);
 
 	var requester = new_requester(message);
 	requester.start();

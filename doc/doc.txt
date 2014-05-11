@@ -59,7 +59,6 @@
 	uri: ,
 	action: 'update',
 	target_id: ,
-	target_uri: ,
 	item_type: ,
 	item: {}
 

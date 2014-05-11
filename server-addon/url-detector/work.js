@@ -25,11 +25,14 @@ function process_log(log) {
 
 	var message = {
 		uri: log.uri + '/addon/url-detector',
-		action: 'update',
-		item_type: log.item_type,
-		target_uri: log.uri,
-		target_id: log.id,
-		item: log.item
+		action: 'create',
+		item_type: 'override',
+		item: {
+			target_uri: log.uri,
+			target_id: log.id,
+			item_type: log.item_type,
+			item: log.item
+		}
 	}
 
 	detect_url(url, {}, detect_url_cb, detect_url_cb)
@@ -49,7 +52,7 @@ function process_log(log) {
 			}
 		}
 
-		message.item.content = new_content
+		message.item.item.content = new_content
 
 		send_message(message)
 		

@@ -37,6 +37,8 @@ function minido_to_dom(minido) {
 }
 
 function proxy_url(url) {
+	return url;
+
 	try {
 		var l = document.location;
 		var v = l.protocol + '//' + l.hostname + ':29000/?target_url=' + encodeURIComponent(url);

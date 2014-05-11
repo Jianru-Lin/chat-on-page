@@ -4,7 +4,8 @@ function Gui() {
 	// event
 
 	self.event_handler = {
-		on_send_chat: empty
+		on_send_chat: empty,
+		on_delete_chat: empty
 	}
 
 	// create chat dom wrapper list
@@ -33,6 +34,15 @@ Gui.prototype.create_chat = function(log) {
 	var self = this;
 
 	smart_scroll(first('.chat-panel'), first('.editor'), function() {
+		if (log.item_type === 'override') {
+			override();
+		}
+		else {
+			create();
+		}
+	});
+
+	function create() {
 		var chat_dom = get_template('chat-item');
 		var chat_dw = new ChatDW(chat_dom, log);
 
@@ -45,31 +55,37 @@ Gui.prototype.create_chat = function(log) {
 		// add to ui
 
 		id('chat-list').appendChild(chat_dom);
-	});
+
+		// click delete ?
+
+		on_click(chat_dom.querySelector('a.delete'), function(e) {
+			self.event_handler.on_delete_chat(self, log);
+		});
+	}
+
+	function override() {
+		var target_id = log.item.target_id;
+		var target_uri = log.item.target_uri;
+
+		// search
+
+		var target_chat_dw = find_dw(self.chat_dw_list, target_uri, target_id);
+		if (!target_chat_dw) return;
+
+		update_chat_dw(target_chat_dw, log, self.editor_dw.get_author());
+	}
 }
 
 Gui.prototype.update_chat = function(log) {
 	var self = this;
 	var target_id = log.target_id;
-	var target_uri = log.target_uri;
+	var target_uri = log.uri;
 
 	// search
 
-	var target_chat_dw = undefined;
+	var target_chat_dw = find_dw(self.chat_dw_list, target_uri, target_id);
 
-	for (var i = 0, len = self.chat_dw_list.length; i < len; ++i) {
-		var chat_dw = self.chat_dw_list[i];
-		if (chat_dw.binding.uri === target_uri && 
-			chat_dw.binding.id === target_id) {
-			target_chat_dw = chat_dw;
-			break;
-		}
-	}
-
-	if (!target_chat_dw) {
-		console.log('[update_chat] target not found');
-		return;
-	}
+	if (!target_chat_dw) return;
 
 	// update
 
@@ -78,8 +94,21 @@ Gui.prototype.update_chat = function(log) {
 
 Gui.prototype.delete_chat = function(log) {
 	var target_id = log.target_id;
-	// TODO
-	console.log('[TODO] delete_chat');
+	var target_uri = log.uri;
+
+	// search
+
+	var target_chat_dw = find_dw(this.chat_dw_list, target_uri, target_id);
+
+	if (!target_chat_dw) return;
+
+	// delete
+
+	target_chat_dw.dom.remove();
+
+	this.chat_dw_list = this.chat_dw_list.filter(function(item) {
+		return item !== target_chat_dw
+	});
 }
 
 Gui.prototype.clear_chat_list = function() {
@@ -92,12 +121,23 @@ Gui.prototype.clear_chat_list = function() {
 
 function update_chat_dw(chat_dw, chat_log, current_name) {
 	var log = chat_log;
+	var item;
 
-	chat_dw.set_author(log.item.from.name);
+	if (log.item_type === 'chat') {
+		item = log.item;
+	}
+	else if (log.item_type === 'override') {
+		item = log.item.item;
+	}
+	else {
+		return;
+	}
+
+	chat_dw.set_author(item.from.name);
 	chat_dw.set_date_time(format_date_time(log.date_time));
-	chat_dw.set_face_img(gravatar(log.item.from.name));
-	chat_dw.set_content(content_to_dom(log.item.content));
-	chat_dw.set_me(compare(log.item.from.name, current_name));
+	chat_dw.set_face_img(gravatar(item.from.name));
+	chat_dw.set_content(content_to_dom(item.content));
+	chat_dw.set_me(compare(item.from.name, current_name));
 
 	function content_to_dom(content) {
 		if (content.type === 'text') {
@@ -125,3 +165,17 @@ on_click(document.body, function(e) {
 		}
 	}
 });
+
+function find_dw(dw_list, target_uri, target_id) {
+	var target_dw;
+
+	for (var i = 0, len = dw_list.length; i < len; ++i) {
+		var dw = dw_list[i];
+		if (dw.binding.uri === target_uri && dw.binding.id === target_id) {
+			target_dw = dw;
+			break;
+		}
+	}
+
+	return target_dw;
+}

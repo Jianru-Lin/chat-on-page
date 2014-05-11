@@ -37,7 +37,6 @@ LogManager.prototype.create = function(args) {
 
 LogManager.prototype.update = function(args) {
 	var target_id = args.target_id;
-	var target_uri = args.target_uri;
 	var item = args.item;
 	var item_type = args.item_type;
 
@@ -47,7 +46,6 @@ LogManager.prototype.update = function(args) {
 		id: this.log_list.length,
 		date_time: (new Date()).toISOString(),
 		target_id: target_id,
-		target_uri: target_uri,
 		item: item,
 		item_type: item_type
 	};
@@ -60,7 +58,6 @@ LogManager.prototype.update = function(args) {
 		action: 'update',
 		uri: this.uri,
 		target_id: target_id,
-		target_uri: target_uri,
 		item_type: item_type
 	};
 }
