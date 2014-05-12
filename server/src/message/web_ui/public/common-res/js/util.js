@@ -204,3 +204,31 @@ function to_array(v) {
 	}
 	return array;
 }
+
+function get_local_obj(key) {
+	if (window.localStorage) {
+		var obj_text = localStorage.getItem(key)
+		if (obj_text) {
+			return JSON.parse(obj_text)
+		}
+	}
+}
+
+function set_local_obj(key, obj) {
+	if (window.localStorage) {
+		if (typeof obj === 'object') {
+			var obj_text = JSON.stringify(obj)
+		}
+		return localStorage.setItem(key, obj_text)
+	}
+}
+
+function remove_local_obj(key) {
+	if (window.localStorage) {
+		return localStorage.removeItem(key)
+	}
+}
+
+function redirect_to(url) {
+	window.location.href = url
+}

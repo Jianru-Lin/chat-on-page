@@ -17,7 +17,7 @@ function Gui() {
 	self.editor_dw = new EditorDW(document.querySelector('.editor'));
 
 	self.editor_dw.event_handler.on_click_send = function(editor_dw) {
-		var author = editor_dw.get_author();
+		var author = get_author();
 		var content = editor_dw.get_content();
 
 		if (!author || !content.value) return;
@@ -46,7 +46,7 @@ Gui.prototype.create_chat = function(log) {
 		var chat_dom = get_template('chat-item');
 		var chat_dw = new ChatDW(chat_dom, log);
 
-		update_chat_dw(chat_dw, log, self.editor_dw.get_author());
+		update_chat_dw(chat_dw, log, get_author());
 
 		// add to list
 
@@ -72,7 +72,7 @@ Gui.prototype.create_chat = function(log) {
 		var target_chat_dw = find_dw(self.chat_dw_list, target_uri, target_id);
 		if (!target_chat_dw) return;
 
-		update_chat_dw(target_chat_dw, log, self.editor_dw.get_author());
+		update_chat_dw(target_chat_dw, log, get_author());
 	}
 }
 
@@ -89,7 +89,7 @@ Gui.prototype.update_chat = function(log) {
 
 	// update
 
-	update_chat_dw(target_chat_dw, log, self.editor_dw.get_author());
+	update_chat_dw(target_chat_dw, log, get_author());
 }
 
 Gui.prototype.delete_chat = function(log) {
@@ -182,4 +182,8 @@ function find_dw(dw_list, target_uri, target_id) {
 	}
 
 	return target_dw;
+}
+
+function get_author() {
+	return get_local_obj('config').email
 }

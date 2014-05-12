@@ -1,3 +1,9 @@
+// email not set ?
+var config = get_local_obj('config')
+if (!config || !config.email) {
+	redirect_to('/')
+}
+
 var gui = new Gui();
 var chat_syncer = undefined;
 var g = {

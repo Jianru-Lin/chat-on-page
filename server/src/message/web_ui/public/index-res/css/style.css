@@ -1,0 +1,45 @@
+body {
+	max-width: 650px;
+	margin: 0 auto;
+}
+
+.container {
+	padding: 10px;
+}
+
+.padding-fixer {
+	padding-right: 14px;
+}
+
+input {
+	display: block;
+	border: 1px solid #ccc;
+	width: 100%;
+	font-size: inherit;
+	font-family: inherit;
+	margin: 0;
+	padding: 4px 6px;
+	background: inherit;
+	outline-color: rgb(0, 204, 146);
+}
+
+button {
+	font-size: inherit;
+	font-family: inherit;
+	margin: 0;
+	padding: 4px 6px;
+	margin: 10px 5px 0 0;
+	width: 120px;
+}
+
+
+a {
+	color: #888;
+	margin-left: 10px;
+	text-decoration: none;
+}
+
+a:hover {
+	color: white;
+	background: #888;
+}

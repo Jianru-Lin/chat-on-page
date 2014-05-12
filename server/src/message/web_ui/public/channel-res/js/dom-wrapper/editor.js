@@ -42,7 +42,3 @@ EditorDW.prototype.get_content = function() {
 EditorDW.prototype.clear_content = function() {
 	this.dom.querySelector('.content textarea').value = '';
 }
-
-EditorDW.prototype.get_author = function() {
-	return this.dom.querySelector('.author input').value;
-}

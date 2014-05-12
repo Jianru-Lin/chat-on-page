@@ -215,6 +215,11 @@ h1.title {
 	outline-color: rgb(0, 204, 146);
 }
 
+.editor .content .tip {
+	margin-top: .75em;
+	color: #888;
+}
+
 .shortcut {
 	color: gray;
 }

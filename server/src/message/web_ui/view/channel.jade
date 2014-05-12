@@ -6,7 +6,7 @@ html
 		title 交流
 
 		// general style
-		link(rel="stylesheet", href="/channel-res/css/font.css", type="text/css")
+		link(rel="stylesheet", href="/common-res/css/font.css", type="text/css")
 
 		// user style
 		link(rel="stylesheet", href="/channel-res/css/style.css", type="text/css")
@@ -16,10 +16,9 @@ html
 			h1.title 聊天
 			div.chat-list#chat-list
 			div.editor
-				div.author
-					input(type="text",placeholder="email")
 				div.content
 					textarea(rows="1")
+					div.tip 按回车键发送
 
 		div.template(style="display:none")
 			div.chat-item
@@ -43,9 +42,9 @@ html
 		audio#audio-notify(src="audio/notify.ogg")
 
 		// user scripts
-		script(type="text/javascript", src="/channel-res/js/json-request.js")
-		script(type="text/javascript", src="/channel-res/js/md5.js")
-		script(type="text/javascript", src="/channel-res/js/util.js")
+		script(type="text/javascript", src="/common-res/js/json-request.js")
+		script(type="text/javascript", src="/common-res/js/md5.js")
+		script(type="text/javascript", src="/common-res/js/util.js")
 		script(type="text/javascript", src="/channel-res/js/minido.js")
 		script(type="text/javascript", src="/channel-res/js/audio-manager.js")
 
@@ -54,6 +53,6 @@ html
 		script(type="text/javascript", src="/channel-res/js/dom-wrapper/channel.js")
 		script(type="text/javascript", src="/channel-res/js/gui.js")
 
-		script(type="text/javascript", src="/channel-res/js/crud.js")
-		script(type="text/javascript", src="/channel-res/js/syncer.js")
+		script(type="text/javascript", src="/common-res/js/requester.js")
+		script(type="text/javascript", src="/common-res/js/syncer.js")
 		script(type="text/javascript", src="/channel-res/js/app.js")
