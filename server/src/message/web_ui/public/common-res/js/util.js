@@ -68,6 +68,11 @@ function on_keyup(e, listener) {
 	e.addEventListener('keyup', listener);
 }
 
+function on_change(e, listener) {
+	if (!e || !listener) return;
+	e.addEventListener('change', listener);
+}
+
 function on_storage(e, listener) {
 	if (!e || !listener) return;
 	e.addEventListener('storage', listener);	
@@ -75,6 +80,16 @@ function on_storage(e, listener) {
 
 function has_class(e, className) {
 	return e.classList.contains(className);
+}
+
+function add_class(e, className) {
+	if (!has_class(e, className)) {
+		e.classList.add(className)
+	}
+}
+
+function remove_class(e, className) {
+	e.classList.remove(className)
 }
 
 function toggle_class(e, className) {

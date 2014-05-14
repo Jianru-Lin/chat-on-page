@@ -27,6 +27,16 @@ a:hover {
 	color: white;
 }
 
+button, select, option {
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.none {
+	display: none;
+}
+
 .chat-panel {
 	max-width: 650px;
 	margin: 0 auto;
@@ -169,18 +179,18 @@ h1.title {
 	}
 }
 
-.editor .content {
+.editor .one-line-editor .content {
 	padding-right: 14px;
 	margin: 0 10px;
 }
 
-.editor .author {
+.editor .one-line-editor .author {
 	padding-right: 14px;
 	margin: 0 10px;
 	margin-bottom: 5px;
 }
 
-.editor .author > input {
+.editor .one-line-editor .author > input {
 	display: block;
 	border: 1px solid #ccc;
 	padding: 4px 6px;
@@ -191,7 +201,7 @@ h1.title {
 	outline-color: rgb(0, 204, 146);
 }
 
-.editor .content > textarea {
+.editor .one-line-editor .content > textarea {
 	display: block;
 	border: 1px solid #ccc;
 	width: 100%;
@@ -203,9 +213,38 @@ h1.title {
 	outline-color: rgb(0, 204, 146);
 }
 
-.editor .content .tip {
+.editor .one-line-editor .content .tip {
 	margin-top: .75em;
 	color: #888;
+}
+
+.editor .code-editor .ace-editor {
+	height: 280px;
+	margin: 10px 0;
+}
+
+.editor .code-editor .content {
+	margin: 0 10px;
+}
+
+.editor .code-editor select {
+	margin: 0;
+}
+
+.editor .code-editor button {
+	margin: 0;
+	width: 120px;
+}
+
+.editor .code-editor .close {
+	text-decoration: none;
+	color: #888;
+	margin-left: 10px;
+}
+
+.editor .code-editor .close:hover {
+	background: #888;
+	color: white;
 }
 
 .shortcut {
