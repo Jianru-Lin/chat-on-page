@@ -17,12 +17,22 @@ function minido_to_dom(minido) {
 		else {
 			var mime = detect[detect.length-1].res.headers['content-type'];
 
-			if (/^image/.test(mime)) {
+			if (/^image\//i.test(mime)) {
 				var e = get_template('image-url');
 				var img = e.querySelector('img');
 				img.setAttribute('src', proxy_url(node.value));
 				img.setAttribute('title', node.value);
 				dom = img;
+			}
+			else if (/^text\/javascript/i.test(mime) || /^application\/(x-)?javascript/i.test(mime)) {
+				var e = get_template('code-url');
+
+				var v = node.detect[detect.length-1].res.body;
+				var h = hljs.highlight('javascript', v, true);
+
+				var code = e.querySelector('code');
+				code.innerHTML = h.value;
+				dom = e;
 			}
 			else {
 				var a = get_template('url');

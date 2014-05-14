@@ -8,6 +8,16 @@ body {
 	background: white;
 }
 
+pre, code {
+	margin: 0;
+}
+
+code {
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-ms-tab-size: 4;
+}
+
 a {
 	color: rgb(0, 133, 95);
 }
@@ -122,6 +132,13 @@ h1.title {
 	max-height: none;
 }
 
+.chat-item .content .code-url {
+	overflow: auto;
+	padding: 10px;
+	background: #eee;
+	max-height: 500px;
+}
+
 .chat-item.additional {
 	padding-top: 8px;
 	margin-top: 0;
@@ -151,35 +168,6 @@ h1.title {
 		padding-bottom: 100px;
 	}
 }
-
-/*
-
-.editor .content {
-	padding-right: 14px;
-	margin: 10px;
-}
-
-.editor .content > input {
-	display: block;
-	border: 1px solid #ccc;
-	width: 100%;
-	font-size: inherit;
-	font-family: inherit;
-	margin: 0;
-	padding: 4px 6px;
-	background: inherit;
-	outline-color: rgb(0, 204, 146);
-}
-
-.editor button.send {
-	font-size: inherit;
-	font-family: inherit;
-	margin: 0 10px;
-	display: inline-block;
-	width: 120px;
-	padding: 4px;
-}
-*/
 
 .editor .content {
 	padding-right: 14px;

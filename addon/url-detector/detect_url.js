@@ -16,7 +16,6 @@ function detect_url(url, headers, scb, fcb) {
 
 	detect(url, headers)
 
-
 	function detect(url, headers) {
 		var detector = new UrlDetector(url, headers)
 
@@ -90,25 +89,76 @@ UrlDetector.prototype.start = function() {
 	req.end()
 
 	function on_response(res) {
-		res.on('data', function(){})
-		res.on('error', function(){})
 
 		var status_code = res.statusCode
 		var content_type = res.headers['content-type']
 		var content_length = res.headers['content-length']
 
-		self.result = {
-			url: url,
-			res: {
-				status_code: status_code,
-				headers: {}
-			}
+		console.log('content-type: ' + content_type)
+
+		if (/^text(\/|$)/i.test(content_type) || /^application\/((x-)?javascript|json)/i.test(content_type)) {
+			console.log('receive_all')
+			receive_all()
+		}
+		else {
+			console.log('receive_header_only')
+			receive_header_only()
 		}
 
-		override(res.headers, self.result.res.headers)
+		function receive_all() {
+			var chunks = []
+			var total_length = 0
 
-		fire_success()
-		release()
+			res.on('data', function(chunk) {
+				chunks.push(chunk)
+				total_length += chunk.length
+			})
+
+			res.on('end', function() {
+				var buff = Buffer.concat(chunks, total_length)
+				var text = convert(content_type, buff)
+
+				self.result = {
+					url: url,
+					res: {
+						status_code: status_code,
+						headers: {},
+						body: text
+					}
+				}
+
+				override(res.headers, self.result.res.headers)
+
+				fire_success()
+				release()
+			})
+
+			res.on('error', function(err) {
+				console.log('[res error] ', err.toString())
+				fire_failure()
+			})
+
+		}
+
+		function receive_header_only() {
+			res.on('data', function(){})
+			res.on('error', function(){})
+
+			self.result = {
+				url: url,
+				res: {
+					status_code: status_code,
+					headers: {}
+				}
+			}
+
+			override(res.headers, self.result.res.headers)
+
+			fire_success()
+			release()
+		}
+
+
 	}
 
 	function on_error(err) {
@@ -141,4 +191,12 @@ function override(src, dst) {
 	for (var k in src) {
 		dst[k] = src[k]
 	}
+}
+
+function empty() {
+
+}
+
+function convert(content_type, buff) {
+	return buff.toString()
 }
