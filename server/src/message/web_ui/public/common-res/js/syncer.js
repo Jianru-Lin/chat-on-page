@@ -174,3 +174,16 @@ function sync(uri, start_seq, count, scb, fcb) {
 	}
 	return syncer;
 }
+
+// # scb(result)
+// # fcb()
+function detect(uri, scb, fcb) {
+	retrive(uri, 0, 0, function(result) {
+		console.log('[detect]')
+		console.log(result)
+		if (scb) scb(result)
+	}, function() {
+		console.log('[detect] failure')
+		if (fcb) fcb()
+	})
+}

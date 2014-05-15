@@ -13,8 +13,17 @@ var g = {
 // 同步该站点下的聊天记录
 
 var chat_uri = 'http://data.miaodeli.com/channel' + get_current_channel_id();
-chat_syncer = sync(chat_uri, 0, 30, on_sync_chat_success, on_sync_chat_failure);
-chat_syncer.start();
+
+detect(chat_uri, function(result) {
+	var start_seq = 0
+	if (result.tail_seq > 29) {
+		start_seq = result.tail_seq - 29
+	}
+
+	chat_syncer = sync(chat_uri, start_seq, 30, on_sync_chat_success, on_sync_chat_failure);
+	chat_syncer.start();
+})
+
 
 // set gui event handler
 
