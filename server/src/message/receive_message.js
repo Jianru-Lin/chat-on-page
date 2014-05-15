@@ -15,8 +15,9 @@ function receive_message(message_handler) {
 		app.engine('jade', require('jade').__express);
 		app.get('/', index_page);
 		app.get(/^\/channel(\/|$)/, channel_page);
-		app.get('/register', register_page);
-		app.get('/login', login_page);
+		app.get('/unsupport', unsupport_page);
+		//app.get('/register', register_page);
+		//app.get('/login', login_page);
 		app.post('/message', message_page);
 		app.listen(80);
 	}
@@ -35,18 +36,31 @@ function receive_message(message_handler) {
 }
 
 function index_page(req, res) {
+	if (!check_ua(req, res)) return;
 	res.render(path.resolve(__dirname, 'web_ui/view', 'index.jade'));
 }
 
 function channel_page(req, res) {
+	if (!check_ua(req, res)) return;
 	res.render(path.resolve(__dirname, 'web_ui/view', 'channel.jade'));	
 }
 
-function register_page(req, res) {
-	res.render(path.resolve(__dirname, 'web_ui/view', 'register.jade'));	
+function unsupport_page(req, res) {
+	res.render(path.resolve(__dirname, 'web_ui/view', 'unsupport.jade'));	
 }
 
-function login_page(req, res) {
-	res.render(path.resolve(__dirname, 'web_ui/view', 'login.jade'));	
-}
+function check_ua(req, res) {
+	var ua = req.headers['user-agent']
+	if (/MSIE (4|5|6|7|8|9)/.test(ua)) {
+		redirect_to('/unsupport')
+		return false
+	}
 
+	return true
+
+	function redirect_to(url) {
+		res.statusCode = 302
+		res.setHeader('Location', url)
+		res.end()
+	}
+}
