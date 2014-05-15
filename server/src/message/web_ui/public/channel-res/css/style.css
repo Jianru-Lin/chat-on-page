@@ -149,6 +149,11 @@ h1.title {
 	max-height: 500px;
 }
 
+.chat-item .content .code {
+	height: 300px;
+	background: #eee;
+}
+
 .chat-item.additional {
 	padding-top: 8px;
 	margin-top: 0;

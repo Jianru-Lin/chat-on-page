@@ -25,14 +25,11 @@ function minido_to_dom(minido) {
 				dom = img;
 			}
 			else if (/^text\/javascript/i.test(mime) || /^application\/(x-)?javascript/i.test(mime)) {
-				var e = get_template('code-url');
+				var type = 'code'
+				var mode = 'javascript'
+				var value = node.detect[detect.length-1].res.body
 
-				var v = node.detect[detect.length-1].res.body;
-				var h = hljs.highlight('javascript', v, true);
-
-				var code = e.querySelector('code');
-				code.innerHTML = h.value;
-				dom = e;
+				dom = render_by_ace({type: type, mode: mode, value: value})
 			}
 			else {
 				var a = get_template('url');
@@ -57,4 +54,30 @@ function proxy_url(url) {
 		alert(err);
 		return url;
 	}
+}
+
+function render_by_ace(content) {
+	var e = get_template('code');
+	var editor = ace.edit(e);
+	editor.setTheme('ace/theme/eclipse');
+	editor.setFontSize(16);
+	editor.getSession().setMode('ace/mode/' + content.mode);
+	editor.setValue(content.value);
+	editor.clearSelection();
+	editor.setReadOnly(true);
+	editor.setHighlightActiveLine(false);
+
+	var lines = editor.getSession().getDocument().getLength();
+	if (lines < 15) {
+		editor.setOptions({
+			maxLines: Infinity
+		});				
+	}
+	else {
+		editor.setOptions({
+			maxLines: 15
+		})
+	}
+
+	return e;
 }

@@ -146,7 +146,11 @@ function update_chat_dw(chat_dw, chat_log, current_name) {
 	function content_to_dom(content) {
 		if (content.type === 'text') {
 			return document.createTextNode(content.value);
-		} else if (content.type === 'minido') {
+		}
+		else if (content.type === 'code') {
+			return render_by_ace(content);
+		} 
+		else if (content.type === 'minido') {
 			return minido_to_dom(content.value, {
 				a: function(a, node) {},
 				img: function(img, node) {}

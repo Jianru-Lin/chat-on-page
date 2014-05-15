@@ -10,18 +10,17 @@ html
 
 		// user style
 		link(rel="stylesheet", href="/channel-res/css/style.css", type="text/css")
-		link(rel="stylesheet", href="/highlightjs-res/styles/default.css", type="text/css")
 
 	body.font-hei#af0-skip
 		div.chat-panel
 			h1.title 聊天
 			div.chat-list#chat-list
 			div.editor
-				div.one-line-editor
+				div.one-line-editor.none
 					div.content
 						textarea(rows="1")
 						div.tip 按回车键发送
-				div.code-editor.none
+				div.code-editor
 					div.content
 						select
 							option(value="abap") ABAP
@@ -157,11 +156,11 @@ html
 			div.code-url
 				pre
 					code
+			div.code
 
 		audio#audio-notify(src="audio/notify.ogg")
 
 		// user scripts
-		script(type="text/javascript", src="/highlightjs-res/highlight.pack.js")
 		script(type="text/javascript", src="//cdn.jsdelivr.net/ace/1.1.3/min/ace.js", charset="utf-8")
 
 		script(type="text/javascript", src="/common-res/js/json-request.js")

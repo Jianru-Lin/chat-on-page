@@ -1,66 +1,66 @@
 // ----- OneLineEditorDW -----
 
 function OneLineEditorDW(dom, binding) {
-	this.dom = dom;
-	this.binding = binding;
+	this.dom = dom
+	this.binding = binding
 	this.event_handler = {
 		on_click_send: empty,
 		on_switch_editor: empty
 	}
 
-	var self = this;
+	var self = this
 
 	if (dom) {
 
 		on_click(dom.querySelector('button.send'), function() {
-			self.event_handler.on_click_send(self);
-		});
+			self.event_handler.on_click_send(self)
+		})
 
 		// support ctrl+enter shortcut
 
 		on_keydown(dom, function(e) {
 			// ctrl+enter
-			if (!(e.ctrlKey && e.keyCode === 13)) return;
-			self.event_handler.on_click_send(self);
-		});
+			if (!(e.ctrlKey && e.keyCode === 13)) return
+			self.event_handler.on_click_send(self)
+		})
 
 		on_keydown(dom.querySelector('.content textarea'), function(e) {
 			if (e.keyCode === 13) {
-				var value = self.dom.querySelector('.content textarea').value;
+				var value = self.dom.querySelector('.content textarea').value
 				if (/^\s*hello\s*turing\s*$/i.test(value)) {
-					self.event_handler.on_switch_editor(self);
-					e.preventDefault();
-					return;
+					self.event_handler.on_switch_editor(self)
+					e.preventDefault()
+					return
 				}
 
-				self.event_handler.on_click_send(self);
-				e.preventDefault();
+				self.event_handler.on_click_send(self)
+				e.preventDefault()
 			}
-		});
+		})
 	}
 }
 
 OneLineEditorDW.prototype.get_content = function() {
-	var value = this.dom.querySelector('.content textarea').value;
+	var value = this.dom.querySelector('.content textarea').value
 
 	return {
 		type: 'text',
 		value: value
-	};
+	}
 }
 
 OneLineEditorDW.prototype.clear_content = function() {
-	this.dom.querySelector('.content textarea').value = '';
+	this.dom.querySelector('.content textarea').value = ''
 }
 
 OneLineEditorDW.prototype.focus = function() {
-	this.dom.querySelector('.content textarea').focus();
+	this.dom.querySelector('.content textarea').focus()
 }
 
 // ----- EditorDW -----
 
 function CodeEditorDW(dom, binding) {
-	var self = this;
+	var self = this
 
 	this.dom = dom
 	this.binding = binding
@@ -71,27 +71,43 @@ function CodeEditorDW(dom, binding) {
 
 	var select = dom.querySelector('select')
 
+	on_click(dom.querySelector('button'), function() {
+		self.event_handler.on_click_send(self)
+	})
+
     on_click(dom.querySelector('.close'), function() {
-    	self.event_handler.on_switch_editor();
+    	self.event_handler.on_switch_editor()
     })
 
     on_change(select, function(e) {
     	var mode = 'ace/mode/' + (select.value)
+    	self.mode = (select.value)
     	self.editor.getSession().setMode(mode)
     })
 
-    var editor = this.editor = ace.edit(dom.querySelector('.ace-editor'));
-    editor.setTheme("ace/theme/monokai");
+    var editor = this.editor = ace.edit(dom.querySelector('.ace-editor'))
+    editor.setTheme('ace/theme/monokai')
     editor.setFontSize(16)
-    editor.getSession().setMode("ace/mode/text");
+    editor.getSession().setMode('ace/mode/text')
+    self.mode = 'text'
 
     select.querySelector('option[value=text]').setAttribute('selected', 'true')
 }
 
 CodeEditorDW.prototype.get_content = function() {
+	var editor = this.editor
+	var mode = this.mode
+	var text = editor.getValue()
+
+	return {
+		type: 'code',
+		mode: mode,
+		value: text
+	}
 }
 
 CodeEditorDW.prototype.clear_content = function() {
+	this.editor.setValue('')
 }
 
 CodeEditorDW.prototype.focus = function() {
