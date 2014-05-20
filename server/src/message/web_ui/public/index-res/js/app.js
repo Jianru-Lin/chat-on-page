@@ -10,7 +10,7 @@ on_click(id('enter-bt'), function() {
 	if (!email) return
 
 	// jump
-	redirect_to('/channel')
+	redirect_to('/channel/intro')
 })
 
 on_click(id('clear-bt'), function() {
