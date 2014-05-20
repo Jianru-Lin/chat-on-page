@@ -47,6 +47,27 @@ h1.title {
 	padding: 0 10px;
 }
 
+.load-history {
+	margin-bottom: 20px;
+}
+
+.load-history a {
+	text-decoration: none;
+	color: #888;
+	display: block;
+	padding: 10px;
+}
+
+.load-history a:hover {
+	background: #eee;
+	color: black;
+	border-radius: 2px;
+}
+
+.load-history a:active {
+	background: none;
+}
+
 .chat-item {
 	padding: 40px 10px 0 10px;
 }

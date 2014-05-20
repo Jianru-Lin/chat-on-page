@@ -22,7 +22,7 @@ function minido_to_dom(minido) {
 				var img = e.querySelector('img');
 				img.setAttribute('src', proxy_url(node.value));
 				img.setAttribute('title', node.value);
-				dom = img;
+				dom = e;
 			}
 			else if (/^text\/javascript/i.test(mime) || /^application\/(x-)?javascript/i.test(mime)) {
 				var type = 'code'

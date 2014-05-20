@@ -28,6 +28,10 @@ function Gui() {
 	}
 }
 
+Gui.prototype.enable_load_history = function() {
+	remove_class(first('.load-history'), 'none')
+}
+
 // chat list
 
 Gui.prototype.create_chat = function(log) {
@@ -151,10 +155,7 @@ function update_chat_dw(chat_dw, chat_log, current_name) {
 			return render_by_ace(content);
 		} 
 		else if (content.type === 'minido') {
-			return minido_to_dom(content.value, {
-				a: function(a, node) {},
-				img: function(img, node) {}
-			})
+			return minido_to_dom(content.value)
 		}
 	}
 

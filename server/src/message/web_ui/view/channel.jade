@@ -14,6 +14,8 @@ html
 	body.font-hei#af0-skip
 		div.chat-panel
 			h1.title 聊天
+			div.load-history.none
+				a(href="javascript:") 查看更早的记录
 			div.chat-list#chat-list
 			div.editor
 				div.one-line-editor
@@ -131,7 +133,7 @@ html
 							option(value="yaml") YAML
 						div.ace-editor
 						button.send 发送
-						a(href="#").close 返回普通编辑模式
+						a(href="javascript:").close 返回普通编辑模式
 
 
 
@@ -141,9 +143,9 @@ html
 					img
 				strong.author
 				span.date-time
-				a.delete(href="#") 删除
+				a.delete(href="javascript:") 删除
 				div.content
-			a.website(href="#")
+			a.website(href="javascript:")
 				div
 					img.website-favicon
 					span.website-count 200
