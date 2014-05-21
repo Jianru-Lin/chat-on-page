@@ -4,6 +4,7 @@ function ChatDW(dom, binding) {
 }
 
 ChatDW.prototype.set_author = function(v) {
+	if (!v) return;
 	this.dom.querySelector('.name').textContent = v.name;
 	this.dom.querySelector('.email').textContent = v.email;
 	this.dom.querySelector('.face > img').setAttribute('src', gravatar(v.email));
