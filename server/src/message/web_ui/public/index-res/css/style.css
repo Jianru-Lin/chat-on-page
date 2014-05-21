@@ -19,6 +19,7 @@ input {
 	font-size: inherit;
 	font-family: inherit;
 	margin: 0;
+	margin-bottom: 10px;
 	padding: 4px 6px;
 	background: inherit;
 	outline-color: rgb(0, 204, 146);

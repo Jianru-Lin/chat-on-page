@@ -127,7 +127,7 @@ Gui.prototype.clear_chat_list = function() {
 	self.chat_dw_list = [];
 }
 
-function update_chat_dw(chat_dw, chat_log, current_name) {
+function update_chat_dw(chat_dw, chat_log, current_author) {
 	var log = chat_log;
 	var item;
 
@@ -141,11 +141,12 @@ function update_chat_dw(chat_dw, chat_log, current_name) {
 		return;
 	}
 
-	chat_dw.set_author(item.from.name);
+	var from_author = item.from.author;
+
+	chat_dw.set_author(from_author);
 	chat_dw.set_date_time(format_date_time(log.date_time));
-	chat_dw.set_face_img(gravatar(item.from.name));
 	chat_dw.set_content(content_to_dom(item.content));
-	chat_dw.set_me(compare(item.from.name, current_name));
+	chat_dw.set_me(compare(from_author.email, current_author.email));
 
 	function content_to_dom(content) {
 		if (content.type === 'text') {
@@ -190,5 +191,5 @@ function find_dw(dw_list, target_uri, target_id) {
 }
 
 function get_author() {
-	return get_local_obj('config').email
+	return get_local_obj('config').author
 }

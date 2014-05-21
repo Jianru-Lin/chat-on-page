@@ -91,6 +91,7 @@
 {
 	from: {
 		name: ,
+		email: ,
 	},
 	to: {
 	},

@@ -96,29 +96,45 @@ h1.title {
 	border: solid 1px white;
 }
 
-.chat-item .author {
-	font-size: .75em;
-	display: inline-block;
+.chat-item .email-name {
 	color: #333;
-	background: #ddd;
-	/*background: #333;*/
-	padding: 4px 8px;
-	border-radius: 0 4px 4px 0;
+	line-height: 20px;
+	display: inline-block;
 	margin-bottom: .25em;
 	margin-left: 60px;
 	min-height: 1.2em;
+	vertical-align: top;
 }
 
-.chat-item .author {
+.chat-item .email-name > * {
+	font-size: .75em;
+	padding: 0 8px;
+	height: 22px;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.chat-item .email {
+	background: #ddd;
 	white-space: pre-wrap;
 	word-break: break-all;
+}
+
+.chat-item .name {
+	background: rgba(221, 221, 221, 0.33);
+	border-radius: 0 4px 4px 0;
+}
+
+.chat-item.me .name {
+	background: rgba(0, 133, 95, 0.77);
+	color: white;
 }
 
 .chat-item.me .face {
 	border-color: rgb(0, 133, 95);
 }
 
-.chat-item.me .author {
+.chat-item.me .email {
 	color: white;
 	background: rgb(0, 133, 95);
 }
@@ -184,7 +200,7 @@ h1.title {
 	display: none;
 }
 
-.chat-item.additional .author {
+.chat-item.additional .email {
 	display: none;
 }
 
@@ -208,23 +224,6 @@ h1.title {
 .editor .one-line-editor .content {
 	padding-right: 14px;
 	margin: 0 10px;
-}
-
-.editor .one-line-editor .author {
-	padding-right: 14px;
-	margin: 0 10px;
-	margin-bottom: 5px;
-}
-
-.editor .one-line-editor .author > input {
-	display: block;
-	border: 1px solid #ccc;
-	padding: 4px 6px;
-	font-size: inherit;
-	font-family: inherit;
-	background: inherit;
-	width: 100%;
-	outline-color: rgb(0, 204, 146);
 }
 
 .editor .one-line-editor .content > textarea {

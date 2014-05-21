@@ -4,15 +4,13 @@ function ChatDW(dom, binding) {
 }
 
 ChatDW.prototype.set_author = function(v) {
-	this.dom.querySelector('.author').textContent = v;
+	this.dom.querySelector('.name').textContent = v.name;
+	this.dom.querySelector('.email').textContent = v.email;
+	this.dom.querySelector('.face > img').setAttribute('src', gravatar(v.email));
 }
 
 ChatDW.prototype.set_date_time = function(v) {
 	this.dom.querySelector('.date-time').textContent = v;
-}
-
-ChatDW.prototype.set_face_img = function(v) {
-	this.dom.querySelector('.face > img').setAttribute('src', v);
 }
 
 ChatDW.prototype.set_content = function(v) {

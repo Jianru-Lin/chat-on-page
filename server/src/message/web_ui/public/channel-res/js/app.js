@@ -1,6 +1,6 @@
 // email not set ?
 var config = get_local_obj('config')
-if (!config || !config.email) {
+if (!config || !config.author) {
 	redirect_to('/')
 }
 
@@ -39,7 +39,7 @@ function on_send_chat(gui, author, content) {
 
 	var item = {
 		from: {
-			name: author
+			author: author
 		},
 		to: {
 		},
