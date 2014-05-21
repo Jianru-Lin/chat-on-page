@@ -37,6 +37,12 @@ Gui.prototype.enable_load_history = function() {
 Gui.prototype.create_chat = function(log) {
 	var self = this;
 
+	if (!log.item.from.author) {
+		console.log('[old data]');
+		console.log(log);
+		return;
+	}
+
 	smart_scroll(first('.chat-panel'), first('.editor'), function() {
 		if (log.item_type === 'override') {
 			override();
