@@ -23,11 +23,16 @@ ChatDW.prototype.set_content = function(v) {
 ChatDW.prototype.set_me = function(v) {
 	var dom = this.dom;
 
+	toggle_class(dom, 'me')
+}
+
+ChatDW.prototype.set_additional = function(v) {
+	var dom = this.dom;
+
 	if (v) {
-		if (!dom.classList.contains('me')) {
-			dom.classList.add('me');
-		}
-	} else {
-		dom.classList.remove('me');
+		add_class(dom, 'additional')
+	}
+	else {
+		remove_class(dom, 'additional')
 	}
 }

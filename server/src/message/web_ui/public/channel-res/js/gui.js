@@ -52,6 +52,28 @@ Gui.prototype.create_chat = function(log) {
 
 		update_chat_dw(chat_dw, log, get_author());
 
+		// combine
+
+		if (self.chat_dw_list.length > 0) {
+			var last_chat_log = self.chat_dw_list[self.chat_dw_list.length-1].binding;
+			var current_author = log.item.from.author;
+			var last_author;
+			if (last_chat_log.item_type === 'chat') {
+				last_author = last_chat_log.item.from.author;
+			}
+			else if (last_chat_log.item_type === 'override') {
+				last_author = last_chat_log.item.item.from.author;
+			}
+			else {
+				console.log('error')
+				return;
+			}
+
+			if (compare(last_author.email, current_author.email)) {
+				chat_dw.set_additional(true);
+			}
+		}
+
 		// add to list
 
 		self.chat_dw_list.push(chat_dw);
@@ -130,6 +152,7 @@ Gui.prototype.clear_chat_list = function() {
 function update_chat_dw(chat_dw, chat_log, current_author) {
 	var log = chat_log;
 	var item;
+	var from_author;
 
 	if (log.item_type === 'chat') {
 		item = log.item;
@@ -160,10 +183,6 @@ function update_chat_dw(chat_dw, chat_log, current_author) {
 		}
 	}
 
-	function compare(a, b) {
-		if (typeof a !== typeof b) return false;
-		return a.toLowerCase() === b.toLowerCase();
-	}
 }
 
 on_click(document.body, function(e) {
@@ -192,4 +211,9 @@ function find_dw(dw_list, target_uri, target_id) {
 
 function get_author() {
 	return get_local_obj('config').author
+}
+
+function compare(a, b) {
+	if (typeof a !== typeof b) return false;
+	return a.toLowerCase() === b.toLowerCase();
 }

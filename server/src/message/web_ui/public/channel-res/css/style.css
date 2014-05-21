@@ -203,14 +203,9 @@ h1.title {
 	display: none;
 }
 
-.chat-item.additional .email {
+.chat-item.additional .email-name {
 	display: none;
 }
-
-.chat-item.additional .date-time {
-	margin-left: 70px;
-}
-
 
 .editor {
 	border-top: 1px solid #ddd;
