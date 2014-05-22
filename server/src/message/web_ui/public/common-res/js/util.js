@@ -101,7 +101,37 @@ function toggle_class(e, className) {
 	}
 }
 
-function reached_bottom(e) {
+function reached_bottom() {
+	var e = document.body;
+
+	if (navigator && (/firefox/i.test(navigator.userAgent))) {
+		e = document.documentElement;
+	}
+
+	/*
+	var scrollTop = e.scrollTop;
+	var bd_clientHeight = e.clientHeight;
+	var bd_scrollHeight = e.scrollHeight;
+	var v = bd_scrollHeight - bd_clientHeight - scrollTop === 0;
+
+	console.log('scrollTop: ' + scrollTop)
+	console.log('bd_clientHeight: ' + bd_clientHeight)
+	console.log('bd_scrollHeight: ' + bd_scrollHeight)
+	console.log('v: ' + v)
+
+	return v;
+	*/
+	
+	var v = true;
+	var old_val = e.scrollTop;
+	e.scrollTop += 100;
+	if (e.scrollTop !== old_val) {
+		v = false;
+		e.scrollTop = old_val;
+	}
+	return v;
+
+	/*
 	var de = e || document.documentElement;
 	var bd = e || document.body;
 
@@ -115,6 +145,7 @@ function reached_bottom(e) {
 	}
 
 	return false;
+	*/
 }
 
 function smart_scroll(container, view_target, cb) {

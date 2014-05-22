@@ -89,20 +89,25 @@ function on_sync_chat_success(syncer, res) {
 
 	g.chat_log_list = g.chat_log_list.concat(log_list);
 
-	// update chat list dom
 
-	log_list.forEach(function(log) {
-		switch (log.action) {
-			case 'create':
-				gui.create_chat(log);
-				break;
-			case 'update':
-				gui.update_chat(log);
-				break;
-			case 'delete':
-				gui.delete_chat(log);
-				break;
-		}
+	smart_scroll(first('.chat-panel'), first('.editor'), function() {
+
+		// update chat list dom
+
+		log_list.forEach(function(log) {
+			switch (log.action) {
+				case 'create':
+					gui.create_chat(log);
+					break;
+				case 'update':
+					gui.update_chat(log);
+					break;
+				case 'delete':
+					gui.delete_chat(log);
+					break;
+			}
+		});
+
 	});
 }
 
