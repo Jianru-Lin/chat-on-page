@@ -47,6 +47,12 @@ h1.title {
 	padding: 0 10px;
 }
 
+.status {
+	margin-bottom: 20px;
+	padding: 10px 10px 0 10px;
+	color: #888;
+}
+
 .load-history {
 	margin-bottom: 20px;
 }

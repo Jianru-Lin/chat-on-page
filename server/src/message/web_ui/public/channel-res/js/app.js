@@ -79,6 +79,12 @@ function on_delete_chat(gui, log) {
 function on_sync_chat_success(syncer, res) {
 	//console.log('sync chat success');
 
+	// hide status text
+
+	add_class(id('status'), 'none');
+
+	// work
+
 	var log_list = res.log_list;
 
 	g.chat_log_list = g.chat_log_list.concat(log_list);
