@@ -2,6 +2,9 @@ html, body {
 	padding: 0;
 	margin: 0;
 	position: relative;
+}
+
+html {
 	font-size: 100%;
 	height: 100%;
 }
