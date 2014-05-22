@@ -143,6 +143,7 @@ h1.title {
 }
 
 .chat-item .date-time {
+	display: inline-block;
 	padding: 4px 0;
 	font-family: Georgia;
 	font-size: .75em;
