@@ -80,6 +80,10 @@ Gui.prototype.create_chat = function(log) {
 
 		id('chat-list').appendChild(chat_dom);
 
+		setTimeout(function() {
+			remove_class(chat_dom, 'prepare');
+		}, 0);
+
 		// click delete ?
 
 		on_click(chat_dom.querySelector('a.delete'), function(e) {

@@ -1,0 +1,12 @@
+.chat-item {
+	-webkit-transition: opacity 1s, -webkit-transform 1s;
+	-ms-transition: opacity 1s, -ms-transform 1s;
+	-moz-transition: opacity 1s, -moz-transform 1s;
+}
+
+.chat-item.prepare {
+	opacity: 0;
+	/*-webkit-transform: translateX(50px);*/
+	-ms-transform: translateX(50px);
+	-moz-transform: translateX(50px);
+}
