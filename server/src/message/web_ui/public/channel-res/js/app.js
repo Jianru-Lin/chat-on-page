@@ -5,6 +5,7 @@ if (!config || !config.author) {
 }
 
 var gui = new Gui();
+var noticer = new Noticer();
 var chat_syncer = undefined;
 var g = {
 	chat_log_list: []
@@ -95,6 +96,10 @@ function on_sync_chat_success(syncer, res) {
 		// update chat list dom
 
 		log_list.forEach(function(log) {
+
+			// notice on this
+			noticer.notice(log);
+
 			switch (log.action) {
 				case 'create':
 					gui.create_chat(log);
