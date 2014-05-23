@@ -23,7 +23,12 @@ ChatDW.prototype.set_content = function(v) {
 ChatDW.prototype.set_me = function(v) {
 	var dom = this.dom;
 
-	toggle_class(dom, 'me')
+	if (v) {
+		add_class(dom, 'me')
+	}
+	else {
+		remove_class(dom, 'me')
+	}
 }
 
 ChatDW.prototype.set_additional = function(v) {
