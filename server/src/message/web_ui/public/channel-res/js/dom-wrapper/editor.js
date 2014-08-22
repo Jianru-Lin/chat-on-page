@@ -16,6 +16,10 @@ function OneLineEditorDW(dom, binding) {
 			self.event_handler.on_click_send(self)
 		})
 
+	    on_click(dom.querySelector('.switch-editor'), function() {
+	    	self.event_handler.on_switch_editor()
+	    })
+
 		// support ctrl+enter shortcut
 
 		on_keydown(dom, function(e) {
@@ -75,7 +79,7 @@ function CodeEditorDW(dom, binding) {
 		self.event_handler.on_click_send(self)
 	})
 
-    on_click(dom.querySelector('.close'), function() {
+    on_click(dom.querySelector('.switch-editor'), function() {
     	self.event_handler.on_switch_editor()
     })
 

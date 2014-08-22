@@ -271,13 +271,13 @@ h1.title {
 	width: 120px;
 }
 
-.editor .code-editor .close {
+a.switch-editor {
 	text-decoration: none;
 	color: #888;
 	margin-left: 10px;
 }
 
-.editor .code-editor .close:hover {
+a.switch-editor:hover {
 	background: #888;
 	color: white;
 }

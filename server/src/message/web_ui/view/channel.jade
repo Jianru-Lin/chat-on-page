@@ -23,7 +23,9 @@ html
 				div.one-line-editor
 					div.content
 						textarea(rows="1")
-						div.tip 按回车键发送
+						div.tip
+							span 按回车键发送
+							a.switch-editor(href="javascript:") 切换到代码编辑器
 				div.code-editor.none
 					div.content
 						select
@@ -135,7 +137,7 @@ html
 							option(value="yaml") YAML
 						div.ace-editor
 						button.send 发送
-						a(href="javascript:").close 返回普通编辑模式
+						a(href="javascript:").switch-editor 返回普通编辑模式
 
 
 
