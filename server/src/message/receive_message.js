@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 
 var app = undefined;
+var port = process.env.PORT || 80;
 
 function receive_message(message_handler) {
 	if (!app) {
@@ -19,7 +20,7 @@ function receive_message(message_handler) {
 		//app.get('/register', register_page);
 		//app.get('/login', login_page);
 		app.post('/message', message_page);
-		app.listen(80);
+		app.listen(port);
 	}
 
 	function message_page(req, res) {
