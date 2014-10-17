@@ -1,14 +1,34 @@
 <head>
-  <title>server</title>
+  <title>喵德利-社区</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+	{{> signInDisplay}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="signInDisplay">
+	<div class="container font-hei">
+		<h1>喵德利</h1>
+		<h3>请输入您的邮箱和密码后点击登录</h3>
+		<div class="padding-fixer">
+			<input type="text" placeholder="邮箱" id="email">
+			<input type="password" placeholder="密码" id="password">
+		</div>
+		<button id="enter-bt">登录</button>
+		<a href="#" id="clear-bt">注册新帐号</a>
+	</div>
+</template>
+
+<template name="signUpDisplay">
+	<div class="container font-hei">
+		<h1>喵德利 - 注册新帐号</h1>
+		<h3>请填写下述信息后点击注册</h3>
+		<div class="padding-fixer">
+			<input type="text" placeholder="邮箱" id="email">
+			<input type="text" placeholder="姓名" id="name">
+			<input type="password" placeholder="密码" id="password">
+			<input type="password" placeholder="再次输入密码" id="password-repeat">
+		</div>
+		<button name="register">注册</button>
+	</div>
 </template>
