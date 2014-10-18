@@ -4,7 +4,8 @@
 
 <body>
 	<div class="font-hei">
-		{{> header}}		
+		{{> header}}
+		{{> modal}}
 	</div>
 </body>
 
@@ -19,28 +20,47 @@
 			</ul>
 		</div>
 		<form class="navbar-form navbar-right" role="login">
-			<button class="btn btn-default">
+			<a href="#" class="btn btn-default">
 				<i class="glyphicon glyphicon-user"></i>
-				登录
-			</button>
-			<button class="btn btn-default">
-				<i class="glyphicon glyphicon-plus"></i>
-				注册
-			</button>
+				注册 / 登录
+			</a>
 		</form>
 	</div>
 </template>
 
+<template name="modal">
+	<div class="modal show">
+		{{> signInDisplay}}
+	</div>
+</template>
+
 <template name="signInDisplay">
-	<div class="container font-hei">
-		<h1>喵德利</h1>
-		<h3>请输入您邮的箱和密码后点击登录</h3>
-		<div class="padding-fixer">
-			<input type="text" placeholder="邮箱" id="email">
-			<input type="password" placeholder="密码" id="password">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">登录 Login</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<fieldset>
+						<div class="form-group">
+							<label>登录帐号</label>
+							<input type="email" class="form-control" placeholder="请输入您的邮箱">
+						</div>
+						<div class="form-group">
+							<label>密码</label>
+							<input type="password" class="form-control" placeholder="请输入您的密码">
+						</div>
+					</fieldset>
+				</form>
+				<span>还没有帐号？<a href="#">立即注册</a></span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">登录</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
 		</div>
-		<button id="enter-bt">登录</button>
-		<a href="#" id="clear-bt">注册新帐号</a>
 	</div>
 </template>
 
