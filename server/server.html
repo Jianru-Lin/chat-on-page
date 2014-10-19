@@ -38,13 +38,15 @@
 </template>
 
 <template name="bodyDisplay">
-	<div class="tab-content">
-		<div class="tab-pane active" id="home">
-			首页
-		</div>
-		<div class="tab-pane" id="all-user">
-			用户
-		</div>
+	<div class="container">
+		<div class="tab-content">
+			<div class="tab-pane active" id="home">
+				{{> homeDisplay}}
+			</div>
+			<div class="tab-pane" id="all-user">
+				{{> allUserDisplay}}
+			</div>
+		</div>		
 	</div>
 </template>
 
@@ -122,6 +124,15 @@
 	</div>
 </template>
 
+<template name="homeDisplay">
+	yo
+</template>
+
 <template name="allUserDisplay">
-	
+	{{#each allUser}}
+		<div>
+			{{profile.name}}<br>
+			{{profile.email}}
+		</div>
+	{{/each}}
 </template>
