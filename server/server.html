@@ -20,7 +20,7 @@
 			</ul>
 		</div>
 		<form class="navbar-form navbar-right" role="login">
-			<a href="#" class="btn btn-default">
+			<a href="#" class="btn btn-default"  data-toggle="modal" data-target="#modal">
 				<i class="glyphicon glyphicon-user"></i>
 				注册 / 登录
 			</a>
@@ -29,7 +29,7 @@
 </template>
 
 <template name="modal">
-	<div class="modal show">
+	<div class="modal" id="modal">
 		{{#if showSignUpDisplay}}
 			{{> signUpDisplay}}
 		{{else}}
