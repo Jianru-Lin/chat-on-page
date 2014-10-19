@@ -90,4 +90,56 @@ if (Meteor.isClient) {
 			return 'http://www.gravatar.com/avatar/' + hash + '?s=100&d=identicon'
 		}
 	})
+
+	Template.userDisplay.events({
+		'click a.add-friend': function(event, instance) {
+			var friendId = instance.data._id
+			Meteor.call('addFriend', friendId, function(err) {
+				if (err) {
+					alert(err)
+				}
+				else {
+					alert('ok')
+				}
+			})
+		}
+	})
+}
+else if (Meteor.isServer) {
+	var Friends = new Mongo.Collection('Friends')
+	Meteor.methods({
+		addFriend: function(friendId) {
+			if (!this.userId) {
+				throw new Meteor.Error('invalid-operation', 'not signed in')
+			}
+
+			var myId = this.userId
+
+			if (myId == friendId) {
+				throw new Meteor.Error('invalid-operation', 'you can\'t add your self as friend')				
+			}
+
+			var alreadyFriend = Friends.find({myId: this.userId, friendId: friendId}).count() != 0
+			if (alreadyFriend) {
+				throw new Meteor.Error('invalid-operation', 'you are friend already')
+			}
+
+			Friends.insert({
+				myId: myId,
+				friendId: friendId
+			})
+
+			Friends.insert({
+				myId: friendId,
+				friendId: myId
+			})
+
+		},
+		findFriend: function() {
+			if (!this.userId) return
+			var myId = this.userId
+
+			return Friends.find({myId: myId})
+		}
+	})
 }
