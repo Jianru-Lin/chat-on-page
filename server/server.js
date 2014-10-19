@@ -2,6 +2,12 @@ if (Meteor.isClient) {
 
 	Session.set('showSignUpDisplay', false)
 
+	Template.header.events({
+		'click a.sign-out': function(event, instance) {
+			Meteor.logout()
+		}
+	})
+
 	Template.modal.helpers({
 		showSignUpDisplay: function() {
 			return Session.get('showSignUpDisplay');
@@ -9,12 +15,54 @@ if (Meteor.isClient) {
 	})
 
 	Template.signInDisplay.events({
+		'click .btn-primary': function(event, instance) {
+			var email = instance.$('input.email').val()
+			var password = instance.$('input.password').val()
+
+			Meteor.loginWithPassword({email: email}, password, function(err) {
+				if (err) {
+					alert(err)
+				}
+				else {
+					// clear info
+					instance.$('input.email').val('')
+					instance.$('input.password').val('')
+
+					$('#modal').modal('hide')
+				}
+			})
+		},
 		'click a.sign-up': function() {
 			Session.set('showSignUpDisplay', true)
 		}
 	})
 
 	Template.signUpDisplay.events({
+		'click .btn-primary': function(event, instance) {
+			var name = instance.$('input.name').val()
+			var email = instance.$('input.email').val()
+			var password = instance.$('input.password').val()
+
+			Accounts.createUser({
+				email: email,
+				password: password,
+				profile: {
+					email: email,
+					name: name,
+				}
+			}, function(err) {
+				if (err) {
+					alert(err)
+				} else {
+					// clear info
+					instance.$('input.name').val('')
+					instance.$('input.email').val('')
+					instance.$('input.password').val('')
+
+					$('#modal').modal('hide')
+				}
+			})
+		},
 		'click a.sign-in': function() {
 			Session.set('showSignUpDisplay', false)
 		}

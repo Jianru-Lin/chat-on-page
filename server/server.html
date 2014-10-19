@@ -20,10 +20,15 @@
 			</ul>
 		</div>
 		<form class="navbar-form navbar-right" role="login">
-			<a href="#" class="btn btn-default"  data-toggle="modal" data-target="#modal">
-				<i class="glyphicon glyphicon-user"></i>
-				注册 / 登录
-			</a>
+			{{#if currentUser}}
+				<a href="#" class="sign-out btn btn-default">
+					<i class="glyphicon glyphicon-user"></i>注销
+				</a>
+			{{else}}
+				<a href="#" class="btn btn-default"  data-toggle="modal" data-target="#modal">
+					<i class="glyphicon glyphicon-user"></i>注册 / 登录
+				</a>
+			{{/if}}
 		</form>
 	</div>
 </template>
@@ -50,11 +55,11 @@
 					<fieldset>
 						<div class="form-group">
 							<label>邮箱</label>
-							<input type="email" class="form-control" placeholder="请输入您的邮箱">
+							<input type="email" class="email form-control" placeholder="请输入您的邮箱">
 						</div>
 						<div class="form-group">
 							<label>密码</label>
-							<input type="password" class="form-control" placeholder="请输入您的密码">
+							<input type="password" class="password form-control" placeholder="请输入您的密码">
 						</div>
 					</fieldset>
 				</form>
@@ -80,15 +85,15 @@
 					<fieldset>
 						<div class="form-group">
 							<label>姓名</label>
-							<input type="email" class="form-control" placeholder="请输入您的姓名">
+							<input type="text" class="name form-control" placeholder="请输入您的姓名">
 						</div>
 						<div class="form-group">
 							<label>邮箱</label>
-							<input type="email" class="form-control" placeholder="请输入您的邮箱">
+							<input type="email" class="email form-control" placeholder="请输入您的邮箱">
 						</div>
 						<div class="form-group">
 							<label>密码</label>
-							<input type="password" class="form-control" placeholder="请输入您的密码">
+							<input type="password" class="password form-control" placeholder="请输入您的密码">
 						</div>
 					</fieldset>
 				</form>
@@ -102,16 +107,6 @@
 	</div>
 </template>
 
-<template name="signUpDisplay2">
-	<div class="container font-hei">
-		<h1>喵德利 - 注册新帐号</h1>
-		<h3>请填写下述信息后点击注册</h3>
-		<div class="padding-fixer">
-			<input type="text" placeholder="邮箱" id="email">
-			<input type="text" placeholder="姓名" id="name">
-			<input type="password" placeholder="密码" id="password">
-			<input type="password" placeholder="再次输入密码" id="password-repeat">
-		</div>
-		<button name="register">注册</button>
-	</div>
+<template name="allUserDisplay">
+	
 </template>
