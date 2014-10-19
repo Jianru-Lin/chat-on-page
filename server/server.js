@@ -4,7 +4,7 @@ if (Meteor.isClient) {
 
 	Meteor.startup(function() {
 		// DEBUG ONLY
-		$('a[href="#all-user"]').click()
+		//$('a[href="#all-user"]').click()
 	})
 
 	Session.set('showSignUpDisplay', false)
@@ -151,6 +151,15 @@ if (Meteor.isClient) {
 		faceImageUrl: function() {
 			var data = Template.currentData()
 			var hash = data.friendProfile.faceImage.hash
+			return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
+		}
+	})
+
+	Template.chatDisplay.helpers({
+		myFaceImageUrl: function() {
+			var me = Meteor.user()
+			if (!me) return
+			var hash = me.profile.faceImage.hash
 			return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
 		}
 	})
