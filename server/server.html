@@ -4,36 +4,51 @@
 
 <body>
 	<div class="font-hei">
-		{{> header}}
-		{{> modal}}
+		{{> headerDisplay}}
+		{{> modalDisplay}}
+		{{> bodyDisplay}}
 	</div>
 </body>
 
-<template name="header">
+<template name="headerDisplay">
 	<div class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
 			<a href="#" class="navbar-brand">Miaodeli</a>
 			<ul class="nav navbar-nav">
 				<li class="active">
-					<a href="#">首页</a>
+					<a href="#home" data-toggle="tab">首页</a>
+				</li>
+				<li>
+					<a href="#all-user" data-toggle="tab">用户</a>
 				</li>
 			</ul>
 		</div>
 		<form class="navbar-form navbar-right" role="login">
 			{{#if currentUser}}
 				<a href="#" class="sign-out btn btn-default">
-					<i class="glyphicon glyphicon-user"></i>注销
+					注销
 				</a>
 			{{else}}
 				<a href="#" class="btn btn-default"  data-toggle="modal" data-target="#modal">
-					<i class="glyphicon glyphicon-user"></i>注册 / 登录
+					注册 / 登录
 				</a>
 			{{/if}}
 		</form>
 	</div>
 </template>
 
-<template name="modal">
+<template name="bodyDisplay">
+	<div class="tab-content">
+		<div class="tab-pane active" id="home">
+			首页
+		</div>
+		<div class="tab-pane" id="all-user">
+			用户
+		</div>
+	</div>
+</template>
+
+<template name="modalDisplay">
 	<div class="modal" id="modal">
 		{{#if showSignUpDisplay}}
 			{{> signUpDisplay}}
