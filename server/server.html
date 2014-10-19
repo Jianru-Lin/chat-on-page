@@ -172,7 +172,17 @@
 </template>
 
 <template name="friendDisplay">
-	<li class="list-group-item">Java</li>
+	<li class="list-group-item">
+		<div class="media">
+			<div class="pull-left">
+				<img src="{{faceImageUrl}}" alt="" class="media-object">
+			</div>
+			<div class="media-body">
+				<strong>{{friendProfile.name}}</strong><br>
+				{{friendProfile.email}}			
+			</div>
+		</div>
+	</li>
 </template>
 
 <template name="emptyFriendDisplay">

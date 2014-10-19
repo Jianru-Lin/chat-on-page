@@ -1,3 +1,5 @@
+var Friends = new Mongo.Collection('Friends')
+
 if (Meteor.isClient) {
 
 	Meteor.startup(function() {
@@ -91,6 +93,14 @@ if (Meteor.isClient) {
 		}
 	})
 
+	Template.friendDisplay.helpers({
+		faceImageUrl: function() {
+			var data = Template.currentData()
+			var hash = data.friendProfile.faceImage.hash
+			return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
+		}
+	})
+
 	Template.userDisplay.events({
 		'click a.add-friend': function(event, instance) {
 			var friendId = instance.data._id
@@ -104,42 +114,61 @@ if (Meteor.isClient) {
 			})
 		}
 	})
+
+	Template.allFriendDisplay.helpers({
+		allFriend: function() {
+			var r = Friends.find({myId: Meteor.userId()}).fetch()
+			console.log(r)
+			return r
+		}
+	})
 }
 else if (Meteor.isServer) {
-	var Friends = new Mongo.Collection('Friends')
-	Meteor.methods({
-		addFriend: function(friendId) {
-			if (!this.userId) {
-				throw new Meteor.Error('invalid-operation', 'not signed in')
+
+	Meteor.startup(function() {
+
+		Meteor.methods({
+			addFriend: function(friendId) {
+				if (!this.userId) {
+					throw new Meteor.Error('invalid-operation', 'not signed in')
+				}
+
+				var myId = this.userId
+
+				if (myId == friendId) {
+					throw new Meteor.Error('invalid-operation', 'you can\'t add your self as friend')				
+				}
+
+				var alreadyFriend = Friends.find({myId: this.userId, friendId: friendId}).count() != 0
+				if (alreadyFriend) {
+					throw new Meteor.Error('invalid-operation', 'you are friend already')
+				}
+
+				var me = Meteor.users.find({_id: myId}).fetch()
+				if (!me || me.length < 1) {
+					throw new Meteor.Error('invalid-operation', 'me not found')
+				}
+				var myProfile = me[0].profile
+				
+				var friend = Meteor.users.find({_id: friendId}).fetch()
+				if (!friend || friend.length < 1) {
+					throw new Meteor.Error('invalid-operation', 'friend not found')					
+				}
+				var friendProfile = friend[0].profile
+
+				Friends.insert({
+					myId: myId,
+					friendId: friendId,
+					friendProfile: friendProfile
+				})
+
+				Friends.insert({
+					myId: friendId,
+					friendId: myId,
+					friendProfile: myProfile
+				})
+
 			}
-
-			var myId = this.userId
-
-			if (myId == friendId) {
-				throw new Meteor.Error('invalid-operation', 'you can\'t add your self as friend')				
-			}
-
-			var alreadyFriend = Friends.find({myId: this.userId, friendId: friendId}).count() != 0
-			if (alreadyFriend) {
-				throw new Meteor.Error('invalid-operation', 'you are friend already')
-			}
-
-			Friends.insert({
-				myId: myId,
-				friendId: friendId
-			})
-
-			Friends.insert({
-				myId: friendId,
-				friendId: myId
-			})
-
-		},
-		findFriend: function() {
-			if (!this.userId) return
-			var myId = this.userId
-
-			return Friends.find({myId: myId})
-		}
+		})
 	})
 }
