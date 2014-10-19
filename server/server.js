@@ -2,7 +2,7 @@ if (Meteor.isClient) {
 
 	Meteor.startup(function() {
 		// DEBUG ONLY
-		$('a[href="#all-user"]').click()
+		//$('a[href="#all-user"]').click()
 	})
 
 	Session.set('showSignUpDisplay', false)

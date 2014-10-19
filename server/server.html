@@ -119,7 +119,16 @@
 </template>
 
 <template name="homeDisplay">
-	yo
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				left
+			</div>
+			<div class="col-md-4">
+				{{> allFriendDisplay}}
+			</div>
+		</div>
+	</div>
 </template>
 
 <template name="allUserDisplay">
@@ -145,4 +154,22 @@
 			<a href="javascript:" class="btn btn-default">+ 加为好友</a>
 		</div>
 	</div>
+</template>
+
+<template name="allFriendDisplay">
+	<div class="panel panel-default">
+		<div class="panel-heading">联系人</div>
+		<ul class="list-group">
+			{{#each allFriend}}
+				{{> friendDisplay}}
+			{{/each}}
+		</ul>
+		<div class="panel-footer">
+			<a href="#" class="btn btn-default">+ 添加</a>
+		</div>
+	</div>
+</template>
+
+<template name="friendDisplay">
+	<li class="list-group-item">Java</li>
 </template>
