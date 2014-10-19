@@ -54,7 +54,10 @@ if (Meteor.isClient) {
 				profile: {
 					email: email,
 					name: name,
-					faceImageUrl: gravatar(email)
+					faceImage: {
+						type: 'gravatar',
+						hash: md5(email.toLowerCase())
+					}
 				}
 			}, function(err) {
 				if (err) {
@@ -80,10 +83,11 @@ if (Meteor.isClient) {
 		}
 	})
 
-	function gravatar(email) {
-		email = email || '';
-		email = email.toLowerCase();
-		var hash = md5(email);
-		return 'http://www.gravatar.com/avatar/' + hash + '?s=50&d=identicon';
-	}
+	Template.userDisplay.helpers({
+		faceImageUrl: function() {
+			var data = Template.currentData()
+			var hash = data.profile.faceImage.hash
+			return 'http://www.gravatar.com/avatar/' + hash + '?s=100&d=identicon'
+		}
+	})
 }
