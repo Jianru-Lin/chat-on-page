@@ -30,7 +30,7 @@
 
 <template name="modal">
 	<div class="modal show">
-		{{> signInDisplay}}
+		{{> signUpDisplay}}
 	</div>
 </template>
 
@@ -39,13 +39,13 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">登录 Login</h4>
+				<h4 class="modal-title">登录</h4>
 			</div>
 			<div class="modal-body">
 				<form>
 					<fieldset>
 						<div class="form-group">
-							<label>登录帐号</label>
+							<label>邮箱</label>
 							<input type="email" class="form-control" placeholder="请输入您的邮箱">
 						</div>
 						<div class="form-group">
@@ -65,6 +65,40 @@
 </template>
 
 <template name="signUpDisplay">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">注册</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<fieldset>
+						<div class="form-group">
+							<label>姓名</label>
+							<input type="email" class="form-control" placeholder="请输入您的姓名">
+						</div>
+						<div class="form-group">
+							<label>邮箱</label>
+							<input type="email" class="form-control" placeholder="请输入您的邮箱">
+						</div>
+						<div class="form-group">
+							<label>密码</label>
+							<input type="password" class="form-control" placeholder="请输入您的密码">
+						</div>
+					</fieldset>
+				</form>
+				<span>已经有帐号？<a href="#">立即登录</a></span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">注册</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="signUpDisplay2">
 	<div class="container font-hei">
 		<h1>喵德利 - 注册新帐号</h1>
 		<h3>请填写下述信息后点击注册</h3>
