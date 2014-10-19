@@ -4,10 +4,17 @@ if (Meteor.isClient) {
 
 	Meteor.startup(function() {
 		// DEBUG ONLY
-		//$('a[href="#all-user"]').click()
+		$('a[href="#all-user"]').click()
 	})
 
 	Session.set('showSignUpDisplay', false)
+
+	Template.headerDisplay.helpers({
+		myName: function() {
+			var me = Meteor.user()
+			return me ? me.profile.name : ''
+		}
+	})
 
 	Template.headerDisplay.events({
 		'click a.sign-out': function(event, instance) {
@@ -90,14 +97,20 @@ if (Meteor.isClient) {
 			var data = Template.currentData()
 			var hash = data.profile.faceImage.hash
 			return 'http://www.gravatar.com/avatar/' + hash + '?s=100&d=identicon'
-		}
-	})
-
-	Template.friendDisplay.helpers({
-		faceImageUrl: function() {
+		},
+		canAddFriend: function() {
+			if (!Meteor.user()) return false
 			var data = Template.currentData()
-			var hash = data.friendProfile.faceImage.hash
-			return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
+			var myId = Meteor.userId()
+			var friendId = data._id
+			return !(Friends.find({myId: myId, friendId: friendId}).count() > 0)
+		},
+		canRemoveFriend: function() {
+			if (!Meteor.user()) return false
+			var data = Template.currentData()
+			var myId = Meteor.userId()
+			var friendId = data._id
+			return Friends.find({myId: myId, friendId: friendId}).count() > 0
 		}
 	})
 
@@ -105,6 +118,17 @@ if (Meteor.isClient) {
 		'click a.add-friend': function(event, instance) {
 			var friendId = instance.data._id
 			Meteor.call('addFriend', friendId, function(err) {
+				if (err) {
+					alert(err)
+				}
+				else {
+					alert('ok')
+				}
+			})
+		},
+		'click a.remove-friend': function(event, instance) {
+			var friendId = instance.data._id
+			Meteor.call('removeFriend', friendId, function(err) {
 				if (err) {
 					alert(err)
 				}
@@ -120,6 +144,14 @@ if (Meteor.isClient) {
 			var r = Friends.find({myId: Meteor.userId()}).fetch()
 			console.log(r)
 			return r
+		}
+	})
+
+	Template.friendDisplay.helpers({
+		faceImageUrl: function() {
+			var data = Template.currentData()
+			var hash = data.friendProfile.faceImage.hash
+			return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
 		}
 	})
 }
@@ -168,6 +200,15 @@ else if (Meteor.isServer) {
 					friendProfile: myProfile
 				})
 
+			},
+			removeFriend: function(friendId) {
+				if (!this.userId) {
+					throw new Meteor.Error('invalid-operation', 'not signed in')
+				}
+
+				var myId = this.userId
+				Friends.remove({myId: myId, friendId: friendId})
+				Friends.remove({myId: friendId, friendId: myId})
 			}
 		})
 	})

@@ -24,9 +24,9 @@
 			</ul>
 		</div>
 		{{#if currentUser}}
-			<a href="#" class="sign-out btn btn-default navbar-btn pull-right">注销</a>
+			<a href="#" style="margin-right: 15px" class="sign-out btn btn-default navbar-btn pull-right">注销 {{myName}}</a>
 		{{else}}
-			<a href="#" class="btn btn-default navbar-btn pull-right"  data-toggle="modal" data-target="#modal">注册 / 登录</a>
+			<a href="#" style="margin-right: 15px" class="btn btn-default navbar-btn pull-right"  data-toggle="modal" data-target="#modal">注册 / 登录</a>
 		{{/if}}
 	</div>
 </template>
@@ -151,7 +151,13 @@
 			</div>
 		</div>
 		<div class="panel-footer">
-			<a href="javascript:" class="add-friend btn btn-default">+ 加为好友</a>
+			{{#if canAddFriend}}
+				<a href="javascript:" class="add-friend btn btn-primary">+ 加为好友</a>
+			{{/if}}
+			{{#if canRemoveFriend}}
+				<a href="javascript:" class="remove-friend btn btn-warning">- 删除好友</a>
+			{{/if}}
+			<a href="javascript:" class="detial btn btn-default">详细资料</a>
 		</div>
 	</div>
 </template>
