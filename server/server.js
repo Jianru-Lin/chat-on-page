@@ -1,23 +1,22 @@
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault("counter", 0);
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get("counter");
-    }
-  });
+	Session.set('showSignUpDisplay', false)
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set("counter", Session.get("counter") + 1);
-    }
-  });
-}
+	Template.modal.helpers({
+		showSignUpDisplay: function() {
+			return Session.get('showSignUpDisplay');
+		}
+	})
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
+	Template.signInDisplay.events({
+		'click a.sign-up': function() {
+			Session.set('showSignUpDisplay', true)
+		}
+	})
+
+	Template.signUpDisplay.events({
+		'click a.sign-in': function() {
+			Session.set('showSignUpDisplay', false)
+		}
+	})
 }

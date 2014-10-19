@@ -30,7 +30,11 @@
 
 <template name="modal">
 	<div class="modal show">
-		{{> signUpDisplay}}
+		{{#if showSignUpDisplay}}
+			{{> signUpDisplay}}
+		{{else}}
+			{{> signInDisplay}}
+		{{/if}}
 	</div>
 </template>
 
@@ -54,7 +58,7 @@
 						</div>
 					</fieldset>
 				</form>
-				<span>还没有帐号？<a href="#">立即注册</a></span>
+				<span>还没有帐号？<a class="sign-up" href="javascript:">立即注册</a></span>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary">登录</button>
@@ -88,7 +92,7 @@
 						</div>
 					</fieldset>
 				</form>
-				<span>已经有帐号？<a href="#">立即登录</a></span>
+				<span>已经有帐号？<a class="sign-in" href="javascript:">立即登录</a></span>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary">注册</button>
