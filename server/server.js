@@ -54,6 +54,7 @@ if (Meteor.isClient) {
 				profile: {
 					email: email,
 					name: name,
+					faceImageUrl: gravatar(email)
 				}
 			}, function(err) {
 				if (err) {
@@ -78,4 +79,11 @@ if (Meteor.isClient) {
 			return Meteor.users.find()
 		}
 	})
+
+	function gravatar(email) {
+		email = email || '';
+		email = email.toLowerCase();
+		var hash = md5(email);
+		return 'http://www.gravatar.com/avatar/' + hash + '?s=50&d=identicon';
+	}
 }
