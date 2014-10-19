@@ -124,9 +124,18 @@
 
 <template name="allUserDisplay">
 	{{#each allUser}}
-		<div>
-			{{profile.name}}<br>
-			{{profile.email}}
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="media">
+					<div class="pull-left">
+						<img src="http://www.gravatar.com/avatar/d72a8238b6327474c191c7d227d7c141?s=48&d=identicon" alt="" class="media-object">
+					</div>
+					<div class="media-body">
+						{{profile.name}}<br>
+						{{profile.email}}						
+					</div>
+				</div>
+			</div>
 		</div>
 	{{/each}}
 </template>
