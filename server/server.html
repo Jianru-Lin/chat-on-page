@@ -124,18 +124,25 @@
 
 <template name="allUserDisplay">
 	{{#each allUser}}
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="media">
-					<div class="pull-left">
-						<img src="http://www.gravatar.com/avatar/d72a8238b6327474c191c7d227d7c141?s=48&d=identicon" alt="" class="media-object">
-					</div>
-					<div class="media-body">
-						{{profile.name}}<br>
-						{{profile.email}}						
-					</div>
+		{{> userDisplay}}
+	{{/each}}
+</template>
+
+<template name="userDisplay">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="media">
+				<div class="pull-left">
+					<img src="{{profile.faceImageUrl}}" alt="" class="media-object">
+				</div>
+				<div class="media-body">
+					<strong>{{profile.name}}</strong><br>
+					{{profile.email}}						
 				</div>
 			</div>
 		</div>
-	{{/each}}
+		<div class="panel-footer">
+			<a href="javascript:" class="btn btn-default">+ 加为好友</a>
+		</div>
+	</div>
 </template>
