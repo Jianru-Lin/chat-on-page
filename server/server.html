@@ -56,15 +56,13 @@
 </template>
 
 <template name="bodyDisplay">
-	<div class="container">
-		<div class="tab-content">
-			<div class="tab-pane active" id="home">
-				{{> homeDisplay}}
-			</div>
-			<div class="tab-pane" id="all-user">
-				{{> allUserDisplay}}
-			</div>
-		</div>		
+	<div class="tab-content">
+		<div class="tab-pane active" id="home">
+			{{> homeDisplay}}
+		</div>
+		<div class="tab-pane" id="all-user">
+			{{> allUserDisplay}}
+		</div>
 	</div>
 </template>
 
@@ -143,7 +141,7 @@
 </template>
 
 <template name="homeDisplay">
-	<div class="container">
+	<div class="container home-display">
 		<div class="row">
 			<div class="col-md-8">
 				{{> chatDisplay}}
@@ -156,9 +154,11 @@
 </template>
 
 <template name="allUserDisplay">
-	{{#each allUser}}
-		{{> userDisplay}}
-	{{/each}}
+	<div class="container">
+		{{#each allUser}}
+			{{> userDisplay}}
+		{{/each}}		
+	</div>
 </template>
 
 <template name="userDisplay">
@@ -204,12 +204,27 @@
 
 <template name="friendDisplay">
 	<li class="list-group-item">
-		<div class="media">
+		<div class="btn-group pull-right">
+			<button href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li class="">
+					<a href="#">详细资料</a>
+				</li>
+				<li class="divider"></li>
+				<li class="">
+					<a href="#">删除</a>
+				</li>
+			</ul>					
+		</div>
+		<div class="media margin-bt-10">
 			<div class="pull-left">
 				<img src="{{faceImageUrl}}" alt="" class="media-object">
 			</div>
-			<div class="media-body">
-				<strong>{{friendProfile.name}}</strong><br>
+			<div class="media-body overflow-visible">
+				<strong>{{friendProfile.name}}</strong>
+				<br>
 				{{friendProfile.email}}			
 			</div>
 		</div>

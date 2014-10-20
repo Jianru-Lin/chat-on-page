@@ -11,3 +11,24 @@
 .font-song {font-family: Georgia, "Nimbus Roman No9 L", "Songti SC", STSong, "AR PL SungtiL GB", NSimSun, SimSun, TW\-Sung, "WenQuanYi Bitmap Song", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE", serif;}
 .font-fang-song {font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, CWTEX\-F, serif;}
 .font-ming {font-family: Georgia, "Nimbus Roman No9 L", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE", PMingLiU, MingLiU, serif;}
+
+/*!
+ * Custom CSS
+ */
+
+.home-display {
+	width: 100%;
+	padding: 15px 30px;
+}
+
+.overflow-visible {
+	overflow: visible;
+}
+
+.transparent {
+	opacity: 0;
+}
+
+.margin-bt-10 {
+	margin-bottom: 10px;
+}
