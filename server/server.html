@@ -28,7 +28,6 @@
 
 <template name="mainDisplay">
 	{{> headerDisplay}}
-	{{> modalDisplay}}
 	{{> bodyDisplay}}
 </template>
 
@@ -127,11 +126,7 @@
 				</li>
 			</ul>
 		</div>
-		{{#if currentUser}}
-			<a href="#" style="margin-right: 15px" class="sign-out btn btn-default navbar-btn pull-right">注销 {{myName}}</a>
-		{{else}}
-			<a href="#" style="margin-right: 15px" class="btn btn-default navbar-btn pull-right"  data-toggle="modal" data-target="#modal">注册 / 登录</a>
-		{{/if}}
+		<a href="#" style="margin-right: 15px" class="sign-out btn btn-default navbar-btn pull-right">注销 {{myName}}</a>
 	</div>
 </template>
 
