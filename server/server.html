@@ -12,8 +12,10 @@
 
 <template name="chatDisplay">
 	<div class="panel panel-default">
-		<div class="panel-heading">Chat</div>
-		<div class="panel-body">Body</div>
+		<div class="panel-heading">对话</div>
+		<div class="panel-body">
+			Body
+		</div>
 		<div class="panel-footer">
 			<div class="media">
 				<a href="#" class="pull-left">
@@ -32,6 +34,10 @@
 			</div>
 		</div>
 	</div>
+</template>
+
+<template name="chatTargetDisplay">
+	
 </template>
 
 <template name="headerDisplay">
@@ -188,7 +194,16 @@
 
 <template name="allFriendDisplay">
 	<div class="panel panel-default">
-		<div class="panel-heading">联系人</div>
+		<div class="panel-heading border-bottom-none">
+			<ul class="nav nav-tabs nav-panel-heading">
+				<li>
+					<a href="#">对话</a>
+				</li>
+				<li class="active">
+					<a href="#">联系人</a>
+				</li>
+			</ul>
+		</div>
 		<ul class="list-group">
 			{{#each allFriend}}
 				{{> friendDisplay}}

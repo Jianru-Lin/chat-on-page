@@ -32,3 +32,13 @@
 .margin-bt-10 {
 	margin-bottom: 10px;
 }
+
+.nav-panel-heading {
+	margin-left: -15px !important;
+	margin-right: -15px !important;
+	margin-bottom: -10px !important;
+}
+
+.border-bottom-none {
+	border-bottom: none;
+}
