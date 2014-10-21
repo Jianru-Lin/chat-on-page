@@ -9,6 +9,12 @@ if (Meteor.isClient) {
 
 	Session.set('showSignUpDisplay', false)
 
+	Template.welcomeDisplay.helpers({
+		showSignUpDisplay: function() {
+			return Session.get('showSignUpDisplay')
+		}
+	})
+
 	Template.headerDisplay.helpers({
 		myName: function() {
 			var me = Meteor.user()
@@ -19,12 +25,6 @@ if (Meteor.isClient) {
 	Template.headerDisplay.events({
 		'click a.sign-out': function(event, instance) {
 			Meteor.logout()
-		}
-	})
-
-	Template.modalDisplay.helpers({
-		showSignUpDisplay: function() {
-			return Session.get('showSignUpDisplay');
 		}
 	})
 

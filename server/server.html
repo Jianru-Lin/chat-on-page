@@ -4,11 +4,85 @@
 
 <body>
 	<div class="font-hei">
-		{{> headerDisplay}}
-		{{> modalDisplay}}
-		{{> bodyDisplay}}
+		{{#if currentUser}}
+			{{> mainDisplay}}
+		{{else}}
+			{{> welcomeDisplay}}
+		{{/if}}
 	</div>
 </body>
+
+<template name="welcomeDisplay">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				{{#if showSignUpDisplay}}
+					{{> signUpDisplay}}
+				{{else}}
+					{{> signInDisplay}}
+				{{/if}}				
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="mainDisplay">
+	{{> headerDisplay}}
+	{{> modalDisplay}}
+	{{> bodyDisplay}}
+</template>
+
+<template name="signInDisplay">
+	<div class="panel panel-default">
+		<div class="panel-heading">登录</div>
+		<div class="panel-body">
+			<form>
+				<fieldset>
+					<div class="form-group">
+						<label>邮箱</label>
+						<input type="email" class="email form-control" placeholder="请输入您的邮箱">
+					</div>
+					<div class="form-group">
+						<label>密码</label>
+						<input type="password" class="password form-control" placeholder="请输入您的密码">
+					</div>
+				</fieldset>
+			</form>
+			<span>还没有帐号？<a class="sign-up" href="javascript:">立即注册</a></span>
+		</div>
+		<div class="panel-footer">
+			<button type="button" class="btn btn-primary">登录</button>
+		</div>
+	</div>
+</template>
+
+<template name="signUpDisplay">
+	<div class="panel panel-default">
+		<div class="panel-heading">注册</div>
+		<div class="panel-body">
+			<form>
+				<fieldset>
+					<div class="form-group">
+						<label>姓名</label>
+						<input type="text" class="name form-control" placeholder="请输入您的姓名">
+					</div>
+					<div class="form-group">
+						<label>邮箱</label>
+						<input type="email" class="email form-control" placeholder="请输入您的邮箱">
+					</div>
+					<div class="form-group">
+						<label>密码</label>
+						<input type="password" class="password form-control" placeholder="请输入您的密码">
+					</div>
+				</fieldset>
+			</form>
+			<span>已经有帐号？<a class="sign-in" href="javascript:">立即登录</a></span>
+		</div>
+		<div class="panel-footer">
+			<button type="button" class="btn btn-primary">注册</button>
+		</div>
+	</div>
+</template>
 
 <template name="chatDisplay">
 	<div class="panel panel-default">
@@ -68,80 +142,6 @@
 		</div>
 		<div class="tab-pane" id="all-user">
 			{{> allUserDisplay}}
-		</div>
-	</div>
-</template>
-
-<template name="modalDisplay">
-	<div class="modal" id="modal">
-		{{#if showSignUpDisplay}}
-			{{> signUpDisplay}}
-		{{else}}
-			{{> signInDisplay}}
-		{{/if}}
-	</div>
-</template>
-
-<template name="signInDisplay">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">登录</h4>
-			</div>
-			<div class="modal-body">
-				<form>
-					<fieldset>
-						<div class="form-group">
-							<label>邮箱</label>
-							<input type="email" class="email form-control" placeholder="请输入您的邮箱">
-						</div>
-						<div class="form-group">
-							<label>密码</label>
-							<input type="password" class="password form-control" placeholder="请输入您的密码">
-						</div>
-					</fieldset>
-				</form>
-				<span>还没有帐号？<a class="sign-up" href="javascript:">立即注册</a></span>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">登录</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-			</div>
-		</div>
-	</div>
-</template>
-
-<template name="signUpDisplay">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">注册</h4>
-			</div>
-			<div class="modal-body">
-				<form>
-					<fieldset>
-						<div class="form-group">
-							<label>姓名</label>
-							<input type="text" class="name form-control" placeholder="请输入您的姓名">
-						</div>
-						<div class="form-group">
-							<label>邮箱</label>
-							<input type="email" class="email form-control" placeholder="请输入您的邮箱">
-						</div>
-						<div class="form-group">
-							<label>密码</label>
-							<input type="password" class="password form-control" placeholder="请输入您的密码">
-						</div>
-					</fieldset>
-				</form>
-				<span>已经有帐号？<a class="sign-in" href="javascript:">立即登录</a></span>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">注册</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-			</div>
 		</div>
 	</div>
 </template>
