@@ -153,10 +153,10 @@
 
 <template name="contactsDisplay">
 	<div class="row">
-		<div class="col-md-6">
-			{{> allUserDisplay}}								
+		<div class="col-md-3">
+			{{> contactsFilterDisplay}}								
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-9">
 			{{> allUserDisplay}}								
 		</div>
 	</div>
@@ -206,20 +206,23 @@
 		<div class="panel-heading border-bottom-none">
 			最近对话
 		</div>
-		{{> allFriendDisplay}}
 	</div>
 </template>
 
 <template name="allFriendDisplay">
-	<ul class="list-group">
-		{{#each allFriend}}
-			{{> friendDisplay}}
-		{{else}}
-			{{> emptyFriendDisplay}}
-		{{/each}}
-	</ul>
-	<div class="panel-footer">
-		<a href="#" class="btn btn-default">+ 添加</a>
+	<div class="panel panel-default">
+		<div class="panel-heading border-bottom-none">
+			我的联系人
+		</div>
+		<ul class="list-group">
+			{{#each allFriend}}
+				{{> friendDisplay}}
+			{{else}}
+				{{> emptyFriendDisplay}}
+			{{/each}}
+		</ul>
+		<div class="panel-footer">
+		</div>
 	</div>
 </template>
 
@@ -259,4 +262,8 @@
 	<li class="list-group-item">
 		您还没有联系人，赶快添加吧 :)
 	</li>
+</template>
+
+<template name="contactsFilterDisplay">
+	filter
 </template>

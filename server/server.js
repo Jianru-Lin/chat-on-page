@@ -155,14 +155,14 @@ if (Meteor.isClient) {
 		}
 	})
 
-	Template.chatDisplay.helpers({
-		myFaceImageUrl: function() {
-			var me = Meteor.user()
-			if (!me) return
-			var hash = me.profile.faceImage.hash
-			return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
-		}
-	})
+	// Template.???.helpers({
+	// 	myFaceImageUrl: function() {
+	// 		var me = Meteor.user()
+	// 		if (!me) return
+	// 		var hash = me.profile.faceImage.hash
+	// 		return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
+	// 	}
+	// })
 }
 else if (Meteor.isServer) {
 
