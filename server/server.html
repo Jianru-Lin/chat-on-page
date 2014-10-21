@@ -114,7 +114,7 @@
 					<a href="#chat" data-toggle="tab">对话</a>
 				</li>
 				<li>
-					<a href="#all-user" data-toggle="tab">联系人</a>
+					<a href="#contacts" data-toggle="tab">联系人</a>
 				</li>
 				<li>
 					<a href="#data-cloud" data-toggle="tab">资料库</a>
@@ -136,8 +136,8 @@
 					<div class="tab-pane active" id="chat">
 						{{> chatDisplay}}
 					</div>
-					<div class="tab-pane" id="all-user">
-						{{> allUserDisplay}}
+					<div class="tab-pane" id="contacts">
+						{{> contactsDisplay}}
 					</div>
 					<div class="tab-pane" id="data-cloud">
 						{{> dataCloudDisplay}}
@@ -145,8 +145,19 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				{{> panelDisplay}}
+				{{> recentChatDisplay}}
 			</div>
+		</div>
+	</div>
+</template>
+
+<template name="contactsDisplay">
+	<div class="row">
+		<div class="col-md-6">
+			{{> allUserDisplay}}								
+		</div>
+		<div class="col-md-6">
+			{{> allUserDisplay}}								
 		</div>
 	</div>
 </template>
@@ -190,7 +201,7 @@
 	</div>
 </template>
 
-<template name="panelDisplay">
+<template name="recentChatDisplay">
 	<div class="panel panel-default">
 		<div class="panel-heading border-bottom-none">
 			最近对话
