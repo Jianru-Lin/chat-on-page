@@ -153,7 +153,7 @@
 				{{> chatDisplay}}
 			</div>
 			<div class="col-md-4">
-				{{> allFriendDisplay}}
+				{{> panelDisplay}}
 			</div>
 		</div>
 	</div>
@@ -192,7 +192,7 @@
 	</div>
 </template>
 
-<template name="allFriendDisplay">
+<template name="panelDisplay">
 	<div class="panel panel-default">
 		<div class="panel-heading border-bottom-none">
 			<ul class="nav nav-tabs nav-panel-heading">
@@ -204,16 +204,20 @@
 				</li>
 			</ul>
 		</div>
-		<ul class="list-group">
-			{{#each allFriend}}
-				{{> friendDisplay}}
-			{{else}}
-				{{> emptyFriendDisplay}}
-			{{/each}}
-		</ul>
-		<div class="panel-footer">
-			<a href="#" class="btn btn-default">+ 添加</a>
-		</div>
+		{{> allFriendDisplay}}
+	</div>
+</template>
+
+<template name="allFriendDisplay">
+	<ul class="list-group">
+		{{#each allFriend}}
+			{{> friendDisplay}}
+		{{else}}
+			{{> emptyFriendDisplay}}
+		{{/each}}
+	</ul>
+	<div class="panel-footer">
+		<a href="#" class="btn btn-default">+ 添加</a>
 	</div>
 </template>
 
