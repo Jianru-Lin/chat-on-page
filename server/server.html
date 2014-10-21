@@ -13,7 +13,7 @@
 </body>
 
 <template name="welcomeDisplay">
-	<div class="container">
+	<div class="container margin-top-30">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				{{#if showSignUpDisplay}}
@@ -32,7 +32,7 @@
 </template>
 
 <template name="signInDisplay">
-	<div class="panel panel-default">
+	<div class="panel panel-primary">
 		<div class="panel-heading">登录</div>
 		<div class="panel-body">
 			<form>
@@ -56,7 +56,7 @@
 </template>
 
 <template name="signUpDisplay">
-	<div class="panel panel-default">
+	<div class="panel panel-primary">
 		<div class="panel-heading">注册</div>
 		<div class="panel-body">
 			<form>
@@ -118,11 +118,17 @@
 		<div class="navbar-header">
 			<a href="#" class="navbar-brand">Miaodeli</a>
 			<ul class="nav navbar-nav">
+				<li>
+					<a href="#me" data-toggle="tab">我</a>
+				</li>
 				<li class="active">
-					<a href="#home" data-toggle="tab">首页</a>
+					<a href="#home" data-toggle="tab">对话</a>
 				</li>
 				<li>
 					<a href="#all-user" data-toggle="tab">用户</a>
+				</li>
+				<li>
+					<a href="#data-cloud" data-toggle="tab">资料库</a>
 				</li>
 			</ul>
 		</div>
@@ -212,7 +218,7 @@
 		{{/each}}
 	</ul>
 	<div class="panel-footer">
-		<a href="#" class="btn btn-default">+ 添加联系人</a>
+		<a href="#" class="btn btn-default">搜索联系人</a>
 	</div>
 </template>
 
