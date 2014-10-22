@@ -152,19 +152,22 @@
 </template>
 
 <template name="contactsDisplay">
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="navbar-header"></div>
-		<ul class="nav navbar-nav">
-			<li class="active">
-				<a href="#">我的联系人</a>
-			</li>
-			<li>
-				<a href="#">所有用户</a>
-			</li>
-		</ul>
-	</nav>
 	<div class="tab-content">
 		<div class="tab-pane active">
+			<div class="nav nav-pills">
+				<li class="active">
+					<a href="#">我的</a>
+				</li>
+				<li>
+					<a href="#">全部</a>
+				</li>
+				<div class="row row-fix">
+					<div class="col-md-8 col-sm-8 col-xs-8">
+						<input type="text" class="form-control">
+					</div>
+					<button class="btn btn-default col-md-2 col-sm-2 col-xs-2">搜索</button>
+				</div>
+			</div>
 			{{> allUserDisplay}}
 		</div>
 	</div>

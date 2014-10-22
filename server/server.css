@@ -46,3 +46,8 @@
 .border-bottom-none {
 	border-bottom: none;
 }
+
+.row-fix {
+	margin-bottom: 20px;
+	margin-top: 5px;
+}
