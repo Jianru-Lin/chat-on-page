@@ -154,18 +154,24 @@
 <template name="contactsDisplay">
 	<div class="tab-content">
 		<div class="tab-pane active">
-			<div class="nav nav-pills">
-				<li class="active">
-					<a href="#">我的</a>
-				</li>
-				<li>
-					<a href="#">全部</a>
-				</li>
-				<div class="row row-fix">
-					<div class="col-md-8 col-sm-8 col-xs-8">
-						<input type="text" class="form-control">
+			<div class="s-container margin-bt-15">
+				<div class="row">
+					<div class="nav nav-pills col-xs-4">
+						<li class="active">
+							<a href="#">已添加的</a>
+						</li>
+						<li>
+							<a href="#">整个网络</a>
+						</li>
 					</div>
-					<button class="btn btn-default col-md-2 col-sm-2 col-xs-2">搜索</button>
+					<div class="col-xs-6 col-xs-offset-2 padding-rt-0">
+						<div class="input-group">
+							<input type="text" class="form-control">
+							<span class="input-group-btn">
+								<button class="btn btn-default">搜索</button>
+							</span>
+						</div>
+					</div>
 				</div>
 			</div>
 			{{> allUserDisplay}}
