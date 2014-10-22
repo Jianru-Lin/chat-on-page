@@ -110,10 +110,10 @@
 				<li>
 					<a href="#me" data-toggle="tab">我</a>
 				</li>
-				<li class="active">
+				<li>
 					<a href="#chat" data-toggle="tab">对话</a>
 				</li>
-				<li>
+				<li class="active">
 					<a href="#contacts" data-toggle="tab">联系人</a>
 				</li>
 				<li>
@@ -133,10 +133,10 @@
 					<div class="tab-pane" id="me">
 						{{> meDisplay}}
 					</div>
-					<div class="tab-pane active" id="chat">
+					<div class="tab-pane" id="chat">
 						{{> chatDisplay}}
 					</div>
-					<div class="tab-pane" id="contacts">
+					<div class="tab-pane active" id="contacts">
 						{{> contactsDisplay}}
 					</div>
 					<div class="tab-pane" id="data-cloud">
@@ -152,14 +152,23 @@
 </template>
 
 <template name="contactsDisplay">
-	<div class="row">
-		<div class="col-md-3">
-			{{> contactsFilterDisplay}}								
-		</div>
-		<div class="col-md-9">
-			{{> allUserDisplay}}								
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header"></div>
+		<ul class="nav navbar-nav">
+			<li class="active">
+				<a href="#">我的联系人</a>
+			</li>
+			<li>
+				<a href="#">所有用户</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="tab-content">
+		<div class="tab-pane active">
+			{{> allUserDisplay}}
 		</div>
 	</div>
+
 </template>
 
 <template name="meDisplay">
@@ -188,15 +197,6 @@
 					{{profile.email}}			
 				</div>
 			</div>
-		</div>
-		<div class="panel-footer">
-			{{#if canAddFriend}}
-				<a href="javascript:" class="add-friend btn btn-primary">+ 加为好友</a>
-			{{/if}}
-			{{#if canRemoveFriend}}
-				<a href="javascript:" class="remove-friend btn btn-warning">- 删除好友</a>
-			{{/if}}
-			<a href="javascript:" class="detial btn btn-default">详细资料</a>
 		</div>
 	</div>
 </template>

@@ -4,7 +4,7 @@ if (Meteor.isClient) {
 
 	Meteor.startup(function() {
 		// DEBUG ONLY
-		$('a[href="#contacts"]').click()
+		// $('a[href="#contacts"]').click()
 	})
 
 	Session.set('showSignUpDisplay', false)
@@ -96,7 +96,7 @@ if (Meteor.isClient) {
 		faceImageUrl: function() {
 			var data = Template.currentData()
 			var hash = data.profile.faceImage.hash
-			return 'http://www.gravatar.com/avatar/' + hash + '?s=100&d=identicon'
+			return 'http://www.gravatar.com/avatar/' + hash + '?s=48&d=identicon'
 		},
 		canAddFriend: function() {
 			if (!Meteor.user()) return false
