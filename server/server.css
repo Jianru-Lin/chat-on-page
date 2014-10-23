@@ -41,6 +41,14 @@
 	margin-bottom: 15px;
 }
 
+.padding-0 {
+	padding: 0;
+}
+
+.padding-lt-15 {
+	padding-left: 15px;
+}
+
 .padding-rt-0 {
 	padding-right: 0;
 }

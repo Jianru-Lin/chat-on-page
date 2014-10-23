@@ -20,7 +20,7 @@
 					{{> signUpDisplay}}
 				{{else}}
 					{{> signInDisplay}}
-				{{/if}}				
+				{{/if}}
 			</div>
 		</div>
 	</div>
@@ -156,15 +156,10 @@
 		<div class="tab-pane active">
 			<div class="s-container margin-bt-15">
 				<div class="row">
-					<ul class="nav nav-pills col-xs-4">
-						<li class="active">
-							<a href="#my-contacts" data-toggle="tab">已添加的</a>
-						</li>
-						<li>
-							<a href="#all-user" data-toggle="tab">整个网络</a>
-						</li>
-					</ul>
-					<div class="col-xs-6 col-xs-offset-2 padding-rt-0">
+					<div class="col-xs-1 padding-0">
+						<button class="btn btn-default add-contacts">+ 添加联系人</button>
+					</div>
+					<div class="col-xs-6 col-xs-offset-5 padding-0">
 						<div class="input-group">
 							<input type="text" class="form-control">
 							<span class="input-group-btn">
@@ -174,14 +169,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-content">
-				<div class="tab-pane active" id="my-contacts">
-					
-				</div>
-				<div class="tab-pane" id="all-user">
-					{{> allUserDisplay}}					
-				</div>
-			</div>
+			{{> allFriendDisplay}}
 		</div>
 	</div>
 
@@ -210,7 +198,7 @@
 				</div>
 				<div class="media-body">
 					<strong>{{profile.name}}</strong><br>
-					{{profile.email}}			
+					{{profile.email}}
 				</div>
 			</div>
 		</div>
@@ -226,20 +214,11 @@
 </template>
 
 <template name="allFriendDisplay">
-	<div class="panel panel-default">
-		<div class="panel-heading border-bottom-none">
-			我的联系人
-		</div>
-		<ul class="list-group">
-			{{#each allFriend}}
-				{{> friendDisplay}}
-			{{else}}
-				{{> emptyFriendDisplay}}
-			{{/each}}
-		</ul>
-		<div class="panel-footer">
-		</div>
-	</div>
+	{{#each allFriend}}
+		{{> friendDisplay}}
+	{{else}}
+		{{> emptyFriendDisplay}}
+	{{/each}}
 </template>
 
 <template name="friendDisplay">
@@ -259,7 +238,7 @@
 				<li class="">
 					<a href="#">删除</a>
 				</li>
-			</ul>					
+			</ul>
 		</div>
 		<div class="media margin-bt-10">
 			<div class="pull-left">
@@ -268,7 +247,7 @@
 			<div class="media-body overflow-visible">
 				<strong>{{friendProfile.name}}</strong>
 				<br>
-				{{friendProfile.email}}			
+				{{friendProfile.email}}
 			</div>
 		</div>
 	</li>
