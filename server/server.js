@@ -22,7 +22,7 @@ if (Meteor.isClient) {
 		}
 	})
 
-	Template.headerDisplay.events({
+	Template.meDisplay.events({
 		'click a.sign-out': function(event, instance) {
 			Meteor.logout()
 		}

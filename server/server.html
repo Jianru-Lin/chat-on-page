@@ -103,12 +103,12 @@
 </template>
 
 <template name="headerDisplay">
-	<div class="navbar navbar-default" role="navigation">
+	<div class="navbar navbar-inverse border-radius-0" role="navigation">
 		<div class="navbar-header">
 			<a href="#" class="navbar-brand">Miaodeli</a>
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="#me" data-toggle="tab">我</a>
+					<a href="#me" data-toggle="tab">{{myName}}</a>
 				</li>
 				<li>
 					<a href="#chat" data-toggle="tab">对话</a>
@@ -121,7 +121,6 @@
 				</li>
 			</ul>
 		</div>
-		<a href="#" style="margin-right: 15px" class="sign-out btn btn-default navbar-btn pull-right">注销 {{myName}}</a>
 	</div>
 </template>
 
@@ -176,7 +175,7 @@
 </template>
 
 <template name="meDisplay">
-	我
+	<a href="#" style="margin-right: 15px" class="sign-out btn btn-default">注销 {{myName}}</a>
 </template>
 
 <template name="dataCloudDisplay">

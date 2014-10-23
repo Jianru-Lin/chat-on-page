@@ -25,6 +25,10 @@
 	overflow: visible;
 }
 
+.border-radius-0 {
+	border-radius: 0;
+}
+
 .transparent {
 	opacity: 0;
 }
