@@ -156,14 +156,14 @@
 		<div class="tab-pane active">
 			<div class="s-container margin-bt-15">
 				<div class="row">
-					<div class="nav nav-pills col-xs-4">
+					<ul class="nav nav-pills col-xs-4">
 						<li class="active">
-							<a href="#">已添加的</a>
+							<a href="#my-contacts" data-toggle="tab">已添加的</a>
 						</li>
 						<li>
-							<a href="#">整个网络</a>
+							<a href="#all-user" data-toggle="tab">整个网络</a>
 						</li>
-					</div>
+					</ul>
 					<div class="col-xs-6 col-xs-offset-2 padding-rt-0">
 						<div class="input-group">
 							<input type="text" class="form-control">
@@ -174,7 +174,14 @@
 					</div>
 				</div>
 			</div>
-			{{> allUserDisplay}}
+			<div class="tab-content">
+				<div class="tab-pane active" id="my-contacts">
+					
+				</div>
+				<div class="tab-pane" id="all-user">
+					{{> allUserDisplay}}					
+				</div>
+			</div>
 		</div>
 	</div>
 
