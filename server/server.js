@@ -9,13 +9,15 @@ if (Meteor.isClient) {
 
 	Session.set('showSignUpDisplay', false)
 
-	Template.welcomeDisplay.helpers({
+	// 显示登录/注册界面
+	Template.T_d093046b.helpers({
 		showSignUpDisplay: function() {
 			return Session.get('showSignUpDisplay')
 		}
 	})
 
-	Template.headerDisplay.helpers({
+	// 顶部导航条
+	Template.T_5b4bfdde.helpers({
 		myName: function() {
 			var me = Meteor.user()
 			return me ? me.profile.name : ''
@@ -139,6 +141,7 @@ if (Meteor.isClient) {
 		}
 	})
 
+	// 显示当前已添加的联系人列表
 	Template.T_e6eae6fb.events({
 		'click .add-contacts': function(event, instance) {
 			// 切换到：显示添加联系人界面，可以搜索陌生人

@@ -5,14 +5,17 @@
 <body>
 	<div class="font-hei">
 		{{#if currentUser}}
-			{{> mainDisplay}}
+			<!-- 显示主要的应用程序功能界面 -->
+			{{> T_607bbed2}}
 		{{else}}
-			{{> welcomeDisplay}}
+			<!-- 显示登录/注册界面 -->
+			{{> T_d093046b}}
 		{{/if}}
 	</div>
 </body>
 
-<template name="welcomeDisplay">
+<!-- 显示登录/注册界面 -->
+<template name="T_d093046b">
 	<div class="container margin-top-30">
 		<div class="row">
 			<div class="col-xs-6 col-xs-offset-3">
@@ -26,9 +29,12 @@
 	</div>
 </template>
 
-<template name="mainDisplay">
-	{{> headerDisplay}}
-	{{> bodyDisplay}}
+<!-- 显示主要的应用程序功能界面 -->
+<template name="T_607bbed2">
+	<!-- 顶部导航条 -->
+	{{> T_5b4bfdde}}
+	<!-- 页面主要的内容区域 -->
+	{{> T_fc415a85}}
 </template>
 
 <template name="signInDisplay">
@@ -102,7 +108,8 @@
 	</div>
 </template>
 
-<template name="headerDisplay">
+<!-- 顶部导航条 -->
+<template name="T_5b4bfdde">
 	<div class="navbar navbar-inverse border-radius-0" role="navigation">
 		<div class="navbar-header">
 			<a href="#" class="navbar-brand">Miaodeli</a>
@@ -124,7 +131,8 @@
 	</div>
 </template>
 
-<template name="bodyDisplay">
+<!-- 页面主要的内容区域 -->
+<template name="T_fc415a85">
 	<div class="container home-display">
 		<div class="row">
 			<div class="col-xs-8">
