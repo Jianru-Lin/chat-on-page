@@ -139,6 +139,13 @@ if (Meteor.isClient) {
 		}
 	})
 
+	Template.T_e6eae6fb.events({
+		'click .add-contacts': function(event, instance) {
+			// 切换到：显示添加联系人界面，可以搜索陌生人
+			$('a[href="#T_9c070e06"]').click()
+		}
+	})
+
 	Template.contactsListDisplay.helpers({
 		list: function() {
 			var r = Friends.find({myId: Meteor.userId()}).fetch()

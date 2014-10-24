@@ -150,36 +150,54 @@
 	</div>
 </template>
 
-<template name="contactsDisplay">
-	<div class="tab-content">
-		<div class="tab-pane active">
-			<div class="s-container margin-bt-15">
-				<div class="row">
-					<div class="col-xs-1 padding-0">
-						<button class="btn btn-default add-contacts">+ 添加联系人</button>
-					</div>
-					<div class="col-xs-6 col-xs-offset-5 padding-0">
-						<div class="input-group">
-							<input type="text" class="form-control">
-							<span class="input-group-btn">
-								<button class="btn btn-default">搜索</button>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			{{> contactsListDisplay}}
-		</div>
-	</div>
-
-</template>
-
 <template name="meDisplay">
 	<a href="#" style="margin-right: 15px" class="sign-out btn btn-default">注销 {{myName}}</a>
 </template>
 
 <template name="dataCloudDisplay">
 	资料库
+</template>
+
+<template name="contactsDisplay">
+	<ul class="nav nav-tabs hide">
+		<li class="active"><a href="#T_e6eae6fb" data-toggle="tab">T_e6eae6fb</a></li>
+		<li><a href="#T_9c070e06" data-toggle="tab">T_9c070e06</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active fade in" id="T_e6eae6fb">
+			<!-- 显示当前已添加的联系人列表 -->
+			{{> T_e6eae6fb}}
+		</div>
+		<div class="tab-pane fade" id="T_9c070e06">
+			<!-- 显示添加联系人界面，可以搜索陌生人 -->
+			{{> T_9c070e06}}
+		</div>
+	</div>
+</template>
+
+<!-- 显示当前已添加的联系人列表 -->
+<template name="T_e6eae6fb">
+	<div class="s-container margin-bt-15">
+		<div class="row">
+			<div class="col-xs-1 padding-0">
+				<button class="btn btn-default add-contacts">+ 添加联系人</button>
+			</div>
+			<div class="col-xs-6 col-xs-offset-5 padding-0">
+				<div class="input-group">
+					<input type="text" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default">搜索</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{> contactsListDisplay}}
+</template>
+
+<!-- 显示添加联系人界面，可以搜索陌生人 -->
+<template name="T_9c070e06">
+	add contacts
 </template>
 
 <template name="allUserDisplay">
@@ -256,8 +274,4 @@
 	<li class="list-group-item">
 		您还没有联系人，赶快添加吧 :)
 	</li>
-</template>
-
-<template name="contactsFilterDisplay">
-	filter
 </template>
