@@ -165,6 +165,15 @@ if (Meteor.isClient) {
 		}
 	})
 
+
+	// 显示添加联系人界面，可以搜索陌生人
+	Template.T_9c070e06.events({
+		'click .back': function() {
+			// 切换到：显示当前已添加的联系人列表
+			$('a[href="#T_e6eae6fb"]').click()
+		}
+	})
+
 	// Template.???.helpers({
 	// 	myFaceImageUrl: function() {
 	// 		var me = Meteor.user()
