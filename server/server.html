@@ -168,7 +168,7 @@
 					</div>
 				</div>
 			</div>
-			{{> allFriendDisplay}}
+			{{> contactsListDisplay}}
 		</div>
 	</div>
 
@@ -212,15 +212,15 @@
 	</div>
 </template>
 
-<template name="allFriendDisplay">
-	{{#each allFriend}}
-		{{> friendDisplay}}
+<template name="contactsListDisplay">
+	{{#each list}}
+		{{> contactsItemDisplay}}
 	{{else}}
-		{{> emptyFriendDisplay}}
+		{{> emptyContactsDisplay}}
 	{{/each}}
 </template>
 
-<template name="friendDisplay">
+<template name="contactsItemDisplay">
 	<li class="list-group-item">
 		<div class="btn-group pull-right">
 			<button href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -252,7 +252,7 @@
 	</li>
 </template>
 
-<template name="emptyFriendDisplay">
+<template name="emptyContactsDisplay">
 	<li class="list-group-item">
 		您还没有联系人，赶快添加吧 :)
 	</li>

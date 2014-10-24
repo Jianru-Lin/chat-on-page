@@ -139,15 +139,15 @@ if (Meteor.isClient) {
 		}
 	})
 
-	Template.allFriendDisplay.helpers({
-		allFriend: function() {
+	Template.contactsListDisplay.helpers({
+		list: function() {
 			var r = Friends.find({myId: Meteor.userId()}).fetch()
 			console.log(r)
 			return r
 		}
 	})
 
-	Template.friendDisplay.helpers({
+	Template.contactsItemDisplay.helpers({
 		faceImageUrl: function() {
 			var data = Template.currentData()
 			var hash = data.friendProfile.faceImage.hash
