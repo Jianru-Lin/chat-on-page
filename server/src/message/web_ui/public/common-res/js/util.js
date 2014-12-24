@@ -50,7 +50,7 @@ function gravatar(email) {
 	email = email || '';
 	email = email.toLowerCase();
 	var hash = md5(email);
-	return 'http://www.gravatar.com/avatar/' + hash + '?s=50&d=identicon';
+	return 'https://secure.gravatar.com/avatar/' + hash + '?s=50&d=identicon';
 }
 
 function on_click(e, listener) {
